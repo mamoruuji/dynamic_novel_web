@@ -21,8 +21,8 @@ export default async function Page() {
   return (
     <>
       <h1>Todos</h1>
-      {todos.map((todo) => (
-        <div>{todo.title}</div>
+      {todos.map((todo, key) => (
+        <div key={key}>{todo.title}</div>
       ))}
       <Link href="/">Home</Link>
     </>

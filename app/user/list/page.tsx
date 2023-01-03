@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Page() {
   return (
     <>
-      <h1>共通</h1>
+      <h1>ユーザ</h1>
       <div>作品一覧画面</div>
       <div>
         <div>検索バー</div>
