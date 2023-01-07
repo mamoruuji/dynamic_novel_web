@@ -2,8 +2,6 @@
 
 import '../src/styles/globals.css'
 import Header from './components/header';
-import Footer from './components/footer';
-// import { useState } from "react";
 
 export default function RootLayout({ children }: {
   children: React.ReactNode;
@@ -20,7 +18,6 @@ export default function RootLayout({ children }: {
         {/* <div>{count}</div> */}
         {children}
 
-        <Footer />
       </body>
 
     </html>
