@@ -158,7 +158,7 @@ const header = () => {
           ))}
         </List>
       </Drawer>
-      <Main open={open} sx={{ display: 'inline-block' }}>
+      <Main open={open} sx={{ margin:  '0 auto' }}>
         <DrawerHeader /> {/* ヘッダー分 */}
         <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
