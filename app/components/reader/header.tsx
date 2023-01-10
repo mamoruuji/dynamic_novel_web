@@ -31,7 +31,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  marginLeft: `-${drawerWidth}px`,
+  marginLeft: `${drawerWidth}px`,
   ...(open && {
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
@@ -68,7 +68,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
-  justifyContent: 'flex-end',
+  justifyContent: 'flex-start',
 }));
 
 
@@ -85,7 +85,6 @@ const header = () => {
   };
 
   return (
-    <header>
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
@@ -107,7 +106,7 @@ const header = () => {
             aria-label="open drawer"
             edge="end"
             onClick={handleDrawerOpen}
-            sx={{ ...(open && { display: 'none' }) }}
+            sx={{ ml: 2, ...(open && { display: 'none' }) }}
           >
             <MenuIcon />
           </IconButton>
@@ -158,7 +157,7 @@ const header = () => {
           ))}
         </List>
       </Drawer>
-      <Main open={open} sx={{ margin:  '0 auto' }}>
+      <Main sx={{ margin: '0 auto' }}>
         <DrawerHeader /> {/* ヘッダー分 */}
         <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
@@ -233,6 +232,7 @@ const header = () => {
           flexShrink: 0,
           '& .MuiDrawer-paper': {
             width: drawerWidth,
+            boxSizing: 'border-box',
           },
         }}
         variant="persistent"
@@ -272,7 +272,6 @@ const header = () => {
         </List>
       </Drawer>
     </Box>
-    </header>
   );
 };
 

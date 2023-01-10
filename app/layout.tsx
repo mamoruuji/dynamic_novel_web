@@ -1,7 +1,7 @@
 "use client"
 
 import '../src/styles/globals.css'
-import Header from './components/header';
+import Header from './components/reader/header';
 
 export default function RootLayout({ children }: {
   children: React.ReactNode;

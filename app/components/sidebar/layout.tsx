@@ -1,6 +1,6 @@
 "use client"
 
-import Header from '../header';
+import Header from '../reader/header';
 
 export default function RootLayout({ children }: {
   children: React.ReactNode;
