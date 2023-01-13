@@ -39,26 +39,43 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
     }),
     marginLeft: 0,
   }),
+  marginRight: -drawerWidth,
+  ...(open && {
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginRight: 0,
+  }),
 }));
 
 interface AppBarProps extends MuiAppBarProps {
-  open?: boolean;
+  leftOpen?: boolean;
+  rightOpen?: boolean;
 }
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
-})<AppBarProps>(({ theme, open }) => ({
+})<AppBarProps>(({ theme, leftOpen, rightOpen }) => ({
   transition: theme.transitions.create(['margin', 'width'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  ...(open && {
+  ...(leftOpen && {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: `${drawerWidth}px`,
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
+  }),
+  ...(rightOpen && {
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['margin', 'width'], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginRight: drawerWidth,
   }),
 }));
 
@@ -74,27 +91,37 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 const header = () => {
   const theme = useTheme();
-  const [open, setOpen] = useState(false);
+  const [rightOpen, setRightOpen] = useState(false);
+  const [leftOpen, setLeftOpen] = useState(false);
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
+  const handleRightDrawerOpen = () => {
+    setRightOpen(true);
   };
 
-  const handleDrawerClose = () => {
-    setOpen(false);
+
+  const handleRightDrawerClose = () => {
+    setRightOpen(false);
+  };
+
+  const handleLeftDrawerOpen = () => {
+    setLeftOpen(true);
+  };
+
+  const handleLeftDrawerClose = () => {
+    setLeftOpen(false);
   };
 
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      <AppBar position="fixed" leftOpen={leftOpen} rightOpen={rightOpen}>
         <Toolbar className="justify-between">
           <IconButton
             color="inherit"
             aria-label="open drawer"
-            onClick={handleDrawerOpen}
+            onClick={handleLeftDrawerOpen}
             edge="start"
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}
+            sx={{ mr: 2, ...(leftOpen && { display: 'none' }) }}
           >
             <MenuIcon />
           </IconButton>
@@ -105,8 +132,8 @@ const header = () => {
             color="inherit"
             aria-label="open drawer"
             edge="end"
-            onClick={handleDrawerOpen}
-            sx={{ ml: 2, ...(open && { display: 'none' }) }}
+            onClick={handleRightDrawerOpen}
+            sx={{ ml: 2, ...(rightOpen && { display: 'none' }) }}
           >
             <MenuIcon />
           </IconButton>
@@ -123,10 +150,10 @@ const header = () => {
         }}
         variant="persistent"
         anchor="left"
-        open={open}
+        open={leftOpen}
       >
         <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={handleLeftDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </DrawerHeader>
@@ -237,10 +264,10 @@ const header = () => {
         }}
         variant="persistent"
         anchor="right"
-        open={open}
+        open={rightOpen}
       >
         <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={handleRightDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </DrawerHeader>
