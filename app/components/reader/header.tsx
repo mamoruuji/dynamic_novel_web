@@ -115,7 +115,7 @@ const header = () => {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" leftOpen={leftOpen} rightOpen={rightOpen}>
-        <Toolbar className="justify-between">
+        <Toolbar className="justify-between" >
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -125,7 +125,7 @@ const header = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div" >
+          <Typography variant="h6" noWrap component="div" sx={{ m: "0 auto" }}>
             Persistent drawer
           </Typography>
           <IconButton
