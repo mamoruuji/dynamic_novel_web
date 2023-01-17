@@ -85,7 +85,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
-  justifyContent: 'flex-start',
+  // justifyContent: 'flex-start',
 }));
 
 
@@ -152,7 +152,7 @@ const header = () => {
         anchor="left"
         open={leftOpen}
       >
-        <DrawerHeader>
+        <DrawerHeader className="justify-end">
           <IconButton onClick={handleLeftDrawerClose}>
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
@@ -266,7 +266,7 @@ const header = () => {
         anchor="right"
         open={rightOpen}
       >
-        <DrawerHeader>
+        <DrawerHeader className="justify-start">
           <IconButton onClick={handleRightDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
