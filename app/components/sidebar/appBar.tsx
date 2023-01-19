@@ -1,8 +1,12 @@
-import { styled, useTheme } from '@mui/material/styles';
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import { useState } from "react";
+"use client"
 
-const drawerWidth = 240;
+import styled from '@mui/material/styles/styled';
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+
+import { useGrobalContext } from "app/context/store"
+
+// const { drawerWidth } = useGrobalContext()
+const drawerWidth = 240
 
 interface AppBarProps extends MuiAppBarProps {
   leftOpen?: boolean;

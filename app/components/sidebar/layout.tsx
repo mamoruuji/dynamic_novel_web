@@ -2,11 +2,15 @@
 
 import Typography from '@mui/material/Typography';
 import { styled, useTheme } from '@mui/material/styles';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Header from '../reader/header';
 import Main from './main'
 import DrawerHeader from './drawerHeader'
+import RightDrawer from './rightDrawer'
+import LeftDrawer from './leftDrawer'
+
+import { ValuesContextProvider } from "app/context/store"
 
 
 export default function RootLayout({ children }: {
@@ -15,11 +19,12 @@ export default function RootLayout({ children }: {
   return (
     <html lang="jp">
       <body>
-    {/* <Box sx={{ display: 'flex' }}> */}
-        <Header />
-
+        <ValuesContextProvider>
+    <Box sx={{ display: 'flex' }}>
+      <Header />
+      <RightDrawer />
       <Main sx={{ margin: '0 auto' }}>
-        <DrawerHeader /> {/* ヘッダー分 */}
+        <DrawerHeader />
         <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
           tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
@@ -87,9 +92,10 @@ export default function RootLayout({ children }: {
           posuere sollicitudin aliquam ultrices sagittis orci a.
         </Typography>
       </Main>
-        {children}
+      <LeftDrawer />
+    </Box>
 
-    {/* </Box> */}
+        </ValuesContextProvider>
       </body>
 
     </html>
