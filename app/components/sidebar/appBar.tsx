@@ -3,19 +3,15 @@
 import styled from '@mui/material/styles/styled';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 
-import { useGrobalContext } from "app/context/store"
-
-// const { drawerWidth } = useGrobalContext()
-const drawerWidth = 240
-
 interface AppBarProps extends MuiAppBarProps {
   leftOpen?: boolean;
   rightOpen?: boolean;
+  drawerWidth: number;
 }
 
 const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})<AppBarProps>(({ theme, leftOpen, rightOpen }) => ({
+  shouldForwardProp: (prop) => prop !== 'leftOpen' && prop !== 'leftOpen' && prop !== 'drawerWidth',
+})<AppBarProps>(({ theme, leftOpen, rightOpen, drawerWidth}) => ({
   transition: theme.transitions.create(['margin', 'width'], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,

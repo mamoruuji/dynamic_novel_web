@@ -1,7 +1,6 @@
 "use client"
 
 import Typography from '@mui/material/Typography';
-import { styled, useTheme } from '@mui/material/styles';
 import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Header from '../reader/header';

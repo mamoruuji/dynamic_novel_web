@@ -13,12 +13,12 @@ import { useGrobalContext } from "app/context/store"
 
 const header = () => {
 
-const { leftOpen, rightOpen, handleRightDrawerOpen, handleLeftDrawerOpen} = useGrobalContext()
+const { leftOpen, rightOpen, drawerWidth, handleRightDrawerOpen, handleLeftDrawerOpen} = useGrobalContext()
 
   return (
     <>
       <CssBaseline />
-      <AppBar position="fixed" leftOpen={leftOpen} rightOpen={rightOpen}>
+      <AppBar position="fixed" leftOpen={leftOpen} rightOpen={rightOpen} drawerWidth={drawerWidth}>
       <Toolbar className="justify-between">
         <IconButton
           color="inherit"
