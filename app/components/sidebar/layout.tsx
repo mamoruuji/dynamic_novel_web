@@ -9,7 +9,7 @@ import DrawerHeader from './drawerHeader'
 import RightDrawer from './rightDrawer'
 import LeftDrawer from './leftDrawer'
 
-import { ValuesContextProvider } from "app/context/store"
+import { DrawerContextProvider } from "app/context/drawer"
 
 
 export default function RootLayout({ children }: {
@@ -18,7 +18,7 @@ export default function RootLayout({ children }: {
   return (
     <html lang="jp">
       <body>
-        <ValuesContextProvider>
+        <DrawerContextProvider>
     <Box sx={{ display: 'flex' }}>
       <Header />
       <RightDrawer />
@@ -94,7 +94,7 @@ export default function RootLayout({ children }: {
       <LeftDrawer />
     </Box>
 
-        </ValuesContextProvider>
+        </DrawerContextProvider>
       </body>
 
     </html>
