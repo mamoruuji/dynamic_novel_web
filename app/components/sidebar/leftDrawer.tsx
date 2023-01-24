@@ -15,10 +15,10 @@ import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 
 import DrawerHeader from '../sidebar/drawerHeader'
-import { useGrobalContext } from "app/context/store"
+import { useGrobalDrawerContext } from "app/context/drawer"
 
 const LeftDrawer = () => {
-  const { leftOpen, drawerWidth, handleLeftDrawerClose } = useGrobalContext()
+  const { leftOpen, drawerWidth, handleLeftDrawerClose } = useGrobalDrawerContext()
   const theme = useTheme();
 
   return (

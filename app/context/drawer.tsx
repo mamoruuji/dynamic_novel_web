@@ -6,7 +6,7 @@ type Props = {
   children: ReactNode;
 }
 
-type ContextType = {
+type DrawerContextType = {
   leftOpen: boolean;
   rightOpen: boolean;
   drawerWidth: number;
@@ -16,9 +16,9 @@ type ContextType = {
   handleLeftDrawerClose: () => void;
 }
 
-const ValuesContext = createContext<ContextType>({} as ContextType)
+const DrawerContext = createContext<DrawerContextType>({} as DrawerContextType)
 
-export const ValuesContextProvider: FC<Props> = ({ children }) => {
+export const DrawerContextProvider: FC<Props> = ({ children }) => {
   const [rightOpen, setRightOpen] = useState(false)
   const [leftOpen, setLeftOpen] = useState(false)
   const drawerWidth = 240
@@ -40,7 +40,7 @@ export const ValuesContextProvider: FC<Props> = ({ children }) => {
   }
 
   return (
-    <ValuesContext.Provider value={{
+    <DrawerContext.Provider value={{
       leftOpen,
       rightOpen,
       drawerWidth,
@@ -50,8 +50,8 @@ export const ValuesContextProvider: FC<Props> = ({ children }) => {
       handleLeftDrawerClose
     }}>
       {children}
-    </ValuesContext.Provider>
+    </DrawerContext.Provider>
   )
 }
 
-export const useGrobalContext = () => useContext(ValuesContext)
+export const useGrobalDrawerContext = () => useContext(DrawerContext)

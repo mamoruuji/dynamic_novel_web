@@ -7,10 +7,10 @@ const nextConfig = {
   },
   env: {
     novelDetailItem: [
-      "タイトル",
+      { title: "タイトル", },
     ],
     searchOrderItem: [
-      "タイトル",
+      { title: "タイトル", },
     ],
     SNSlist: [
       "Twitter",

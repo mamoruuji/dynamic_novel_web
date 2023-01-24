@@ -9,11 +9,11 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 import AppBar from '../sidebar/appBar'
 
-import { useGrobalContext } from "app/context/store"
+import { useGrobalDrawerContext } from "app/context/drawer"
 
 const header = () => {
 
-const { leftOpen, rightOpen, drawerWidth, handleRightDrawerOpen, handleLeftDrawerOpen} = useGrobalContext()
+const { leftOpen, rightOpen, drawerWidth, handleRightDrawerOpen, handleLeftDrawerOpen} = useGrobalDrawerContext()
 
   return (
     <>

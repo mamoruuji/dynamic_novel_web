@@ -17,12 +17,12 @@ import MailIcon from '@mui/icons-material/Mail';
 
 import DrawerHeader from '../sidebar/drawerHeader'
 
-import { useGrobalContext } from "app/context/store"
+import { useGrobalDrawerContext } from "app/context/drawer"
 
 const RightDrawer = () => {
   const theme = useTheme();
 
-  const { rightOpen, drawerWidth, handleRightDrawerClose } = useGrobalContext()
+  const { rightOpen, drawerWidth, handleRightDrawerClose } = useGrobalDrawerContext()
 
   return (
       <Drawer
