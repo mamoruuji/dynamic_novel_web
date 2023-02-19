@@ -19,12 +19,12 @@ const searchCategoryTargetItems: SearchCategoryType[]= [
   { title: "タイトル", },
 ]
 
-const searchSelecter = () => {
-  const [searchCategory, setSearchCategory] = React.useState('');
+const Selecter = () => {
+  const [searchCategory, setSearchCategory] = React.useState('')
 
   const handleChange = (event: SelectChangeEvent) => {
-    setSearchCategory(event.target.value as string);
-  };
+    setSearchCategory(event.target.value as string)
+  }
 
   return (
     <Box sx={{ minWidth: 120 }}>
@@ -46,16 +46,10 @@ const searchSelecter = () => {
       </FormControl>
       <Stack spacing={2} sx={{ width: 300 }}>
         <Autocomplete
-          id="free-solo-demo"
           freeSolo
-          options={process.env.map((option) => option.title)}
-          renderInput={(params) => <TextField {...params} label="freeSolo" />}
-        />
-        <Autocomplete
-          freeSolo
-          id="free-solo-2-demo"
+          id="search-input"
           disableClearable
-          options={top100Films.map((option) => option.title)}
+          options={searchCategoryTargetItems.map((option) => option.title)}
           renderInput={(params) => (
             <TextField
               {...params}
@@ -69,7 +63,7 @@ const searchSelecter = () => {
         />
       </Stack>
     </Box>
-  );
+  )
 }
 
-export default searchSelecter;
+export default Selecter

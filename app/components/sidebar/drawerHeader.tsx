@@ -1,5 +1,4 @@
-import { styled, useTheme } from '@mui/material/styles';
-import { useState } from "react";
+import { styled } from '@mui/material/styles';
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',

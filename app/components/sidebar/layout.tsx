@@ -1,24 +1,19 @@
 "use client"
 
-import Typography from '@mui/material/Typography';
-import React, { useState } from 'react';
-import Box from '@mui/material/Box';
-import Header from '../reader/header';
+import Typography from '@mui/material/Typography'
+import React from 'react'
+import Box from '@mui/material/Box'
+import Header from '../reader/header'
 import Main from './main'
 import DrawerHeader from './drawerHeader'
 import RightDrawer from './rightDrawer'
 import LeftDrawer from './leftDrawer'
-
-import { DrawerContextProvider } from "app/context/drawer"
-
+// import Selecter from '../search/selecter'
 
 export default function RootLayout({ children }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="jp">
-      <body>
-        <DrawerContextProvider>
     <Box sx={{ display: 'flex' }}>
       <Header />
       <RightDrawer />
@@ -91,12 +86,8 @@ export default function RootLayout({ children }: {
           posuere sollicitudin aliquam ultrices sagittis orci a.
         </Typography>
       </Main>
+      {/* <Selecter /> */}
       <LeftDrawer />
     </Box>
-
-        </DrawerContextProvider>
-      </body>
-
-    </html>
-  );
+  )
 }

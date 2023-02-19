@@ -6,6 +6,7 @@ const nextConfig = {
     appDir: true,
   },
   env: {
+    drawerWidth: 240,
     novelDetailItem: [
       { title: "タイトル", },
     ],

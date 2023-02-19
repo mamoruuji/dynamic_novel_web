@@ -1,7 +1,4 @@
-import { styled, useTheme } from '@mui/material/styles';
-import { useState } from "react";
-
-const drawerWidth = 240;
+import { styled } from '@mui/material/styles';
 
 const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
   open?: boolean;
@@ -12,7 +9,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  marginLeft: `${drawerWidth}px`,
+  marginLeft: `${process.env.drawerWidth}px`,
   ...(open && {
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
@@ -20,7 +17,7 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
     }),
     marginLeft: 0,
   }),
-  marginRight: -drawerWidth,
+  marginRight: -process.env.drawerWidth!,
   ...(open && {
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,

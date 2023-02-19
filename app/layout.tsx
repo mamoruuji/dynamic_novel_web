@@ -1,25 +1,19 @@
 "use client"
 
 import '../src/styles/globals.css'
-import Header from './components/reader/header';
+import { RecoilRoot } from "recoil"
 
 export default function RootLayout({ children }: {
   children: React.ReactNode;
 }) {
-  // const [count, setCount] = useState(0)
-
   return (
     <html lang="jp">
-      <head />
+      <head></head>
       <body>
-        <Header />
-
-        {/* <button onClick={() => setCount(count + 1)}>+</button> */}
-        {/* <div>{count}</div> */}
-        {children}
-
+        <RecoilRoot>
+          {children}
+        </RecoilRoot>
       </body>
-
     </html>
   );
 }

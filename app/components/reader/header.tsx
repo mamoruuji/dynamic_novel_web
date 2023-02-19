@@ -1,29 +1,29 @@
 "use client"
 
-import * as React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
+import * as React from 'react'
+import CssBaseline from '@mui/material/CssBaseline'
+import Toolbar from '@mui/material/Toolbar'
+import Typography from '@mui/material/Typography'
+import IconButton from '@mui/material/IconButton'
+import MenuIcon from '@mui/icons-material/Menu'
 
 import AppBar from '../sidebar/appBar'
-
-import { useGrobalDrawerContext } from "app/context/drawer"
+import { leftDrawerStateAtom, rightDrawerStateAtom } from "app/states/drawerState"
+import { useRecoilState} from "recoil"
 
 const header = () => {
-
-const { leftOpen, rightOpen, drawerWidth, handleRightDrawerOpen, handleLeftDrawerOpen} = useGrobalDrawerContext()
+  const [ leftOpen, setLeftOpen] = useRecoilState(leftDrawerStateAtom)
+  const [ rightOpen, setRightOpen] = useRecoilState(rightDrawerStateAtom)
 
   return (
     <>
       <CssBaseline />
-      <AppBar position="fixed" leftOpen={leftOpen} rightOpen={rightOpen} drawerWidth={drawerWidth}>
+      <AppBar position="fixed" leftOpen={leftOpen} rightOpen={rightOpen}>
       <Toolbar className="justify-between">
         <IconButton
           color="inherit"
           aria-label="open drawer"
-          onClick={handleLeftDrawerOpen}
+          onClick={ () => setLeftOpen(true) }
           edge="start"
           sx={{ mr: 2, ...(leftOpen && { display: 'none' }) }}
         >
@@ -36,7 +36,7 @@ const { leftOpen, rightOpen, drawerWidth, handleRightDrawerOpen, handleLeftDrawe
           color="inherit"
           aria-label="open drawer"
           edge="end"
-          onClick={handleRightDrawerOpen}
+          onClick={ () => setRightOpen(true) }
           sx={{ ml: 2, ...(rightOpen && { display: 'none' }) }}
         >
           <MenuIcon />
@@ -44,7 +44,7 @@ const { leftOpen, rightOpen, drawerWidth, handleRightDrawerOpen, handleLeftDrawe
       </Toolbar>
       </AppBar>
     </>
-  );
-};
+  )
+}
 
-export default header;
+export default header
