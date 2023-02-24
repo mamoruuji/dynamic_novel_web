@@ -1,6 +1,5 @@
 "use client"
 
-import Typography from '@mui/material/Typography'
 import Image from 'next/image'
 import React from 'react'
 import Box from '@mui/material/Box'
