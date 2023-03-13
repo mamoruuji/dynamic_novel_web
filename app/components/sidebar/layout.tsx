@@ -8,6 +8,7 @@ import Main from './main'
 import DrawerHeader from './drawerHeader'
 import RightDrawer from './rightDrawer'
 import LeftDrawer from './leftDrawer'
+import { Typography } from '@mui/material'
 // import Selecter from '../search/selecter'
 
 export default function RootLayout({ children }: {
@@ -171,6 +172,26 @@ export default function RootLayout({ children }: {
             <div className="zigzag-bottom"></div>
           </div>
         </div>
+        </div>
+        <div className="section">
+            <div className="box">
+        <Typography paragraph>
+                ★吹き出し内の文章★
+                ★吹き出し内の文章★
+                ★吹き出し内の文章★
+                ★吹き出し内の文章★
+                ★吹き出し内の文章★
+                ★吹き出し内の文章★
+                ★吹き出し内の文章★
+                ★吹き出し内の文章★
+                ★吹き出し内の文章★
+                ★吹き出し内の文章★
+                ★吹き出し内の文章★
+                ★吹き出し内の文章★
+                ★吹き出し内の文章★
+                ★吹き出し内の文章★
+        </Typography>
+            </div>
         </div>
       </Main>
       {/* <Selecter /> */}
