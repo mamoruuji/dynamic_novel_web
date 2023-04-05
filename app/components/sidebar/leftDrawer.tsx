@@ -18,6 +18,12 @@ import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
+import List from '@mui/material/List'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import ListItemText from '@mui/material/ListItemText'
+import ArrowRightIcon from '@mui/icons-material/ArrowRight'
+
 // 任意の文字列キーを許容したオブジェクト
 type chapterPegesType = { [chapter: string]: string[] }
 
@@ -30,7 +36,7 @@ const LeftDrawer = () => {
     ],
     "章2": [],
     "章3": [
-      "ページ1-3",
+      "ページ3-3",
     ],
   }
 
@@ -58,22 +64,27 @@ const LeftDrawer = () => {
     </DrawerHeader>
     <Divider />
     <div>
-      {Object.keys(chapterPeges).map((chapter) => {
+      {Object.keys(chapterPeges).map((chapter, key) => {
         return (
-          <Accordion>
+          <Accordion key={key}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
-              aria-controls="panel1a-content"
-              id="panel1a-header"
+              aria-controls={`panel-content-${key}`}
+              id={`panel-header-${key}`}
             >
               <Typography>{chapter}</Typography>
             </AccordionSummary>
-            {chapterPeges[chapter].map((page) => {
+            {chapterPeges[chapter].map((page, index) => {
               return (
-                <AccordionDetails>
-                  <Typography>
-                    {page}
-                  </Typography>
+                <AccordionDetails key={index}>
+                  <List component="div" disablePadding>
+                    <ListItemButton sx={{ pl: 4 }}>
+                      <ListItemIcon>
+                        <ArrowRightIcon />
+                      </ListItemIcon>
+                      <ListItemText primary={page}/>
+                    </ListItemButton>
+                  </List>
                 </AccordionDetails>
               )
             })}
