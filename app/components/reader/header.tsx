@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 
-import AppBar from '../sidebar/appBar'
+import AppBar from './appBar'
 import { leftDrawerStateAtom, rightDrawerStateAtom } from "app/states/drawerState"
 import { useRecoilState} from "recoil"
 

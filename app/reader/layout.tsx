@@ -3,11 +3,11 @@
 import Image from 'next/image'
 import React from 'react'
 import Box from '@mui/material/Box'
-import Header from '../reader/header'
-import Main from './main'
-import DrawerHeader from './drawerHeader'
-import RightDrawer from './rightDrawer'
-import LeftDrawer from './leftDrawer'
+import Header from '../components/reader/header'
+import Main from '../components/reader/main'
+import DrawerHeader from '../components/reader/drawerHeader'
+import RightDrawer from '../components/reader/rightDrawer'
+import LeftDrawer from '../components/reader/leftDrawer'
 import { Typography } from '@mui/material'
 // import Selecter from '../search/selecter'
 
@@ -21,7 +21,7 @@ export default function RootLayout({ children }: {
     <Box sx={{ display: 'flex' }}>
       <Header />
       <RightDrawer />
-      <Main sx={{ margin: '0 auto' }}>
+      <Main sx={{ m: '0 auto' }}>
         <DrawerHeader />
         <div className="section">
         <div className="left-side">
