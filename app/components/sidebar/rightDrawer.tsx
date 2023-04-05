@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from 'react'
+import Image from 'next/image'
 import useTheme from '@mui/material/styles/useTheme'
 import Drawer from '@mui/material/Drawer'
 import Divider from '@mui/material/Divider'
@@ -24,21 +25,21 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 
-type sectionType = {
-  [section_id: number]: {
+type itemType = {
     name: string;
     url: string;
     text: string;
-  }
 }
 
 const RightDrawer = () => {
-  const section:sectionType  = {
-    1: {
-      name: "name1",
-      url: "url1",
-      text: "text1",
-    },
+
+  const imageWidth = 100;
+  const imageHeight = 100;
+
+  const item:itemType  = {
+    name: "用語名",
+    url: "/test3.png",
+    text: "説明文",
   }
 
   const theme = useTheme()
@@ -64,8 +65,9 @@ const RightDrawer = () => {
           </IconButton>
         </DrawerHeader>
         <Divider />
-        用語説明（画像、名前、説明）
-        閉じる
+        <Image src={item.url} width={imageWidth} height={imageHeight} alt="text"/>
+        <Typography>{item.name}</Typography>
+        <Typography>{item.text}</Typography>
       </Drawer>
   )
 }
