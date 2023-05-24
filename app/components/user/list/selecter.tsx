@@ -11,7 +11,9 @@ import { Stack, TextField, Button, Autocomplete } from '@mui/material'
 
 
 
-type sortCategoryType = string[]
+type SearchCategoryType = {
+  Categories: string;
+}
 
 const searchCategoryTargetItems = [
   "タイトル",
@@ -49,7 +51,7 @@ const Selecter = () => {
           label="Age"
           onChange={handleChange}
         >
-        {searchCategoryTargetItems.map((item, index) => {
+        {searchCategoryTargetItems.map((item: string, index) => {
           return (
             <MenuItem value={index} key={index}>{item}</MenuItem>
           );

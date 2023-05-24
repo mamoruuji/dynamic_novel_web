@@ -8,19 +8,19 @@ import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 
 import AppBar from './appBar'
-import { leftDrawerStateAtom, rightDrawerStateAtom } from "app/states/drawerState"
+// import { leftDrawerStateAtom, rightDrawerStateAtom } from "app/states/drawerState"
 import { useRecoilState} from "recoil"
 
 const header = () => {
-  const [ leftOpen, setLeftOpen] = useRecoilState(leftDrawerStateAtom)
-  const [ rightOpen, setRightOpen] = useRecoilState(rightDrawerStateAtom)
+  // const [ leftOpen, setLeftOpen] = useRecoilState(leftDrawerStateAtom)
+  // const [ rightOpen, setRightOpen] = useRecoilState(rightDrawerStateAtom)
 
   return (
     <>
       <CssBaseline />
-      <AppBar position="fixed" leftOpen={leftOpen} rightOpen={rightOpen}>
+      <AppBar position="fixed">
       <Toolbar className="justify-between">
-        <IconButton
+        {/* <IconButton
           color="inherit"
           aria-label="open drawer"
           onClick={ () => setLeftOpen(true) }
@@ -28,11 +28,11 @@ const header = () => {
           sx={{ mr: 2, ...(leftOpen && { display: 'none' }) }}
         >
           <MenuIcon />
-        </IconButton>
+        </IconButton> */}
         <Typography variant="h6" noWrap component="div" sx={{ m: "0 auto" }}>
-          読書画面
+          作品タイトル
         </Typography>
-        <IconButton
+        {/* <IconButton
           color="inherit"
           aria-label="open drawer"
           edge="end"
@@ -40,7 +40,7 @@ const header = () => {
           sx={{ ml: 2, ...(rightOpen && { display: 'none' }) }}
         >
           <MenuIcon />
-        </IconButton>
+        </IconButton> */}
       </Toolbar>
       </AppBar>
     </>

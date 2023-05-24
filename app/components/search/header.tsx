@@ -30,7 +30,7 @@ const header = () => {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" noWrap component="div" sx={{ m: "0 auto" }}>
-          読書画面
+          作品タイトル
         </Typography>
         <IconButton
           color="inherit"
