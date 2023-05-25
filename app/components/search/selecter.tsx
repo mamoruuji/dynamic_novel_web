@@ -10,25 +10,10 @@ import Select, { SelectChangeEvent } from '@mui/material/Select'
 import { Stack, TextField, Button, Autocomplete } from '@mui/material'
 
 
-
-type sortCategoryType = string[]
-
 const searchCategoryTargetItems = [
   "タイトル",
   "作者名",
   "タグ",
-]
-
-const sortCategoryTargetItems = [
-  "タイトル",
-  "作者名",
-  "タグ",
-  "お気に入り数",
-  "初回公開日",
-  "更新日",
-  "ページ数",
-  "星評価平均",
-  "感想数",
 ]
 
 const Selecter = () => {

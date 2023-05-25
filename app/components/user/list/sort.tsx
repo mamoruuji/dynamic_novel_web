@@ -7,46 +7,46 @@ import MenuItem from '@mui/material/MenuItem'
 import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 
-import { TextField, Button } from '@mui/material'
 
-const searchCategoryTargetItems = [
+const sortCategoryTargetItems = [
   "タイトル",
   "作者名",
   "タグ",
+  "お気に入り数",
+  "初回公開日",
+  "更新日",
+  "ページ数",
+  "星評価平均",
+  "感想数",
 ]
 
-const Selecter = () => {
-  const [searchCategory, setSearchCategory] = React.useState('')
+const Sort = () => {
+  const [sortCategory, setSortCategory] = React.useState('')
 
   const handleChange = (event: SelectChangeEvent) => {
-    setSearchCategory(event.target.value as string)
+    setSortCategory(event.target.value as string)
   }
 
   return (
     <Box sx={{ minWidth: 120 }}>
       <FormControl sx={{ width: 300 }}>
-
         <InputLabel id="search-selecter-label">検索対象</InputLabel>
         <Select
           labelId="search-selecter-label"
           id="search-selecter"
-          value={searchCategory}
-          label="search"
+          value={sortCategory}
+          label="Age"
           onChange={handleChange}
         >
-        {searchCategoryTargetItems.map((item: string, index) => {
+        {sortCategoryTargetItems.map((item: string, index) => {
           return (
             <MenuItem value={index} key={index}>{item}</MenuItem>
           );
         })}
         </Select>
-        <TextField id="outlined-search" label="Search field" type="search" />
-        <Button variant="contained" type="submit" >
-          検索
-        </Button>
       </FormControl>
     </Box>
   )
 }
 
-export default Selecter
+export default Sort
