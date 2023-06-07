@@ -1,0 +1,192 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String    @default(cuid()) @id
+  name        String?   @db.VarChar(30)
+  email       String?   @unique
+  createdAt   DateTime  @default(now()) @map(name: "created_at")
+  updatedAt   DateTime  @updatedAt @map(name: "updated_at")
+  dynamics    Dynamic[]
+  marks       Mark[]
+  impressions Impression[]
+  groups      Group[]
+  images      Image[]
+
+  @@unique([name, email])
+  @@map(name: "users")
+}
+
+model Dynamic {
+  id         Int      @default(autoincrement()) @id
+  title      String   @db.VarChar(100)
+  overview   String   @db.VarChar(500)
+  published  Boolean  @default(false)
+  createdAt  DateTime @default(now()) @map(name: "created_at")
+  updatedAt  DateTime @updatedAt @map(name: "updated_at")
+  author     User     @relation(fields: [authorId], references: [id])
+  authorId   String   @map(name: "author_id")
+  pages      Page[]
+  chapters   Chapter[]
+  Impression Impression[]
+  marks      Mark[]
+
+  @@unique([authorId, title])
+  @@map(name: "dynamics")
+}
+
+model Chapter {
+  id        Int      @default(autoincrement()) @id
+  title     String   @db.VarChar(30)
+  order     Int
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  book      Dynamic  @relation(fields: [dynamicId], references: [id])
+  dynamicId Int      @map(name: "dynamic_id")
+  pages     Page[]
+
+  @@unique([dynamicId, title])
+  @@map(name: "chapters")
+}
+
+model Page {
+  id        Int      @default(autoincrement()) @id
+  title     String   @db.VarChar(30)
+  order     Int
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  dynamic   Dynamic  @relation(fields: [dynamicId], references: [id])
+  dynamicId Int      @map(name: "dynamic_id")
+  chapter   Chapter  @relation(fields: [chapterId], references: [id])
+  chapterId Int      @map(name: "chapter_id")
+  sections  Section[]
+
+  @@unique([chapterId, title])
+  @@unique([dynamicId, chapterId, order])
+  @@map(name: "pages")
+}
+
+enum Position {
+  LEFT
+  SENTER
+  RIGHT
+}
+
+enum Bubble {
+  CHAT
+  SHOUT
+  THINK
+}
+
+enum Type {
+  TEXT
+  IMAGE
+  CHAT
+  BUBBLE
+}
+
+model Section {
+  id         Int      @default(autoincrement()) @id
+  order      Int
+  type       Type     @default(TEXT)
+  position   Position
+  frame      Bubble?  @default(CHAT)
+  frameColor String   @db.VarChar(7) @map(name: "frame_color")
+  text       String?
+  textColor  String   @db.VarChar(7) @map(name: "text_color")
+  textSize   Int      @map(name: "text_size")
+  createdAt  DateTime @default(now()) @map(name: "created_at")
+  updatedAt  DateTime @updatedAt @map(name: "updated_at")
+  page       Page     @relation(fields: [pageId], references: [id])
+  pageId     Int      @map(name: "page_id")
+  image      Image?   @relation(fields: [imageId], references: [id])
+  imageId    Int      @map(name: "image_id")
+
+  @@unique([order, pageId])
+  @@map(name: "sections")
+}
+
+model Group {
+  id         Int      @default(autoincrement()) @id
+  name       String   @db.VarChar(100)
+  createdAt  DateTime @default(now()) @map(name: "created_at")
+  updatedAt  DateTime @updatedAt @map(name: "updated_at")
+  uploader   User     @relation(fields: [uploaderId], references: [id])
+  uploaderId String   @map(name: "uploader_id")
+  images     Image[]
+
+  @@unique([name, uploaderId])
+  @@map(name: "image_groups")
+}
+
+model Image {
+  id         Int       @default(autoincrement()) @id
+  name       String    @db.VarChar(255)
+  createdAt  DateTime  @default(now()) @map(name: "created_at")
+  updatedAt  DateTime  @updatedAt @map(name: "updated_at")
+  uploader   User      @relation(fields: [uploaderId], references: [id])
+  uploaderId String    @map(name: "uploader_id")
+  group      Group?    @relation(fields: [groupId], references: [id])
+  groupId    Int       @map(name: "group_id")
+  sections   Section[]
+
+  @@unique([name, uploaderId])
+  @@map(name: "videos")
+}
+
+model Mark {
+  id        Int      @default(autoincrement()) @id
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @map(name: "user_id")
+  dynamics  Dynamic  @relation(fields: [dynamicId], references: [id])
+  dynamicId Int      @map(name: "dynamic_id")
+
+  @@unique([userId, dynamicId])
+  @@map(name: "marks")
+}
+
+model Impression {
+  id        Int      @default(autoincrement()) @id
+  title     String   @db.VarChar(50)
+  rate      Int
+  text      String   @db.VarChar(500)
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @map(name: "user_id")
+  dynamics  Dynamic  @relation(fields: [dynamicId], references: [id])
+  dynamicId Int      @map(name: "dynamic_id")
+
+  @@unique([userId, dynamicId])
+  @@map(name: "impressions")
+}
+
+model Font {
+  id        Int      @default(autoincrement()) @id
+  name      String   @unique @db.VarChar(50)
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+  @@map(name: "fonts")
+}
+
+model Frame {
+  id        Int      @default(autoincrement()) @id
+  type      Bubble   @unique
+  css       String   @db.VarChar(255)
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+  @@map(name: "frames")
+}
