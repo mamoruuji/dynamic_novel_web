@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "esnext",
     "lib": [
       "dom",
       "dom.iterable",
@@ -28,9 +28,10 @@
   "include": [
     "next-env.d.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts"
+    ".next/types/**/*.ts",
+    "prisma/**/*.ts",
   ],
   "exclude": [
     "node_modules"
-  ]
+  ],
 }

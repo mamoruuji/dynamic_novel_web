@@ -24,7 +24,6 @@ model User {
   folders     Folder[]
   images      Image[]
 
-  @@unique([name, email])
   @@map(name: "users")
 }
 
