@@ -8,6 +8,9 @@ export const typeData = [
     {
         name: 'bubble',
     },
+    {
+        name: 'nandeyanen',
+    },
 ]
 
 export const positionData = [

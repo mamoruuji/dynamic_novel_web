@@ -1,37 +1,37 @@
 export const middleUserData = {
-  name: 'id1-hoge1',
+  name: 'id1-creater1',
   email: 'hoge1@example.com',
   // 1作目-1章-1ページ-1セクション
   dynamics: {
     create: {
       title: 'id1',
       overview: 'hogehoge1',
-      publisd: true,
+      published: true,
       chapters: {
-        create: {
+        create: [{
           title: 'id1-dynamic1-chapter1',
           order: 1,
           pages: {
-            create: {
+            create: [{
               title: 'id1-dynamic1-chapter1-page1',
               order: 1,
               sections: {
-                create: {
+                create: [{
                   order: 1,
                   frameColor: '#000000',
                   text: 'id1-dynamic1-chapter1-page1-section1',
                   textColor: '#FFFFFF',
                   textSize: 12,
                   type: { connect: { name: 'text' } },
-                  position: null,
-                  bubble: null,
-                  image: null,
+                  position: undefined,
+                  bubble: undefined,
+                  image: undefined,
                   font: { connect: { name: 'serif' } },
-                },
+                }],
               },
-            },
+            }],
           },
-        },
+        }],
       },
     },
   },
@@ -54,35 +54,16 @@ export const middleUserData = {
   },
 }
 
-// export const middleUserInclude = {
-//   dynamics: {
-//     include: {
-//       chapters: {
-//         include: {
-//           pages: {
-//             include: {
-//               sections: true,
-//             },
-//           },
-//         },
-//       },
-//     },
-//   },
-//   folders: true,
-//   images: true,
-//   terms: true,
-// }
-
 export const heavyUserData = {
-  name: 'id2-hoge2',
+  name: 'id2-creater2',
   email: 'hoge2@example.com',
   // n作目-n章-nページ-nセクション
   dynamics: {
     create: [
       {
-        title: 'id2-user1-dynamic1',
+        title: 'id2-dynamic1',
         overview: 'hogehoge2',
-        publisd: true,
+        published: true,
         chapters: {
           create: [
             {
@@ -103,8 +84,8 @@ export const heavyUserData = {
                           textSize: 12,
                           type: { connect: { name: 'text' } },
                           position: { connect: { name: 'left' } },
-                          bubble: null,
-                          image: null,
+                          bubble: undefined,
+                          image: undefined,
                           font: { connect: { name: 'sans-serif' } },
                         },
                         {
@@ -116,7 +97,7 @@ export const heavyUserData = {
                           type: { connect: { name: 'bubble' } },
                           position: { connect: { name: 'left' } },
                           bubble: { connect: { name: 'talk' } },
-                          image: null,
+                          image: undefined,
                           font: { connect: { name: 'sans-serif' } },
                         },
                         {
@@ -128,7 +109,7 @@ export const heavyUserData = {
                           type: { connect: { name: 'bubble' } },
                           position: { connect: { name: 'senter' } },
                           bubble: { connect: { name: 'shout' } },
-                          image: null,
+                          image: undefined,
                           font: { connect: { name: 'fantasy' } },
                         },
                         {
@@ -140,7 +121,7 @@ export const heavyUserData = {
                           type: { connect: { name: 'bubble' } },
                           position: { connect: { name: 'right' } },
                           bubble: { connect: { name: 'think' } },
-                          image: null,
+                          image: undefined,
                           font: { connect: { name: 'monospace' } },
                         },
                         {
@@ -151,9 +132,9 @@ export const heavyUserData = {
                           textSize: 12,
                           type: { connect: { name: 'image' } },
                           position: { connect: { name: 'left' } },
-                          bubble: null,
-                          image: null,
-                          font: null,
+                          bubble: undefined,
+                          image: undefined,
+                          font: undefined,
                         },
                         {
                           order: 6,
@@ -163,9 +144,9 @@ export const heavyUserData = {
                           textSize: 12,
                           type: { connect: { name: 'image' } },
                           position: { connect: { name: 'senter' } },
-                          bubble: null,
-                          image: null,
-                          font: null,
+                          bubble: undefined,
+                          image: undefined,
+                          font: undefined,
                         },
                         {
                           order: 7,
@@ -175,9 +156,9 @@ export const heavyUserData = {
                           textSize: 12,
                           type: { connect: { name: 'image' } },
                           position: { connect: { name: 'right' } },
-                          bubble: null,
-                          image: null,
-                          font: null,
+                          bubble: undefined,
+                          image: undefined,
+                          font: undefined,
                         },
                         {
                           order: 8,
@@ -187,9 +168,9 @@ export const heavyUserData = {
                           textSize: 12,
                           type: { connect: { name: 'bubble' } },
                           position: { connect: { name: 'right' } },
-                          bubble: null,
-                          image: null,
-                          font: null,
+                          bubble: undefined,
+                          image: undefined,
+                          font: undefined,
                         },
                         {
                           order: 9,
@@ -199,9 +180,9 @@ export const heavyUserData = {
                           textSize: 12,
                           type: { connect: { name: 'image' } },
                           position: { connect: { name: 'senter' } },
-                          bubble: null,
-                          image: null,
-                          font: null,
+                          bubble: undefined,
+                          image: undefined,
+                          font: undefined,
                         },
                       ]
                     },
@@ -210,18 +191,18 @@ export const heavyUserData = {
                     title: 'id3-dynamic1-chapter1-page2',
                     order: 2,
                     sections: {
-                      create: {
+                      create: [{
                         order: 1,
                         frameColor: '#000000',
                         text: 'id11-dynamic2-chapter1-page1-section1',
                         textColor: '#FFFFFF',
                         textSize: 12,
-                        types: { connect: { name: 'image' } },
+                        type: { connect: { name: 'image' } },
                         position: { connect: { name: 'senter' } },
-                        bubble: null,
-                        image: null,
-                        font: null,
-                      },
+                        bubble: undefined,
+                        image: undefined,
+                        font: undefined,
+                      }],
                     },
                   },
                   {
@@ -259,10 +240,10 @@ export const heavyUserData = {
               title: 'id3-dynamic1-chapter2',
               order: 2,
               pages: {
-                create: {
+                create: [{
                   title: 'id11-dynamic1-chapter2-page1',
                   order: 1,
-                }
+                }]
               },
             },
             {
@@ -297,412 +278,353 @@ export const heavyUserData = {
         },
       },
       {
-        title: 'id3-user1-dynamic2',
+        title: 'id3-dynamic2',
         overview: 'hogehoge3',
-        publisd: true,
+        published: true,
         chapters: {
-          create: {
+          create: [{
             title: 'id11-dynamic2-chapter1',
             order: 1,
-          }
+          }],
         },
       },
       {
-        title: 'id4-user1-dynamic3',
+        title: 'id4-dynamic3',
         overview: 'hogehoge4',
-        publisd: true,
+        published: true,
       },
       {
-        title: 'id5-user1-dynamic4',
+        title: 'id5-dynamic4',
         overview: 'hogehoge5',
-        publisd: true,
+        published: true,
       },
       {
-        title: 'id6-user1-dynamic5',
+        title: 'id6-dynamic5',
         overview: 'hogehoge6',
-        publisd: true,
+        published: true,
       },
       {
-        title: 'id7-user1-dynamic6',
+        title: 'id7-dynamic6',
         overview: 'hogehoge7',
-        publisd: true,
+        published: true,
       },
       {
-        title: 'id8-user1-dynamic7',
+        title: 'id8-dynamic7',
         overview: 'hogehoge8',
-        publisd: true,
+        published: true,
       },
       {
-        title: 'id9-user1-dynamic8',
+        title: 'id9-dynamic8',
         overview: 'hogehoge9',
-        publisd: true,
+        published: true,
       },
       {
-        title: 'id10-user1-dynamic9',
+        title: 'id10-dynamic9',
         overview: 'hogehoge10',
-        publisd: true,
+        published: true,
       },
-    ]
+    ],
   },
   folders: {
     create: [
       {
-        name: 'id2-user2-parent1',
-        children: {
-          create: {
-            name: 'id11-user2-parent1-child1',
-            children: {
-              create: [
-                {
-                  name: 'id21-user2-parent1-child1-grandchild1',
-                },
-                {
-                  name: 'id22-user2-parent1-child1-grandchild2',
-                },
-                {
-                  name: 'id23-user2-parent1-child1-grandchild3',
-                },
-                {
-                  name: 'id24-user2-parent1-child1-grandchild4',
-                },
-                {
-                  name: 'id25-user2-parent1-child1-grandchild5',
-                },
-                {
-                  name: 'id26-user2-parent1-child1-grandchild6',
-                },
-                {
-                  name: 'id27-user2-parent1-child1-grandchild7',
-                },
-                {
-                  name: 'id28-user2-parent1-child1-grandchild8',
-                },
-                {
-                  name: 'id29-user2-parent1-child1-grandchild9',
-                },
-              ]
-            }
-          }
-        }
+        name: 'id2-parent1',
       },
       {
-        name: 'id3-user2-parent2',
-        children: {
-          create: [
-            {
-              name: 'id12-user2-parent2-child1',
-              children: {
-                create: {
-                  name: 'id3-user2-parent1-child1-grandchild1',
-                }
-              }
-            },
-            {
-              name: 'id13-user2-parent2-child2',
-            },
-            {
-              name: 'id14-user2-parent2-child3',
-            },
-            {
-              name: 'id15-user2-parent2-child4',
-            },
-            {
-              name: 'id16-user2-parent2-child5',
-            },
-            {
-              name: 'id17-user2-parent2-child6',
-            },
-            {
-              name: 'id18-user2-parent2-child7',
-            },
-            {
-              name: 'id19-user2-parent2-child8',
-            },
-            {
-              name: 'id20-user2-parent2-child9',
-            },
-          ]
-        }
+        name: 'id3-parent2',
       },
       {
-        name: 'id4-user2-parent3',
+        name: 'id4-parent3',
       },
       {
-        name: 'id5-user2-parent4',
+        name: 'id5-parent4',
       },
       {
-        name: 'id6-user2-parent5',
+        name: 'id6-parent5',
       },
       {
-        name: 'id7-user2-parent6',
+        name: 'id7-parent6',
       },
       {
-        name: 'id8-user2-parent7',
+        name: 'id8-parent7',
       },
       {
-        name: 'id9-user2-parent8',
+        name: 'id9-parent8',
       },
       {
-        name: 'id10-user2-parent9',
+        name: 'id10-parent9',
+      },
+      {
+        name: 'id11-parent1-child1',
+      },
+      {
+        name: 'id12-parent1-child2',
+      },
+      {
+        name: 'id13-parent1-child3',
+      },
+      {
+        name: 'id14-parent1-child4',
+      },
+      {
+        name: 'id15-parent1-child5',
+      },
+      {
+        name: 'id16-parent1-child6',
+      },
+      {
+        name: 'id17-parent1-child7',
+      },
+      {
+        name: 'id18-parent1-child8',
+      },
+      {
+        name: 'id19-parent1-child8',
+      },
+      {
+        name: 'id20-parent1-child9',
+      },
+      {
+        name: 'id21-parent2-child1',
+      },
+      {
+        name: 'id22-child1-grandchild1',
+      },
+      {
+        name: 'id23-child1-grandchild2',
+      },
+      {
+        name: 'id24-child1-grandchild3',
+      },
+      {
+        name: 'id25-child1-grandchild4',
+      },
+      {
+        name: 'id26-child1-grandchild5',
+      },
+      {
+        name: 'id27-child1-grandchild6',
+      },
+      {
+        name: 'id28-child1-grandchild7',
+      },
+      {
+        name: 'id29-child1-grandchild8',
+      },
+      {
+        name: 'id30-child1-grandchild9',
+      },
+      {
+        name: 'id31-child2-grandchild1',
       },
     ],
   },
   images: {
     create: [
       {
-        name: 'id2-user2-dynamic1.png',
+        name: 'id2-dynamic1.png',
       },
       {
-        name: 'id3-user2-dynamic1.png',
+        name: 'id3-dynamic1.png',
       },
       {
-        name: 'id4-user2-dynamic1.png',
+        name: 'id4-dynamic1.png',
       },
       {
-        name: 'id5-user2-dynamic1.png',
+        name: 'id5-dynamic1.png',
       },
       {
-        name: 'id6-user2-dynamic1.png',
+        name: 'id6-dynamic1.png',
       },
       {
-        name: 'id7-user2-dynamic1.png',
+        name: 'id7-dynamic1.png',
       },
       {
-        name: 'id8-user2-dynamic1.png',
+        name: 'id8-dynamic1.png',
       },
       {
-        name: 'id9-user2-dynamic1.png',
+        name: 'id9-dynamic1.png',
       },
       {
-        name: 'id10-user2-dynamic1.png',
+        name: 'id10-dynamic1.png',
       },
       {
-        name: 'id11-user2-chapter1.png',
+        name: 'id11-chapter1.png',
       },
       {
-        name: 'id12-user2-chapter1.png',
+        name: 'id12-chapter1.png',
       },
       {
-        name: 'id13-user2-chapter1.png',
+        name: 'id13-chapter1.png',
       },
       {
-        name: 'id14-user2-chapter1.png',
+        name: 'id14-chapter1.png',
       },
       {
-        name: 'id15-user2-chapter1.png',
+        name: 'id15-chapter1.png',
       },
       {
-        name: 'id16-user2-chapter1.png',
+        name: 'id16-chapter1.png',
       },
       {
-        name: 'id17-user2-chapter1.png',
+        name: 'id17-chapter1.png',
       },
       {
-        name: 'id18-user2-chapter1.png',
+        name: 'id18-chapter1.png',
       },
       {
-        name: 'id19-user2-chapter1.png',
+        name: 'id19-chapter1.png',
       },
       {
-        name: 'id20-user2-section0.png',
+        name: 'id20-section0.png',
       },
       {
-        name: 'id21-user2-dynamic0.png',
+        name: 'id21-dynamic0.png',
       },
       {
-        name: 'id22-user2-chapter0.png',
+        name: 'id22-chapter0.png',
       },
       {
-        name: 'id23-user2-root1.png',
+        name: 'id23-root1.png',
       },
       {
-        name: 'id24-user2-parent1.png',
+        name: 'id24-parent1.png',
       },
       {
-        name: 'id25-user2-child1.png',
+        name: 'id25-child1.png',
       },
       {
-        name: 'id26-user2-grandchild1.png',
+        name: 'id26-grandchild1.png',
       },
-    ]
+    ],
   },
   terms: {
     create: [
       {
-        name: 'id2-user2-dynamic1',
+        name: 'id2-dynamic1',
         text: 'dynamic1-term1',
-        userId: 2,
         order: 1,
       },
       {
-        name: 'id3-user2-dynamic2',
+        name: 'id3-dynamic2',
         text: 'dynamic1-term2',
-        userId: 2,
         order: 2,
       },
       {
-        name: 'id4-user2-dynamic3',
+        name: 'id4-dynamic3',
         text: 'dynamic1-term3',
-        userId: 2,
         order: 3,
       },
       {
-        name: 'id5-user2-dynamic4',
+        name: 'id5-dynamic4',
         text: 'dynamic1-term4',
-        userId: 2,
         order: 4,
       },
       {
-        name: 'id6-user2-dynamic5',
+        name: 'id6-dynamic5',
         text: 'dynamic1-term5',
-        userId: 2,
         order: 5,
       },
       {
-        name: 'id7-user2-dynamic6',
+        name: 'id7-dynamic6',
         text: 'dynamic1-term6',
-        userId: 2,
         order: 6,
       },
       {
-        name: 'id8-user2-dynamic7',
+        name: 'id8-dynamic7',
         text: 'dynamic1-term7',
-        userId: 2,
         order: 7,
       },
       {
-        name: 'id9-user2-dynamic8',
+        name: 'id9-dynamic8',
         text: 'dynamic1-term8',
-        userId: 2,
         order: 8,
       },
       {
-        name: 'id10-user2-dynamic9',
+        name: 'id10-dynamic9',
         text: 'dynamic1-term9',
-        userId: 2,
         order: 9,
       },
       {
-        name: 'id11-user2-chapter1',
+        name: 'id11-chapter1',
         text: 'chapter1-term1',
-        userId: 2,
         order: 1,
       },
       {
-        name: 'id12-user2-chapter2',
+        name: 'id12-chapter2',
         text: 'chapter1-term2',
-        userId: 2,
         order: 2,
       },
       {
-        name: 'id13-user2-chapter3',
+        name: 'id13-chapter3',
         text: 'chapter1-term3',
-        userId: 2,
         order: 3,
       },
       {
-        name: 'id14-user2-chapter4',
+        name: 'id14-chapter4',
         text: 'chapter1-term4',
-        userId: 2,
         order: 4,
       },
       {
-        name: 'id15-user2-chapter5',
+        name: 'id15-chapter5',
         text: 'chapter1-term5',
-        userId: 2,
         order: 5,
       },
       {
-        name: 'id16-user2-chapter6',
+        name: 'id16-chapter6',
         text: 'chapter1-term6',
-        userId: 2,
         order: 6,
       },
       {
-        name: 'id17-user2-chapter7',
+        name: 'id17-chapter7',
         text: 'chapter1-term7',
-        userId: 2,
         order: 7,
       },
       {
-        name: 'id18-user2-chapter8',
+        name: 'id18-chapter8',
         text: 'chapter1-term8',
-        userId: 2,
         order: 8,
       },
       {
-        name: 'id19-user2-chapter9',
+        name: 'id19-chapter9',
         text: 'chapter1-term9',
-        userId: 2,
         order: 9,
       },
       {
-        name: 'id20-user2-section1',
-        text: 'section1-term1',
-        userId: 2,
-        order: 1,
-      },
-      {
-        name: 'id21-user2-dynamic0',
+        name: 'id20-dynamic0',
         text: 'dynamic0-term1',
-        userId: 2,
         order: 1,
       },
       {
-        name: 'id22-user2-chapter0',
+        name: 'id21-chapter0',
         text: 'chapter0-term1',
-        userId: 2,
         order: 1,
       },
-    ]
+      {
+        name: 'id22-section0',
+        text: 'section1-term1',
+        order: 1,
+      },
+    ],
   },
 }
 
-// export const heabyUserInclude = [
-//   {
-//     include: {
-//       dynamics: {
-//         include: {
-//           chapters: {
-//             include: {
-//               pages: true
-//             }
-//           }
-//         }
-//       },
-//       folders: {
-//         include: {
-//           children: true,
-//         },
-//       },
-//       images: true,
-//       terms: true,
-//     },
-//   },
-// ]
-
 export const lightUserData = {
-  name: 'id3-hoge3',
+  name: 'id3-creater3',
   email: 'hoge3@example.com',
   dynamics: {
     create: {
       title: 'id11',
       overview: 'hogehoge1',
-      publisd: false,
-      chapters: null,
-    }
+      published: false,
+      chapters: {
+        create: [],
+      },
+    },
   },
 }
 
-// export const lightUserInclude = [
-//   {
-//     include: {
-//       dynamics: true,
-//     },
-//   },
-// ]
-
-export const readUserData = [
+export const readerUserData = [
   // 感想1件、お気に入り1件（非公開）
   {
     name: 'id4-reader',

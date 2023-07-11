@@ -1,8 +1,8 @@
 -- CreateTable
 CREATE TABLE "users" (
     "user_id" TEXT NOT NULL,
-    "name" VARCHAR(30),
-    "email" TEXT,
+    "name" VARCHAR(30) NOT NULL,
+    "email" VARCHAR(319) NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 
@@ -16,7 +16,6 @@ CREATE TABLE "dynamics" (
     "overview" VARCHAR(500) NOT NULL,
     "published" BOOLEAN NOT NULL DEFAULT false,
     "user_id" TEXT NOT NULL,
-    "term_id" INTEGER,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 
@@ -200,9 +199,6 @@ CREATE TABLE "chapers_on_terms" (
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "users_name_email_key" ON "users"("name", "email");
-
--- CreateIndex
 CREATE UNIQUE INDEX "dynamics_user_id_title_key" ON "dynamics"("user_id", "title");
 
 -- CreateIndex
@@ -228,6 +224,15 @@ CREATE UNIQUE INDEX "impressions_user_id_dynamic_id_key" ON "impressions"("user_
 
 -- CreateIndex
 CREATE UNIQUE INDEX "marks_user_id_dynamic_id_key" ON "marks"("user_id", "dynamic_id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "types_name_key" ON "types"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "positions_name_key" ON "positions"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "bubbles_name_key" ON "bubbles"("name");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "images_name_user_id_key" ON "images"("name", "user_id");

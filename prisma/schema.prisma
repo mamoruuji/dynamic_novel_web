@@ -12,8 +12,8 @@ datasource db {
 
 model User {
   id          String    @default(cuid()) @id @map(name: "user_id")
-  name        String?   @db.VarChar(30)
-  email       String?   @unique
+  name        String    @db.VarChar(30)
+  email       String    @unique @db.VarChar(319)
   createdAt   DateTime  @default(now()) @map(name: "created_at")
   updatedAt   DateTime  @updatedAt @map(name: "updated_at")
 
@@ -82,10 +82,10 @@ model Page {
 model Section {
   id         Int       @default(autoincrement()) @id @map(name: "section_id")
   order      Int
-  frameColor String    @db.VarChar(7) @map(name: "frame_color")
+  frameColor String?   @db.VarChar(7) @map(name: "frame_color")
   text       String?
-  textColor  String    @db.VarChar(7) @map(name: "text_color")
-  textSize   Int       @map(name: "text_size")
+  textColor  String?   @db.VarChar(7) @map(name: "text_color")
+  textSize   Int?      @map(name: "text_size")
   pageId     Int       @map(name: "page_id")
   typeId     Int?      @map(name: "type_id")
   positionId Int?      @map(name: "position_id")
@@ -112,7 +112,7 @@ model Folder {
   id        Int      @default(autoincrement()) @id @map(name: "group_id")
   name      String   @db.VarChar(100)
   userId    String   @map(name: "user_id")
-  parentId  Int?
+  parentId  Int      @default(0)
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 
@@ -127,7 +127,7 @@ model Folder {
 
 model Impression {
   id        Int      @default(autoincrement()) @id @map(name: "impression_id")
-  rate      Int
+  rate      Int      @default(1)
   title     String   @db.VarChar(30)
   text      String   @db.VarChar(500)
   userId    String   @map(name: "user_id")
@@ -158,7 +158,7 @@ model Mark {
 
 model Type {
   id        Int      @default(autoincrement()) @id @map(name: "type_id")
-  name      String   @db.VarChar(10) // text, image, bubble
+  name      String   @unique @db.VarChar(10)
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 
@@ -166,9 +166,10 @@ model Type {
 
   @@map(name: "types")
 }
+
 model Position {
   id        Int      @default(autoincrement()) @id @map(name: "position_id")
-  name      String   @db.VarChar(10) // left, senter, right
+  name      String   @unique @db.VarChar(10)
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 
@@ -179,7 +180,7 @@ model Position {
 
 model Bubble {
   id        Int      @default(autoincrement()) @id @map(name: "bubble_id")
-  name      String   @db.VarChar(10) // talk, shout, think
+  name      String   @unique @db.VarChar(10)
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 
@@ -192,7 +193,7 @@ model Image {
   id        Int       @default(autoincrement()) @id @map(name: "image_id")
   name      String    @db.VarChar(255)
   userId    String    @map(name: "user_id")
-  folderId  Int?      @map(name: "folder_id")
+  folderId  Int?      @default(0) @map(name: "folder_id")
   createdAt DateTime  @default(now()) @map(name: "created_at")
   updatedAt DateTime  @updatedAt @map(name: "updated_at")
 
@@ -218,7 +219,7 @@ model Font {
 
 model Term{
   id        Int      @default(autoincrement()) @id @map(name: "term_id")
-  name      String?  @db.VarChar(50)
+  name      String   @db.VarChar(50)
   text      String   @db.VarChar(200)
   userId    String   @map(name: "user_id")
   order     Int
