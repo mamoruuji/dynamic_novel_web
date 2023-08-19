@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next"
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const apiUrl = 'http://api:8080/proto.dynamic.v1.DynamicService/ListDynamics'
+    const apiUrl = 'http://api:8080/proto.dynamic.v1.PageService/ListPages'
     const response = await fetch(apiUrl, {
       method: 'POST',
       headers: {

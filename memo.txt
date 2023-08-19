@@ -4,7 +4,7 @@ node --trace-warnings --loader ts-node/esm prisma/seed.ts
 curl \
 --header "Content-Type: application/json" \
 --data '{}' \
-http://api:8080/proto.dynamic.v1.DynamicService/GetDynamics
+http://api:8080/proto.dynamic.v1.DynamicService/ListDynamics
 
 apt-get update
 apt-get install -y iputils-ping
