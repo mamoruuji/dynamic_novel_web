@@ -38,7 +38,7 @@ const RightDrawer = () => {
 
   const item:itemType  = {
     name: "用語名",
-    url: "/test3.png",
+    url: "/images/test3.png",
     text: "説明文",
   }
 

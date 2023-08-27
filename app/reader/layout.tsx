@@ -26,7 +26,7 @@ export default function RootLayout({ children }: {
         <div className="section">
         <div className="left-side">
             <div className="icon">
-              <Image src="/test3.png" width={imageWidth} height={imageHeight} alt="test" />
+              <Image src="/images/test3.png" width={imageWidth} height={imageHeight} alt="test" />
                 <p>★アイコン名★</p>
             </div>
             <div className="bubble">
@@ -50,7 +50,7 @@ export default function RootLayout({ children }: {
         <div className="section">
         <div className="right-side">
             <div className="icon">
-              <Image src="/test3.png" width={imageWidth} height={imageHeight} alt="test" />
+              <Image src="/images/test3.png" width={imageWidth} height={imageHeight} alt="test" />
                 <p>★アイコン名★</p>
             </div>
             <div className="bubble">
@@ -73,7 +73,7 @@ export default function RootLayout({ children }: {
         <div className="section">
         <div className="left-side">
             <div className="icon">
-              <Image src="/test3.png" width={imageWidth} height={imageHeight} alt="test" />
+              <Image src="/images/test3.png" width={imageWidth} height={imageHeight} alt="test" />
                 <p>★アイコン名★</p>
             </div>
             <div className="think-bubble">
@@ -97,7 +97,7 @@ export default function RootLayout({ children }: {
         <div className="section">
         <div className="right-side">
             <div className="icon">
-              <Image src="/test3.png" width={imageWidth} height={imageHeight} alt="test" />
+              <Image src="/images/test3.png" width={imageWidth} height={imageHeight} alt="test" />
                 <p>★アイコン名★</p>
             </div>
             <div className="think-bubble">
@@ -120,7 +120,7 @@ export default function RootLayout({ children }: {
         <div className="section">
         <div className="left-side">
             <div className="icon">
-              <Image src="/test3.png" width={imageWidth} height={imageHeight} alt="test" />
+              <Image src="/images/test3.png" width={imageWidth} height={imageHeight} alt="test" />
                 <p>★アイコン名★</p>
             </div>
           <div className="zigzag-bubble">
@@ -148,7 +148,7 @@ export default function RootLayout({ children }: {
         <div className="section">
         <div className="right-side">
             <div className="icon">
-              <Image src="/test3.png" width={imageWidth} height={imageHeight} alt="test" />
+              <Image src="/images/test3.png" width={imageWidth} height={imageHeight} alt="test" />
                 <p>★アイコン名★</p>
             </div>
           <div className="zigzag-bubble">

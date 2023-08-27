@@ -11,6 +11,7 @@ import LeftDrawer from '../components/search/leftDrawer'
 import Selecter from '../components/search/selecter'
 import Sort from '../components/search/sort'
 // import Selecter from '../search/selecter'
+import LoginButton from '../components/loginButton'
 
 const dynamics = [
   "タイトル",
@@ -38,12 +39,12 @@ export default function RootLayout({ children }: {
         <DrawerHeader />
         <Selecter />
         <Sort />
-
+        <LoginButton />
 
         <ul className="list">
           <li>
             <div className="cover">
-              <Image src="/cover.jpg" width={imageWidth} height={imageHeight} alt="test" />
+              <Image src="/images/cover.jpg" width={imageWidth} height={imageHeight} alt="test" />
             </div>
             <div className="summary">
               <p>★作品名★</p>
@@ -63,7 +64,7 @@ export default function RootLayout({ children }: {
           return (
           <li key={index}>
             <div className="cover">
-              <Image src="/cover.jpg" width={imageWidth} height={imageHeight} alt="no image" />
+              <Image src="/images/cover.jpg" width={imageWidth} height={imageHeight} alt="no image" />
             </div>
             <div className="summary">
               <p>item.title</p>
