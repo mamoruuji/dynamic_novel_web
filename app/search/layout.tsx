@@ -11,7 +11,7 @@ import LeftDrawer from '../components/search/leftDrawer'
 import Selecter from '../components/search/selecter'
 import Sort from '../components/search/sort'
 // import Selecter from '../search/selecter'
-import LoginButton from '../components/loginButton'
+import LoginButton from '../components/common/loginButton'
 
 const dynamics = [
   "タイトル",
