@@ -1,8 +1,9 @@
 {
   "files.exclude": {
-    "**/node_modules": true
+    "**/.git": true,
+    "**/node_modules": true,
+    "**/.next": true,
   },
-  "typescript.preferences.importModuleSpecifier": "non-relative",
   "editor.formatOnSave": true,
   "editor.formatOnPaste": true,
   "editor.formatOnType": true,
@@ -14,6 +15,10 @@
   "editor.quickSuggestions": {
     "strings": "on"
   },
+  "typescript.preferences.importModuleSpecifier": "non-relative",
   "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "extensions.recommendations": [
+    "ms-ceintl.vscode-language-pack-ja"
+  ]
 }
