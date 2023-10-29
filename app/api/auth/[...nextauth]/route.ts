@@ -1,10 +1,10 @@
-import NextAuth from "next-auth"
-import GitHubProvider from "next-auth/providers/github"
-import GoogleProvider from "next-auth/providers/google"
+import NextAuth from 'next-auth'
+import GitHubProvider from 'next-auth/providers/github'
+import GoogleProvider from 'next-auth/providers/google'
 
 const handler = NextAuth({
   debug: true,
-  session: {strategy: "jwt"},
+  session: { strategy: 'jwt' },
   providers: [
     GitHubProvider({
       clientId: process.env.GITHUB_ID!,
@@ -12,13 +12,13 @@ const handler = NextAuth({
     }),
     GoogleProvider({
       clientId: process.env.GOOGLE_ID!,
-      clientSecret: process.env.GOOGLE_SECRET!
+      clientSecret: process.env.GOOGLE_SECRET!,
     }),
   ],
   callbacks: {
-    jwt: async ({token, user, account, profile, isNewUser}) => {
+    jwt: async ({ token, user, account, profile, isNewUser }) => {
       // 注意: トークンをログ出力してはダメです。
-      console.log('in jwt', {user, token, account, profile})
+      // console.log('in jwt', {user, token, account, profile})
 
       if (user) {
         token.user = user
@@ -30,8 +30,8 @@ const handler = NextAuth({
       }
       return token
     },
-    session: ({session, token}) => {
-      console.log("in session", {session, token})
+    session: ({ session, token }) => {
+      // console.log('in session', { session, token });
       token.accessToken
       return {
         ...session,
@@ -41,7 +41,7 @@ const handler = NextAuth({
         },
       }
     },
-  }
+  },
 })
 
 export { handler as GET, handler as POST }
