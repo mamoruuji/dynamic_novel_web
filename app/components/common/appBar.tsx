@@ -1,14 +1,13 @@
-"use client"
+'use client'
 
-import styled from '@mui/material/styles/styled';
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import { styled } from '@mui/material/styles'
+import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
 
 interface AppBarProps extends MuiAppBarProps {
-  leftOpen?: boolean;
-  rightOpen?: boolean;
+  leftOpen?: boolean
+  rightOpen?: boolean
 }
-
-const AppBar = styled(MuiAppBar, {
+export const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'leftOpen' && prop !== 'rightOpen',
 })<AppBarProps>(({ theme, leftOpen, rightOpen }) => ({
   transition: theme.transitions.create(['margin', 'width'], {
@@ -31,6 +30,4 @@ const AppBar = styled(MuiAppBar, {
     }),
     marginRight: process.env.drawerWidth,
   }),
-}));
-
-export default AppBar;
+}))

@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import React from 'react'
-import Box from '@mui/material/Box'
+import { Box } from '@mui/material'
 import {
   Header,
   Main,
@@ -31,8 +31,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const imageWidth = 100
-  const imageHeight = 100
+  const imageWidth = '100'
+  const imageHeight = '100'
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -46,14 +46,24 @@ export default function RootLayout({
 
         <ul className='list'>
           <li>
-            <div className='cover'>
+            <figure
+              className='cover'
+              style={{
+                position: 'relative',
+                width: imageWidth,
+                height: imageHeight,
+              }}
+            >
               <Image
                 src='/images/cover.jpg'
-                width={imageWidth}
-                height={imageHeight}
                 alt='test'
+                fill
+                sizes='100%'
+                style={{
+                  objectFit: 'cover',
+                }}
               />
-            </div>
+            </figure>
             <div className='summary'>
               <p>★作品名★</p>
               <p>

@@ -2,14 +2,14 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 
-import { DynamicType } from '../../src/types'
+import { DynamicType } from '@types'
 
 export default function Page() {
   const [dynamics, setDynamics] = useState<DynamicType[]>([])
   useEffect(() => {
     ;(async () => {
       try {
-        const response = await fetch('api/dynamics', {
+        const response = await fetch('api/dynamic', {
           cache: 'force-cache', // SSG
           // cache: 'no-store', // SSR
           // next: { revalidate: 10 } // ISR

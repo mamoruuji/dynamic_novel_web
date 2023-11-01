@@ -4,7 +4,16 @@ const nextConfig = {
   swcMinify: true,
   experimental: {
     appDir: true,
+    // optimizePackageImports: [ '@mui/icons-material' ]
   },
+  // modularizeImports: {
+  //   '@mui/material': {
+  //     transform: '@mui/material/{{member}}',
+  //   },
+  //   '@mui/icons-material': {
+  //     transform: '@mui/icons-material/{{member}}',
+  //   },
+  // },
   env: {
     drawerWidth: 240,
     novelDetailItem: [
@@ -28,7 +37,7 @@ const nextConfig = {
       "グループ編集",
       "パレット追加",
     ],
-  }
+  },
 }
 
 module.exports = nextConfig

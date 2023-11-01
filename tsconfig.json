@@ -1,4 +1,5 @@
 {
+  "extends": "./tsconfig.paths.json",
   "compilerOptions": {
     "target": "esnext",
     "lib": [
@@ -28,6 +29,7 @@
   "include": [
     "next-env.d.ts",
     "**/*.tsx",
+    "**/*.ts",
     ".next/types/**/*.ts",
     "prisma/**/*.ts"
   ],

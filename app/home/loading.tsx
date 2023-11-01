@@ -1,6 +1,5 @@
-import Spinner from '../components/common/Spinner'
+import { Spinner } from '@common'
 
 export default function Loading() {
-  // Or a custom loading skeleton component
   return <Spinner />
 }

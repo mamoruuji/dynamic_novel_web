@@ -1,8 +1,7 @@
-"use client"
+'use client'
 
-import { useSession, signIn, signOut } from "next-auth/react"
-export default function LoginButton() {
-
+import { useSession, signIn, signOut } from 'next-auth/react'
+export const LoginButton = () => {
   const { data: session } = useSession()
   if (session) {
     return (
@@ -10,10 +9,10 @@ export default function LoginButton() {
         Signed in as {session.user.email} <br />
         <img
           src={session.user.image}
-          alt="icon"
-          style={{ width: "100px", height: "100px" }}
+          alt='icon'
+          style={{ width: '100px', height: '100px' }}
         />
-        <button style={{marginRight: 10}} onClick={() => signOut()}>
+        <button style={{ marginRight: 10 }} onClick={() => signOut()}>
           Sign out
         </button>
       </>
@@ -22,13 +21,13 @@ export default function LoginButton() {
   return (
     <>
       Not signed in <br />
-      <button style={{marginRight: 10}} onClick={() => signIn()}>
+      <button style={{ marginRight: 10 }} onClick={() => signIn()}>
         Sign in
       </button>
-      <button style={{marginRight: 10}} onClick={() => signIn("google")}>
+      <button style={{ marginRight: 10 }} onClick={() => signIn('google')}>
         Sign in with google
       </button>
-      <button style={{marginRight: 10}} onClick={() => signIn("github")}>
+      <button style={{ marginRight: 10 }} onClick={() => signIn('github')}>
         Sign in with github
       </button>
     </>

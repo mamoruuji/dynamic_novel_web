@@ -1,7 +1,11 @@
-import { styled } from '@mui/material/styles';
+'use client'
 
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
-  open?: boolean;
+import { styled } from '@mui/material/styles'
+
+export const Main = styled('main', {
+  shouldForwardProp: (prop) => prop !== 'open',
+})<{
+  open?: boolean
 }>(({ theme, open }) => ({
   flexGrow: 1,
   padding: theme.spacing(3),
@@ -25,6 +29,4 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })<{
     }),
     marginRight: 0,
   }),
-}));
-
-export default Main;
+}))
