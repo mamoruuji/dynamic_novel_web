@@ -1,0 +1,243 @@
+@tailwind base
+@tailwind components
+@tailwind utilities
+
+html, body
+  padding: 0
+  margin: 0
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif
+
+a
+  color: inherit
+  text-decoration: none
+
+*
+  box-sizing: border-box
+
+@media (prefers-color-scheme: dark)
+  html
+    color-scheme: dark
+
+  body
+    color: hsl(0, 0%, 100%)
+    background: hsl(0, 0%, 0%)
+
+// 検索作品
+
+.cover
+  height: 150px
+  width: 150px
+  background-color: hsl(0, 100%, 50%)
+  margin: 10px
+  float: left
+
+ul.list li
+  display: inline-block
+
+// TypeScriptで制限
+
+.summary
+  height: 150px
+  width: 700px
+
+  // white-space: nowrap; // 改行しない
+  // overflow: hidden; // はみ出る部分を非表示
+  // text-overflow: ellipsis; // …を表示
+  overflow: hidden
+  display: -webkit-box
+  -webkit-box-orient: vertical
+  -webkit-line-clamp: 5 // 任意の行数を指定
+
+// 吹き出し左右共通のスタイリング
+.section
+  display: inline-block
+  box-sizing: content-box
+
+.left-side, .right-side
+  width: 100%
+  margin: 40px 0
+  resize: vertical
+
+.icon
+  width: 120px
+  height: 100%
+  text-align: center
+
+  img
+    width: 100px
+    height: 100px
+    border: solid 3px hsl(0, 0%, 80%)
+    border-radius: 25%
+
+  p
+    margin: 0px
+    word-wrap: break-word
+
+.bubble
+  max-width: 70%
+  padding: 20px
+  display: inline-block
+  background: hsl(0, 0%, 96%)
+  position: relative
+
+  &::before
+    content: ""
+    width: 0
+    height: 0
+    border: 10px solid transparent
+    position: absolute
+
+.think-bubble
+  max-width: 70%
+  padding: 20px
+  border-radius: 10px
+  display: inline-block
+  background: hsl(0, 0%, 96%)
+  position: relative
+
+  &::before
+    content: ""
+    width: 15px
+    height: 15px
+    border-radius: 50%
+    background: hsl(0, 0%, 96%)
+    position: absolute
+
+  &::after
+    content: ""
+    width: 10px
+    height: 10px
+    border-radius: 50%
+    background: hsl(0, 0%, 96%)
+    position: absolute
+
+.zigzag-bubble
+  max-width: 80%
+  display: inline-block
+  position: relative
+
+.left-side
+  .icon
+    float: left
+    margin-left: 10px
+
+  .bubble
+    float: left
+    top: 10px
+    left: 20px
+
+    &::before
+      float: left
+      top: 15px
+      left: -20px
+      border-right-color: hsl(0, 0%, 96%)
+
+  .think-bubble
+    float: left
+    top: 10px
+    left: 20px
+
+    &::before
+      float: left
+      top: 15px
+      left: -20px
+
+    &::after
+      float: left
+      top: 25px
+      left: -28px
+
+  .zigzag-box, .zigzag-top, .zigzag-bottom
+    float: left
+    top: 10px
+    left: 40px
+
+.right-side
+  .icon
+    float: right
+    margin-right: 10px
+
+  .bubble
+    float: right
+    top: 10px
+    right: 20px
+
+    &::before
+      float: right
+      top: 15px
+      right: -20px
+      border-left-color: hsl(0, 0%, 96%)
+
+  .think-bubble
+    float: right
+    top: 10px
+    right: 20px
+
+    &::before
+      float: right
+      top: 15px
+      right: -18px
+
+    &::after
+      float: right
+      top: 25px
+      right: -28px
+
+  .zigzag-box, .zigzag-top, .zigzag-bottom
+    float: right
+    top: 10px
+    right: 40px
+
+.zigzag-box
+  max-width: 75%
+  padding: 20px
+  background: hsl(0, 0%, 96%)
+  display: inline-block
+  position: relative
+
+  &::before
+    background: linear-gradient(315deg, hsl(0, 0%, 96%) 50%, transparent 52%), linear-gradient(45deg, transparent 50%, hsl(0, 0%, 96%) 52%)
+    background-size: 30px 30px
+    content: ""
+    position: absolute
+    top: 0
+    left: -30px
+    height: 100%
+    width: 30px
+
+  &::after
+    background: linear-gradient(45deg, hsl(0, 0%, 96%) 50%, transparent 52%), linear-gradient(315deg, transparent 50%, hsl(0, 0%, 96%) 52%)
+    background-size: 30px 30px
+    content: ""
+    position: absolute
+    top: 0
+    right: -30px
+    height: 100%
+    width: 30px
+
+.zigzag-top, .zigzag-bottom
+  position: relative
+  width: 75%
+  height: 0px
+  display: inline-block
+  background-color: hsl(0, 0%, 96%)
+
+.zigzag-top::before
+  height: 20px
+  content: ""
+  position: absolute
+  left: 0
+  width: 100%
+  top: -20px
+  background: linear-gradient(45deg, hsl(0, 0%, 96%) 10px, transparent 0), linear-gradient(315deg, hsl(0, 0%, 96%) 10px, transparent 0)
+  background-size: 20px 20px
+
+.zigzag-bottom::after
+  height: 20px
+  content: ""
+  position: absolute
+  left: 0
+  width: 100%
+  bottom: -20px
+  background: linear-gradient(135deg, hsl(0, 0%, 96%) 10px, transparent 0), linear-gradient(225deg, hsl(0, 0%, 96%) 10px, transparent 0)
+  background-size: 20px 20px

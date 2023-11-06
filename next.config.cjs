@@ -14,6 +14,9 @@ const nextConfig = {
   //     transform: '@mui/icons-material/{{member}}',
   //   },
   // },
+  sassOptions: {
+    includePaths: [path.join(__dirname, 'styles')],
+  },
   env: {
     drawerWidth: 240,
     novelDetailItem: [
