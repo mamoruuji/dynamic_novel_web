@@ -1,6 +1,7 @@
 'use client'
 
 import { styled } from '@mui/material/styles'
+import { leaveTransition, enterTransition } from '@common'
 
 export const Main = styled('main', {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -9,24 +10,15 @@ export const Main = styled('main', {
 }>(({ theme, open }) => ({
   flexGrow: 1,
   padding: theme.spacing(3),
-  transition: theme.transitions.create('margin', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
+  ...leaveTransition(theme, 'margin'),
   marginLeft: `${process.env.drawerWidth}px`,
   ...(open && {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
+    ...enterTransition(theme, 'margin'),
     marginLeft: 0,
   }),
-  marginRight: -process.env.drawerWidth!,
+  marginRight: `-${process.env.drawerWidth}px`,
   ...(open && {
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
+    ...enterTransition(theme, 'margin'),
     marginRight: 0,
   }),
 }))

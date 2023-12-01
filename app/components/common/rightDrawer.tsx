@@ -41,8 +41,8 @@ type itemType = {
 }
 
 export const RightDrawer = () => {
-  const imageWidth = 100
-  const imageHeight = 100
+  const imageWidth = 300
+  const imageHeight = 400
 
   const item: itemType = {
     name: '用語名',

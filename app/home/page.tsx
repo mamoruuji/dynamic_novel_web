@@ -25,7 +25,7 @@ export default function Page() {
 
   return (
     <>
-      <h1>共通</h1>
+      {/* <h1>共通</h1>
       <div>作品一覧画面</div>
       <div>
         <div>検索バー</div>
@@ -42,14 +42,16 @@ export default function Page() {
             <Link href='作品1URL'>作品1情報</Link>
           </div>
         </div>
-      </div>
+      </div> */}
       <div>作品群</div>
-      {dynamics.map((dynamic, key) => (
-        <div key={key}>
-          <div>{dynamic.title}</div>
-          <div>{dynamic.updatedAt}</div>
-        </div>
-      ))}
+      {dynamics &&
+        dynamics.length > 0 &&
+        dynamics.map((dynamic, key) => (
+          <div key={key}>
+            <div>{dynamic.title}</div>
+            <div>{dynamic.updatedAt}</div>
+          </div>
+        ))}
       <Link href='/'>Home</Link>
     </>
   )

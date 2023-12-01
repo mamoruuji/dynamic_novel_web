@@ -22,12 +22,24 @@ a
     color: hsl(0, 0%, 100%)
     background: hsl(0, 0%, 0%)
 
+.globalAppBar
+  top: 0
+  z-index: 1100
+
+.localAppBar
+  top: 64px
+  z-index: 1000
+
+.main
+  margin-top: 128px
+
+
 // 検索作品
 
 .cover
   height: 150px
   width: 150px
-  background-color: hsl(0, 100%, 50%)
+  background-color: hsl(0, 0%, 0%)
   margin: 10px
   float: left
 
@@ -41,9 +53,8 @@ ul.list li
   width: 700px
 
   // white-space: nowrap; // 改行しない
-  // overflow: hidden; // はみ出る部分を非表示
   // text-overflow: ellipsis; // …を表示
-  overflow: hidden
+  overflow: hidden // はみ出る部分を非表示
   display: -webkit-box
   -webkit-box-orient: vertical
   -webkit-line-clamp: 5 // 任意の行数を指定
@@ -66,7 +77,7 @@ ul.list li
   img
     width: 100px
     height: 100px
-    border: solid 3px hsl(0, 0%, 80%)
+    border: solid 3px hsl(0, 0%, 90%)
     border-radius: 25%
 
   p
@@ -77,7 +88,7 @@ ul.list li
   max-width: 70%
   padding: 20px
   display: inline-block
-  background: hsl(0, 0%, 96%)
+  background: hsl(0, 0%, 90%)
   position: relative
 
   &::before
@@ -92,7 +103,7 @@ ul.list li
   padding: 20px
   border-radius: 10px
   display: inline-block
-  background: hsl(0, 0%, 96%)
+  background: hsl(0, 0%, 90%)
   position: relative
 
   &::before
@@ -100,7 +111,7 @@ ul.list li
     width: 15px
     height: 15px
     border-radius: 50%
-    background: hsl(0, 0%, 96%)
+    background: hsl(0, 0%, 90%)
     position: absolute
 
   &::after
@@ -108,7 +119,7 @@ ul.list li
     width: 10px
     height: 10px
     border-radius: 50%
-    background: hsl(0, 0%, 96%)
+    background: hsl(0, 0%, 90%)
     position: absolute
 
 .zigzag-bubble
@@ -130,7 +141,7 @@ ul.list li
       float: left
       top: 15px
       left: -20px
-      border-right-color: hsl(0, 0%, 96%)
+      border-right-color: hsl(0, 0%, 90%)
 
   .think-bubble
     float: left
@@ -166,7 +177,7 @@ ul.list li
       float: right
       top: 15px
       right: -20px
-      border-left-color: hsl(0, 0%, 96%)
+      border-left-color: hsl(0, 0%, 90%)
 
   .think-bubble
     float: right
@@ -191,12 +202,12 @@ ul.list li
 .zigzag-box
   max-width: 75%
   padding: 20px
-  background: hsl(0, 0%, 96%)
+  background: hsl(0, 0%, 90%)
   display: inline-block
   position: relative
 
   &::before
-    background: linear-gradient(315deg, hsl(0, 0%, 96%) 50%, transparent 52%), linear-gradient(45deg, transparent 50%, hsl(0, 0%, 96%) 52%)
+    background: linear-gradient(315deg, hsl(0, 0%, 90%) 50%, transparent 52%), linear-gradient(45deg, transparent 50%, hsl(0, 0%, 90%) 52%)
     background-size: 30px 30px
     content: ""
     position: absolute
@@ -206,7 +217,7 @@ ul.list li
     width: 30px
 
   &::after
-    background: linear-gradient(45deg, hsl(0, 0%, 96%) 50%, transparent 52%), linear-gradient(315deg, transparent 50%, hsl(0, 0%, 96%) 52%)
+    background: linear-gradient(45deg, hsl(0, 0%, 90%) 50%, transparent 52%), linear-gradient(315deg, transparent 50%, hsl(0, 0%, 90%) 52%)
     background-size: 30px 30px
     content: ""
     position: absolute
@@ -220,7 +231,7 @@ ul.list li
   width: 75%
   height: 0px
   display: inline-block
-  background-color: hsl(0, 0%, 96%)
+  background-color: hsl(0, 0%, 90%)
 
 .zigzag-top::before
   height: 20px
@@ -229,7 +240,7 @@ ul.list li
   left: 0
   width: 100%
   top: -20px
-  background: linear-gradient(45deg, hsl(0, 0%, 96%) 10px, transparent 0), linear-gradient(315deg, hsl(0, 0%, 96%) 10px, transparent 0)
+  background: linear-gradient(45deg, hsl(0, 0%, 90%) 10px, transparent 0), linear-gradient(315deg, hsl(0, 0%, 90%) 10px, transparent 0)
   background-size: 20px 20px
 
 .zigzag-bottom::after
@@ -239,5 +250,5 @@ ul.list li
   left: 0
   width: 100%
   bottom: -20px
-  background: linear-gradient(135deg, hsl(0, 0%, 96%) 10px, transparent 0), linear-gradient(225deg, hsl(0, 0%, 96%) 10px, transparent 0)
+  background: linear-gradient(135deg, hsl(0, 0%, 90%) 10px, transparent 0), linear-gradient(225deg, hsl(0, 0%, 90%) 10px, transparent 0)
   background-size: 20px 20px

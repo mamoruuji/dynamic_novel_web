@@ -8,6 +8,7 @@ import { leftDrawerStateAtom } from '../../states/drawerState'
 import { useRecoilState } from 'recoil'
 
 import {
+  Box,
   Drawer,
   Divider,
   IconButton,
@@ -70,7 +71,7 @@ export const LeftDrawer = () => {
         </IconButton>
       </DrawerHeader>
       <Divider />
-      <div>
+      <Box>
         {Object.keys(chapterPeges).map((chapter, key) => {
           return (
             <Accordion key={key}>
@@ -98,7 +99,7 @@ export const LeftDrawer = () => {
             </Accordion>
           )
         })}
-      </div>
+      </Box>
     </Drawer>
   )
 }

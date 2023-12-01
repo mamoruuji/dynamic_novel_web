@@ -2,9 +2,9 @@
 
 import Image from 'next/image'
 import React from 'react'
-import { Box } from '@mui/material'
+import { Box, Typography, Container, List, ListItem } from '@mui/material'
 import {
-  Header,
+  LocalHeader,
   Main,
   DrawerHeader,
   RightDrawer,
@@ -12,6 +12,7 @@ import {
   Selecter,
   Sort,
   LoginButton,
+  CoverImage,
 } from '@common'
 
 const dynamics = [
@@ -31,56 +32,40 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const imageWidth = '100'
-  const imageHeight = '100'
+  const imageUrl = '/images/cover.jpg'
+  const dynamicName = '★作品名★'
+  const dynamicDetail =
+    '★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★'
 
   return (
-    <Box sx={{ display: 'flex' }}>
-      <Header />
-      <RightDrawer />
-      <Main sx={{ m: '0 auto' }}>
-        <DrawerHeader />
-        <Selecter />
-        <Sort />
-        <LoginButton />
+    <>
+      <Box sx={{ display: 'flex' }}>
+        <LocalHeader />
+      </Box>
+      <Box sx={{ display: 'flex' }}>
+        <LeftDrawer />
+        <Main className='justify-between'>
+          <DrawerHeader />
+          <DrawerHeader />
+          <Selecter />
+          <Sort />
+          <LoginButton />
+          {children}
 
-        <ul className='list'>
-          <li>
-            <figure
-              className='cover'
-              style={{
-                position: 'relative',
-                width: imageWidth,
-                height: imageHeight,
-              }}
-            >
-              <Image
-                src='/images/cover.jpg'
-                alt='test'
-                fill
-                sizes='100%'
-                style={{
-                  objectFit: 'cover',
-                }}
-              />
-            </figure>
-            <div className='summary'>
-              <p>★作品名★</p>
-              <p>
-                ★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★
-                ★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★
-                ★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★
-                ★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★
-                ★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★
-                ★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★
-                ★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★
-                ★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★
-              </p>
-            </div>
-          </li>
-        </ul>
-      </Main>
-      <LeftDrawer />
-    </Box>
+          <Container className='summary' margin='250'>
+            <List>
+              <ListItem>
+                <CoverImage src={imageUrl} />
+                <Box>
+                  <Typography variant='h6'>{dynamicName}</Typography>
+                  <Typography>{dynamicDetail}</Typography>
+                </Box>
+              </ListItem>
+            </List>
+          </Container>
+        </Main>
+        <RightDrawer />
+      </Box>
+    </>
   )
 }

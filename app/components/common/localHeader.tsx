@@ -3,6 +3,7 @@
 import * as React from 'react'
 import { CssBaseline, Toolbar, Typography, IconButton } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
+import ContactSupportIcon from '@mui/icons-material/ContactSupport'
 
 import { AppBar } from './appBar'
 import {
@@ -11,14 +12,19 @@ import {
 } from 'app/states/drawerState'
 import { useRecoilState } from 'recoil'
 
-export const Header = () => {
+export const LocalHeader = () => {
   const [leftOpen, setLeftOpen] = useRecoilState(leftDrawerStateAtom)
   const [rightOpen, setRightOpen] = useRecoilState(rightDrawerStateAtom)
 
   return (
     <>
       <CssBaseline />
-      <AppBar position='fixed' leftOpen={leftOpen} rightOpen={rightOpen}>
+      <AppBar
+        className='localAppBar'
+        position='fixed'
+        leftOpen={leftOpen}
+        rightOpen={rightOpen}
+      >
         <Toolbar className='justify-between'>
           <IconButton
             color='inherit'
@@ -30,7 +36,7 @@ export const Header = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant='h6' noWrap component='div' sx={{ m: '0 auto' }}>
-            作品タイトル
+            個別ヘッダー
           </Typography>
           <IconButton
             color='inherit'
@@ -39,7 +45,7 @@ export const Header = () => {
             onClick={() => setRightOpen(true)}
             sx={{ ml: 2, ...(rightOpen && { display: 'none' }) }}
           >
-            <MenuIcon />
+            <ContactSupportIcon />
           </IconButton>
         </Toolbar>
       </AppBar>
