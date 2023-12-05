@@ -12,7 +12,7 @@ import {
   Selecter,
   Sort,
   LoginButton,
-  CoverImage,
+  SearchResults,
 } from '@common'
 
 const dynamics = [
@@ -32,18 +32,29 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const imageUrl = '/images/cover.jpg'
-  const dynamicName = '★作品名★'
-  const dynamicDetail =
-    '★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★'
+  const searchResults = [
+    {
+      id: 1,
+      title: '記事1',
+      description:
+        '記事1の★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★★説明文章★',
+      imageUrl: '/images/cover.jpg',
+    },
+    {
+      id: 2,
+      title: '記事2',
+      description: '記事2の説明文',
+      imageUrl: '/images/cover.jpg',
+    },
+  ]
 
   return (
     <>
+      <LeftDrawer lassName='top-16' />
       <Box sx={{ display: 'flex' }}>
         <LocalHeader />
       </Box>
       <Box sx={{ display: 'flex' }}>
-        <LeftDrawer />
         <Main className='justify-between'>
           <DrawerHeader />
           <DrawerHeader />
@@ -52,20 +63,12 @@ export default function RootLayout({
           <LoginButton />
           {children}
 
-          <Container className='summary' margin='250'>
-            <List>
-              <ListItem>
-                <CoverImage src={imageUrl} />
-                <Box>
-                  <Typography variant='h6'>{dynamicName}</Typography>
-                  <Typography>{dynamicDetail}</Typography>
-                </Box>
-              </ListItem>
-            </List>
+          <Container className='summary'>
+            <SearchResults results={searchResults} />
           </Container>
         </Main>
-        <RightDrawer />
       </Box>
+      <RightDrawer className='top-16' />
     </>
   )
 }

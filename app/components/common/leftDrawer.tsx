@@ -7,9 +7,9 @@ import { DrawerHeader } from './drawerHeader'
 import { leftDrawerStateAtom } from '../../states/drawerState'
 import { useRecoilState } from 'recoil'
 
+import { StyledDrawer } from '@common'
 import {
   Box,
-  Drawer,
   Divider,
   IconButton,
   Typography,
@@ -27,13 +27,6 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
-// import {
-//   ArrowRightIcon,
-//   ChevronLeftIcon,
-//   ChevronRightIcon,
-//   ExpandMoreIcon,
-// } from '@mui/icons-material'
-
 // 任意の文字列キーを許容したオブジェクト
 type chapterPegesType = { [chapter: string]: string[] }
 
@@ -42,24 +35,42 @@ export const LeftDrawer = () => {
     章1: ['ページ1-1', 'ページ1-2', 'ページ1-3'],
     章2: [],
     章3: ['ページ3-3'],
+    章4: [],
+    章5: [],
+    章7: [],
+    章8: [],
+    章9: [],
+    章10: [],
+    章11: [],
+    章12: [],
+    章13: [],
+    章14: [],
+    章15: [],
+    章1666666666666666666666: [],
+    章2342: [],
+    章2444: [],
+    章2324: [],
+    章2324222: [],
+    章254443: [],
+    章25555: [],
+    章2545454: [],
+    章2653453: [],
+    章2333: [],
   }
 
   const theme = useTheme()
   const [leftOpen, setLeftOpen] = useRecoilState(leftDrawerStateAtom)
 
   return (
-    <Drawer
-      sx={{
-        width: process.env.drawerWidth,
-        flexShrink: 0,
-        '& .MuiDrawer-paper': {
-          width: process.env.drawerWidth,
-          boxSizing: 'border-box',
-        },
-      }}
+    <StyledDrawer
       variant='persistent'
       anchor='left'
       open={leftOpen}
+      sx={{
+        '& .MuiDrawer-paper': {
+          top: '64px',
+        },
+      }}
     >
       <DrawerHeader className='justify-end'>
         <IconButton onClick={() => setLeftOpen(false)}>
@@ -100,6 +111,6 @@ export const LeftDrawer = () => {
           )
         })}
       </Box>
-    </Drawer>
+    </StyledDrawer>
   )
 }

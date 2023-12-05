@@ -8,8 +8,8 @@ import { DrawerHeader } from './drawerHeader'
 import { rightDrawerStateAtom } from '../../states/drawerState'
 import { useRecoilState } from 'recoil'
 
+import { StyledDrawer } from '@common'
 import {
-  Drawer,
   Divider,
   IconButton,
   Typography,
@@ -27,13 +27,6 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
-// import {
-//   ArrowRightIcon,
-//   ChevronLeftIcon,
-//   ChevronRightIcon,
-//   ExpandMoreIcon,
-// } from '@mui/icons-material'
-
 type itemType = {
   name: string
   url: string
@@ -41,8 +34,8 @@ type itemType = {
 }
 
 export const RightDrawer = () => {
-  const imageWidth = 300
-  const imageHeight = 400
+  const imageWidth = '120'
+  const imageHeight = '160'
 
   const item: itemType = {
     name: '用語名',
@@ -54,18 +47,15 @@ export const RightDrawer = () => {
   const [rightOpen, setRightOpen] = useRecoilState(rightDrawerStateAtom)
 
   return (
-    <Drawer
-      sx={{
-        width: process.env.drawerWidth,
-        flexShrink: 0,
-        '& .MuiDrawer-paper': {
-          width: process.env.drawerWidth,
-          boxSizing: 'border-box',
-        },
-      }}
+    <StyledDrawer
       variant='persistent'
       anchor='right'
       open={rightOpen}
+      sx={{
+        '& .MuiDrawer-paper': {
+          top: '64px',
+        },
+      }}
     >
       <DrawerHeader className='justify-start'>
         <IconButton onClick={() => setRightOpen(false)}>
@@ -81,10 +71,11 @@ export const RightDrawer = () => {
         src={item.url}
         width={imageWidth}
         height={imageHeight}
+        className='w-full h-auto object-cover'
         alt='text'
       />
       <Typography>{item.name}</Typography>
       <Typography>{item.text}</Typography>
-    </Drawer>
+    </StyledDrawer>
   )
 }

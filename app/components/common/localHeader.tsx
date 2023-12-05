@@ -19,12 +19,7 @@ export const LocalHeader = () => {
   return (
     <>
       <CssBaseline />
-      <AppBar
-        className='localAppBar'
-        position='fixed'
-        leftOpen={leftOpen}
-        rightOpen={rightOpen}
-      >
+      <AppBar className='localAppBar' position='fixed'>
         <Toolbar className='justify-between'>
           <IconButton
             color='inherit'

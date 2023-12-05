@@ -33,31 +33,24 @@ a
 .main
   margin-top: 128px
 
-
-// 検索作品
-
-.cover
-  height: 150px
-  width: 150px
-  background-color: hsl(0, 0%, 0%)
-  margin: 10px
-  float: left
-
-ul.list li
-  display: inline-block
-
-// TypeScriptで制限
-
 .summary
-  height: 150px
-  width: 700px
-
   // white-space: nowrap; // 改行しない
   // text-overflow: ellipsis; // …を表示
   overflow: hidden // はみ出る部分を非表示
   display: -webkit-box
   -webkit-box-orient: vertical
   -webkit-line-clamp: 5 // 任意の行数を指定
+
+figure
+  width: 300px
+  height: 200px
+  display: flex
+  justify-content: center
+  align-items: center
+
+.cover-image
+  max-width: 100%
+  max-height: 100%
 
 // 吹き出し左右共通のスタイリング
 .section

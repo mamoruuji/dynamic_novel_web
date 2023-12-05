@@ -1,26 +1,30 @@
 'use client'
 
-import { styled } from '@mui/material/styles'
-import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
+import { styled, Theme } from '@mui/material/styles'
+import MuiAppBar from '@mui/material/AppBar'
 import { leaveTransition, enterTransition } from '@common'
+import {
+  leftDrawerStateAtom,
+  rightDrawerStateAtom,
+} from 'app/states/drawerState'
+import { useRecoilState } from 'recoil'
 
-interface AppBarProps extends MuiAppBarProps {
-  leftOpen?: boolean
-  rightOpen?: boolean
-}
+const getTransitionStyles = (
+  theme: Theme,
+  position: 'marginLeft' | 'marginRight',
+) => ({
+  width: `calc(100% - ${process.env.drawerWidth}px)`,
+  [position]: `${process.env.drawerWidth}px`,
+  ...enterTransition(theme, ['margin', 'width']),
+})
 
-export const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'leftOpen' && prop !== 'rightOpen',
-})<AppBarProps>(({ theme, leftOpen, rightOpen }) => ({
-  ...leaveTransition(theme, ['margin', 'width']),
-  ...(leftOpen && {
-    width: `calc(100% - ${process.env.drawerWidth}px)`,
-    marginLeft: `${process.env.drawerWidth}px`,
-    ...enterTransition(theme, ['margin', 'width']),
-  }),
-  ...(rightOpen && {
-    width: `calc(100% - ${process.env.drawerWidth}px)`,
-    marginRight: `${process.env.drawerWidth}px`,
-    ...enterTransition(theme, ['margin', 'width']),
-  }),
-}))
+export const AppBar = styled(MuiAppBar)(({ theme }) => {
+  const [leftOpen, setLeftOpen] = useRecoilState(leftDrawerStateAtom)
+  const [rightOpen, setRightOpen] = useRecoilState(rightDrawerStateAtom)
+
+  return {
+    ...leaveTransition(theme, ['margin', 'width']),
+    ...(leftOpen && getTransitionStyles(theme, 'marginLeft')),
+    ...(rightOpen && getTransitionStyles(theme, 'marginRight')),
+  }
+})
