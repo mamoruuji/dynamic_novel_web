@@ -15,17 +15,17 @@ export const Main = styled('main')(({ theme }) => {
   return {
     flexGrow: 1,
     padding: theme.spacing(3),
-    ...leaveTransition(theme, 'margin'),
-    marginLeft: `-${process.env.drawerWidth}px`,
-    ...(leftOpen && {
-      marginLeft: 0,
-      ...enterTransition(theme, 'margin'),
-    }),
-    marginRight: `-${process.env.drawerWidth}px`,
-    ...(rightOpen && {
-      marginRight: 0,
-      ...enterTransition(theme, 'margin'),
-    }),
     position: 'relative',
+    ...leaveTransition(theme, 'margin'),
+    // marginLeft: `-${process.env.NEXT_PUBLIC_DRAWERWIDTH}`,
+    ...(leftOpen && {
+      // marginLeft: 0,
+      ...enterTransition(theme, 'margin'),
+    }),
+    // marginRight: `-${process.env.NEXT_PUBLIC_DRAWERWIDTH}`,
+    ...(rightOpen && {
+      // marginRight: 0,
+      ...enterTransition(theme, 'margin'),
+    }),
   }
 })

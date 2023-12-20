@@ -50,12 +50,12 @@ export default function RootLayout({
 
   return (
     <>
-      <LeftDrawer lassName='top-16' />
-      <Box sx={{ display: 'flex' }}>
+      <LeftDrawer />
+      <Box>
         <LocalHeader />
       </Box>
-      <Box sx={{ display: 'flex' }}>
-        <Main className='justify-between'>
+      <Box>
+        <Main>
           <DrawerHeader />
           <DrawerHeader />
           <Selecter />
@@ -68,7 +68,7 @@ export default function RootLayout({
           </Container>
         </Main>
       </Box>
-      <RightDrawer className='top-16' />
+      <RightDrawer />
     </>
   )
 }

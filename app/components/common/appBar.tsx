@@ -13,8 +13,8 @@ const getTransitionStyles = (
   theme: Theme,
   position: 'marginLeft' | 'marginRight',
 ) => ({
-  width: `calc(100% - ${process.env.drawerWidth}px)`,
-  [position]: `${process.env.drawerWidth}px`,
+  width: `calc(100% - ${process.env.NEXT_PUBLIC_DRAWERWIDTH})`,
+  [position]: process.env.NEXT_PUBLIC_DRAWERWIDTH,
   ...enterTransition(theme, ['margin', 'width']),
 })
 

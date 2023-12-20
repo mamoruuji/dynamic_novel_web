@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
   reactStrictMode: true,
   swcMinify: true,
   experimental: {
@@ -18,29 +18,26 @@ const nextConfig = {
     includePaths: [path.join(__dirname, 'styles')],
   },
   env: {
-    drawerWidth: 240,
-    novelDetailItem: [
-      { title: "タイトル", },
-    ],
-    searchOrderItem: [
-      { title: "タイトル", },
-    ],
-    SNSlist: [
-      "Twitter",
-    ],
-    readerFunclist: [
-      "閲覧履歴",
-      "お気に入り一覧",
-      "メモ一覧",
-      "感想一覧",
-    ],
-    createrFunclist: [
-      "自分の作品",
-      "パーツ登録",
-      "グループ編集",
-      "パレット追加",
-    ],
+    // novelDetailItem: [
+    //   { title: "タイトル", },
+    // ],
+    // searchOrderItem: [
+    //   { title: "タイトル", },
+    // ],
+    // SNSlist: [
+    //   "Twitter",
+    // ],
+    // readerFunclist: [
+    //   "閲覧履歴",
+    //   "お気に入り一覧",
+    //   "メモ一覧",
+    //   "感想一覧",
+    // ],
+    // createrFunclist: [
+    //   "自分の作品",
+    //   "パーツ登録",
+    //   "グループ編集",
+    //   "パレット追加",
+    // ],
   },
 }
-
-module.exports = nextConfig

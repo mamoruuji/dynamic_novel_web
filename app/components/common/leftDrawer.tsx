@@ -7,9 +7,9 @@ import { DrawerHeader } from './drawerHeader'
 import { leftDrawerStateAtom } from '../../states/drawerState'
 import { useRecoilState } from 'recoil'
 
-import { StyledDrawer } from '@common'
 import {
   Box,
+  Drawer,
   Divider,
   IconButton,
   Typography,
@@ -62,13 +62,16 @@ export const LeftDrawer = () => {
   const [leftOpen, setLeftOpen] = useRecoilState(leftDrawerStateAtom)
 
   return (
-    <StyledDrawer
+    <Drawer
       variant='persistent'
       anchor='left'
       open={leftOpen}
+      width={process.env.NEXT_PUBLIC_DRAWERWIDTH}
       sx={{
+        flexShrink: '0',
         '& .MuiDrawer-paper': {
           top: '64px',
+          width: process.env.NEXT_PUBLIC_DRAWERWIDTH,
         },
       }}
     >
@@ -111,6 +114,6 @@ export const LeftDrawer = () => {
           )
         })}
       </Box>
-    </StyledDrawer>
+    </Drawer>
   )
 }
