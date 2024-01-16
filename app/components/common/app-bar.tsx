@@ -6,7 +6,7 @@ import { leaveTransition, enterTransition } from '@common'
 import {
   leftDrawerStateAtom,
   rightDrawerStateAtom,
-} from 'app/states/drawerState.ts'
+} from 'app/states/drawer-state.ts'
 import { useRecoilState } from 'recoil'
 
 const getTransitionStyles = (

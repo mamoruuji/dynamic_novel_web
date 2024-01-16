@@ -4,8 +4,8 @@ import * as React from 'react'
 import useTheme from '@mui/material/styles/useTheme'
 import Image from 'next/image'
 
-import { DrawerHeader } from './drawerHeader'
-import { rightDrawerStateAtom } from '../../states/drawerState.ts'
+import { DrawerHeader } from './drawer-header'
+import { rightDrawerStateAtom } from '../../states/drawer-state.ts'
 import { useRecoilState } from 'recoil'
 
 import {

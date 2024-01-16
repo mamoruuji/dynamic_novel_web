@@ -5,11 +5,11 @@ import { Toolbar, Typography, IconButton } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import ContactSupportIcon from '@mui/icons-material/ContactSupport'
 
-import { AppBar } from './appBar'
+import { AppBar } from './app-bar'
 import {
   leftDrawerStateAtom,
   rightDrawerStateAtom,
-} from 'app/states/drawerState.ts'
+} from 'app/states/drawer-state.ts'
 import { useRecoilState } from 'recoil'
 
 export const LocalHeader = () => {
