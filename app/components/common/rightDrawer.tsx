@@ -5,7 +5,7 @@ import useTheme from '@mui/material/styles/useTheme'
 import Image from 'next/image'
 
 import { DrawerHeader } from './drawerHeader'
-import { rightDrawerStateAtom } from '../../states/drawerState'
+import { rightDrawerStateAtom } from '../../states/drawerState.ts'
 import { useRecoilState } from 'recoil'
 
 import {

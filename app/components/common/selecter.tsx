@@ -47,7 +47,6 @@ export const Selecter = () => {
         <Autocomplete
           freeSolo
           id='search-input'
-          disableClearable
           options={searchCategoryTargetItems.map((item) => item)}
           renderInput={(params) => (
             <TextField
@@ -60,7 +59,7 @@ export const Selecter = () => {
             />
           )}
         />
-        <Button variant='contained' type='submit'>
+        <Button variant='contained' color='secondary' type='submit'>
           検索
         </Button>
       </Stack>

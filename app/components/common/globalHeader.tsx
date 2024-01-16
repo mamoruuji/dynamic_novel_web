@@ -1,18 +1,11 @@
 'use client'
 
 import * as React from 'react'
-import {
-  AppBar,
-  CssBaseline,
-  Toolbar,
-  Typography,
-  IconButton,
-} from '@mui/material'
+import { AppBar, Toolbar, Typography, IconButton } from '@mui/material'
 
 export const GlobalHeader = ({ children }) => {
   return (
     <>
-      <CssBaseline />
       <AppBar className='globalAppBar' position='fixed'>
         <Toolbar className='justify-between'>
           {/* <IconButton

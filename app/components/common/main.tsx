@@ -5,7 +5,7 @@ import { leaveTransition, enterTransition } from '@common'
 import {
   leftDrawerStateAtom,
   rightDrawerStateAtom,
-} from 'app/states/drawerState'
+} from 'app/states/drawerState.ts'
 import { useRecoilState } from 'recoil'
 
 export const Main = styled('main')(({ theme }) => {
