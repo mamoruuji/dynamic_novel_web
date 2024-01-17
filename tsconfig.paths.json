@@ -5,6 +5,9 @@
       "@common": [
         "app/components/common"
       ],
+      "@partials": [
+        "app/components/common/partials"
+      ],
       "@type": [
         "src/types"
       ],

@@ -4,7 +4,7 @@ import * as React from 'react'
 import useTheme from '@mui/material/styles/useTheme'
 import Image from 'next/image'
 
-import { DrawerHeader } from './drawer-header'
+import { DrawerHeader } from '@partials'
 import { rightDrawerStateAtom } from '../../states/drawer-state.ts'
 import { useRecoilState } from 'recoil'
 

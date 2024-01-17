@@ -3,7 +3,7 @@
 import * as React from 'react'
 import useTheme from '@mui/material/styles/useTheme'
 
-import { DrawerHeader } from './drawer-header'
+import { DrawerHeader } from '@partials'
 import { leftDrawerStateAtom } from '../../states/drawer-state.ts'
 import { useRecoilState } from 'recoil'
 

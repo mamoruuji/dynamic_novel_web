@@ -2,18 +2,9 @@
 
 import Image from 'next/image'
 import React from 'react'
-import { Box, Typography, Container, List, ListItem } from '@mui/material'
-import {
-  LocalHeader,
-  Main,
-  DrawerHeader,
-  RightDrawer,
-  LeftDrawer,
-  Selecter,
-  Sort,
-  LoginButton,
-  SearchResults,
-} from '@common'
+import { Box } from '@mui/material'
+import { LocalHeader, RightDrawer, LeftDrawer, SearchResults } from '@common'
+import { Main, Sort, Selecter, DrawerHeader, LoginButton } from '@partials'
 
 const dynamics = [
   'タイトル',
