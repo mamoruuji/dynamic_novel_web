@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 
-import { DynamicType } from '@type'
+import { DynamicType } from '@/type/'
 
 export default function Page() {
   const [dynamics, setDynamics] = useState<DynamicType[]>([])

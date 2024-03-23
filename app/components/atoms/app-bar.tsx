@@ -2,7 +2,7 @@
 
 import { styled, Theme } from '@mui/material/styles'
 import MuiAppBar from '@mui/material/AppBar'
-import { leaveTransition, enterTransition } from '@common'
+import { leaveTransition, enterTransition } from '@/common/atoms'
 import {
   leftDrawerStateAtom,
   rightDrawerStateAtom,

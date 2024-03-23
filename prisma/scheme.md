@@ -115,55 +115,92 @@ erDiagram
     }
   
 
-  "terms" {
+  "dynamic_terms" {
     Int id "🗝️"
     String name 
     String text 
     Int order 
-    Int dynamicId "❓"
-    Int chapterId "❓"
-    Int sectionId "❓"
     DateTime createdAt 
     DateTime updatedAt 
     }
   
 
-  "dynamics_on_terms" {
+  "chapter_terms" {
+    Int id "🗝️"
+    String name 
+    String text 
+    Int order 
+    DateTime createdAt 
+    DateTime updatedAt 
+    }
+  
+
+  "page_terms" {
+    Int id "🗝️"
+    String name 
+    String text 
+    Int order 
+    DateTime createdAt 
+    DateTime updatedAt 
+    }
+  
+
+  "section_terms" {
+    Int id "🗝️"
+    String name 
+    String text 
+    DateTime createdAt 
+    DateTime updatedAt 
+    }
+  
+
+  "tags" {
+    Int id "🗝️"
+    String name 
+    DateTime createdAt 
+    DateTime updatedAt 
+    }
+  
+
+  "dynamics_on_tags" {
     Int id "🗝️"
     DateTime createdAt 
     DateTime updatedAt 
     }
   
 
-  "chapers_on_terms" {
+  "sorts" {
     Int id "🗝️"
+    String name 
+    String sql 
     DateTime createdAt 
     DateTime updatedAt 
     }
   
     "users" o{--}o "dynamics" : "dynamics"
-    "users" o{--}o "terms" : "terms"
     "users" o{--}o "marks" : "marks"
     "users" o{--}o "impressions" : "impressions"
     "users" o{--}o "folders" : "folders"
     "users" o{--}o "images" : "images"
     "dynamics" o|--|| "users" : "user"
     "dynamics" o{--}o "chapters" : "chapters"
-    "dynamics" o{--}o "impressions" : "Impressions"
+    "dynamics" o{--}o "impressions" : "impressions"
     "dynamics" o{--}o "marks" : "marks"
-    "dynamics" o{--}o "dynamics_on_terms" : "terms"
+    "dynamics" o{--}o "dynamic_terms" : "terms"
+    "dynamics" o{--}o "dynamics_on_tags" : "tags"
     "chapters" o|--|| "dynamics" : "dynamic"
     "chapters" o{--}o "pages" : "pages"
-    "chapters" o{--}o "chapers_on_terms" : "terms"
+    "chapters" o{--}o "chapter_terms" : "terms"
     "pages" o|--|| "chapters" : "chapter"
     "pages" o{--}o "sections" : "sections"
+    "pages" o{--}o "page_terms" : "terms"
     "sections" o|--|| "pages" : "page"
     "sections" o|--|o "types" : "type"
     "sections" o|--|o "positions" : "position"
     "sections" o|--|o "bubbles" : "bubble"
     "sections" o|--|o "images" : "image"
     "sections" o|--|o "fonts" : "font"
-    "sections" o|--|o "terms" : "term"
+    "sections" o{--}o "section_terms" : "term"
     "folders" o|--|| "users" : "user"
     "folders" o|--|o "folders" : "parent"
     "folders" o{--}o "folders" : "children"
@@ -178,15 +215,20 @@ erDiagram
     "images" o|--|| "users" : "user"
     "images" o|--|o "folders" : "folder"
     "images" o{--}o "sections" : "sections"
-    "images" o{--}o "terms" : "terms"
+    "images" o{--}o "dynamic_terms" : "dynamicTerms"
+    "images" o{--}o "chapter_terms" : "chapterTerms"
+    "images" o{--}o "page_terms" : "pageTerms"
+    "images" o{--}o "section_terms" : "sectionTerms"
     "fonts" o{--}o "sections" : "sections"
-    "terms" o|--|| "users" : "user"
-    "terms" o|--|o "images" : "image"
-    "terms" o{--}o "dynamics_on_terms" : "dynamics"
-    "terms" o{--}o "chapers_on_terms" : "chapters"
-    "terms" o{--}o "sections" : "sections"
-    "dynamics_on_terms" o|--|| "dynamics" : "dynamic"
-    "dynamics_on_terms" o|--|| "terms" : "term"
-    "chapers_on_terms" o|--|| "chapters" : "chapter"
-    "chapers_on_terms" o|--|| "terms" : "term"
+    "dynamic_terms" o|--|o "images" : "image"
+    "dynamic_terms" o|--|| "dynamics" : "dynamic"
+    "chapter_terms" o|--|o "images" : "image"
+    "chapter_terms" o|--|| "chapters" : "chapter"
+    "page_terms" o|--|| "pages" : "page"
+    "page_terms" o|--|o "images" : "image"
+    "section_terms" o|--|| "sections" : "section"
+    "section_terms" o|--|o "images" : "image"
+    "tags" o{--}o "dynamics_on_tags" : "dynamics"
+    "dynamics_on_tags" o|--|| "dynamics" : "dynamic"
+    "dynamics_on_tags" o|--|| "tags" : "tag"
 ```

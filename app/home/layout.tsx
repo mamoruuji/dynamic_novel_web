@@ -2,9 +2,15 @@
 
 import Image from 'next/image'
 import React from 'react'
-import { Box } from '@mui/material'
-import { LocalHeader, RightDrawer, LeftDrawer, SearchResults } from '@common'
-import { Main, Sort, Selecter, DrawerHeader, LoginButton } from '@partials'
+import { Box, Container } from '@mui/material'
+import {
+  LocalHeader,
+  RightDrawer,
+  LeftDrawer,
+  SearchResults,
+} from '@/common/organisms'
+import { Main, Sort, Search, LoginButton } from '@/common/molecules'
+import { DrawerHeader } from '@/common/atoms'
 
 const dynamics = [
   'タイトル',
@@ -49,7 +55,7 @@ export default function RootLayout({
         <Main>
           <DrawerHeader />
           <DrawerHeader />
-          <Selecter />
+          <Search />
           <Sort />
           <LoginButton />
           {children}

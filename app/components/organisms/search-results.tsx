@@ -1,14 +1,11 @@
+'use client'
 import Image from 'next/image'
 
-import React from 'react'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-import Typography from '@mui/material/Typography'
-import CardMedia from '@mui/material/CardMedia'
+import { Box, Card, CardContent, Typography, CardMedia } from '@mui/material'
 
 export const SearchResults = ({ results }) => {
   return (
-    <div>
+    <Box>
       {results.map((result) => (
         <Card key={result.id} sx={{ display: 'flex', marginBottom: 2 }}>
           <CardMedia
@@ -27,6 +24,6 @@ export const SearchResults = ({ results }) => {
           </CardContent>
         </Card>
       ))}
-    </div>
+    </Box>
   )
 }

@@ -5,7 +5,7 @@ import { Toolbar, Typography, IconButton } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import ContactSupportIcon from '@mui/icons-material/ContactSupport'
 
-import { AppBar } from '@partials'
+import { AppBar } from '@/common/atoms'
 import {
   leftDrawerStateAtom,
   rightDrawerStateAtom,

@@ -3,13 +3,12 @@
 import * as React from 'react'
 import useTheme from '@mui/material/styles/useTheme'
 
-import { DrawerHeader } from '@partials'
-import { leftDrawerStateAtom } from '../../states/drawer-state.ts'
-import { useRecoilState } from 'recoil'
+import { DrawerHeader, Drawer } from '@/common/atoms'
+import { leftDrawerStateAtom } from '@/states/drawer-state.ts'
+import { useState } from 'recoil'
 
 import {
   Box,
-  Drawer,
   Divider,
   IconButton,
   Typography,
@@ -62,19 +61,7 @@ export const LeftDrawer = () => {
   const [leftOpen, setLeftOpen] = useRecoilState(leftDrawerStateAtom)
 
   return (
-    <Drawer
-      variant='persistent'
-      anchor='left'
-      open={leftOpen}
-      width={process.env.NEXT_PUBLIC_DRAWERWIDTH}
-      sx={{
-        flexShrink: '0',
-        '& .MuiDrawer-paper': {
-          top: '64px',
-          width: process.env.NEXT_PUBLIC_DRAWERWIDTH,
-        },
-      }}
-    >
+    <Drawer anchor='left' open={leftOpen}>
       <DrawerHeader className='justify-end'>
         <IconButton onClick={() => setLeftOpen(false)}>
           {theme.direction === 'ltr' ? (

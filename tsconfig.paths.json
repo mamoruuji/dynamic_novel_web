@@ -2,17 +2,17 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@common": [
-        "app/components/common"
+      "@/common/*": [
+        "app/components/*"
       ],
-      "@partials": [
-        "app/components/common/partials"
+      "@/type/*": [
+        "src/types/*"
       ],
-      "@type": [
-        "src/types"
-      ],
-      "@styles/*": [
+      "@/styles/*": [
         "src/styles/*"
+      ],
+      "@/states/*": [
+        "app/states/*"
       ]
     }
   }

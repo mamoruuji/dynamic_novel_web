@@ -3,9 +3,9 @@ import { NextApiRequest, NextApiResponse } from 'next'
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const apiUrl =
-      'http://dynamic_novel_server:8080/proto.dynamic.v1.PageService/ListPages'
+      'http://dynamic_novel_server:8080/proto.dynamic.v1.CategoryService/ListCategorys'
     const response = await fetch(apiUrl, {
-      method: 'POST',
+      method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },

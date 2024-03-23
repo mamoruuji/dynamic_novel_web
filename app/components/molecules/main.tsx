@@ -1,7 +1,7 @@
 'use client'
 
 import { styled, Theme } from '@mui/material/styles'
-import { leaveTransition, enterTransition } from '@common'
+import { DrawerHeader, leaveTransition, enterTransition } from '@/common/atoms'
 import {
   leftDrawerStateAtom,
   rightDrawerStateAtom,

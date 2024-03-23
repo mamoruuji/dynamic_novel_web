@@ -4,8 +4,8 @@ export type DynamicType = {
   overview: string
   userId: string
   published: boolean
-  createdAt: string
-  updatedAt: string
+  createdTime: string
+  updatedTime: string
 }
 
 export type PageType = {

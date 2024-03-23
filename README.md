@@ -17,20 +17,38 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-`npx prisma init`
+psql -U postgres
+
+`yarn prisma init`
 prisma/schema.prisma
 
-`npx prisma db pull`
+`yarn prisma db pull`
 既存 DB のスキーマの取得
 
-`npx prisma migrate dev --name initial-migration --create-only`
+`yarn prisma migrate dev --name initial-migration --create-only`
 初期状態のマイグレーションファイルを生成
 
-`npx prisma migrate dev`
+`yarn prisma migrate dev --name modify-sql-column-length --create-only`
+マイグレーションファイルを更新
+
+`yarn prisma migrate dev`
 作成したマイグレーションファイルを適用
 
-`npx prisma generate`
+`yarn prisma generate`
 ER 図作成
 
 // ts ファイル実行（DB テストデータ作成）
-`node --trace-warnings --loader ts-node/esm prisma/seed.ts`
+// 実行前にpackage.jsonの記載を一時的に更新
+// - "type": "commonjs"
+// + "type": "module"
+`yarn node --loader ts-node/esm prisma/seed.ts`
+
+curl \
+--header "Content-Type: application/json" \
+--data '{"search_keyword": [],"sort_category": "4","sort_order": "asc","filter_keyword": [],"filter_start_date": "","filter_end_date": ""}' \
+http://dynamic_novel_server:8080/proto.todo.v1.DynamicService/ListDynamics
+
+curl \
+--header "Content-Type: application/json" \
+--data '{}' \
+http://dynamic_novel_server:8080/proto.dynamic.v1.SortService/ListSorts
