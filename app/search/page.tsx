@@ -2,16 +2,13 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
+import { useRecoilState } from 'recoil'
 
 import { Alert } from '@mui/material'
 import { Spinner } from '@/common/atoms'
-import { SearchResults, Sort } from './components'
+import { SearchResults } from './components'
 
 import { dynamicsAtom } from '@/states/search-request.ts'
-import { useRecoilValue, useRecoilState } from 'recoil'
-// import { useDynamic } from '/hooks/useDynamic'
-import { GetSearchDynamics } from 'app/actions/search.ts'
-import { useFormState } from 'react-dom'
 
 import {
   searchKeywordsAtom,
@@ -23,14 +20,11 @@ import {
 } from '@/states/search-request.ts'
 
 export default function Page() {
-  // const { dynamics, isLoading, isError } = useDynamic()
   const [dynamics, setDynamics] = useRecoilState(dynamicsAtom)
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState<boolean | null>(false)
 
   useEffect(() => {
-    // console.log('page')
-    // console.log(body)
     ;(async () => {
       try {
         const response = await fetch('/api/dynamic', {

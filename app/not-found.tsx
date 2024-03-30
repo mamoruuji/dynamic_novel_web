@@ -1,3 +1,9 @@
+import { DrawerHeader } from '@/common/atoms'
 export default function NotFound() {
-  return "Couldn't find requested resource"
+  return (
+    <>
+      <DrawerHeader />
+      ページが見つかりません。URLを確認してください。
+    </>
+  )
 }

@@ -1,3 +1,4 @@
+'use client'
 import { useState, useMemo } from 'react'
 import { DatePicker as MuiDatePicker } from '@mui/x-date-pickers'
 import { DateValidationError } from '@mui/x-date-pickers/models'

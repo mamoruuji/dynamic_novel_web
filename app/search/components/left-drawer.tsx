@@ -5,7 +5,7 @@ import { useFormState } from 'react-dom'
 import { useRecoilState } from 'recoil'
 import useTheme from '@mui/material/styles/useTheme'
 
-import { leftDrawerStateAtom } from 'app/states/drawer-state.ts'
+import { leftDrawerStateAtom } from '@/states/drawer-state.ts'
 import { dynamicsAtom } from '@/states/search-request.ts'
 import { Search, Sort, Filter } from '@/common/molecules'
 import { DrawerHeader, Drawer } from '@/common/atoms'

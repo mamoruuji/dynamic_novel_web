@@ -9,7 +9,7 @@ import { AppBar } from '@/common/atoms'
 import {
   leftDrawerStateAtom,
   // rightDrawerStateAtom,
-} from 'app/states/drawer-state.ts'
+} from '@/states/drawer-state.ts'
 import { useRecoilState } from 'recoil'
 
 export const LocalHeader = () => {
