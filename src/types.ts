@@ -1,4 +1,4 @@
-export type DynamicType = {
+export type ListDynamicsType = {
   dynamicId: number
   title: string
   overview: string
@@ -8,9 +8,26 @@ export type DynamicType = {
   updatedTime: string
 }
 
-export type PageType = {
+export type GetDynamicType = {
+  dynamicId: number
+  title: string
+  overview: string
+  userId: string
+  published: boolean
+  chapters: ChapterType[]
+  createdTime: string
+  updatedTime: string
+}
+
+type ChapterType = {
+  chapterId: number
+  title: string
+  order: number
+  pages: PageType[]
+}
+
+type PageType = {
   pageId: number
   title: string
   order: number
-  chapterId: number
 }
