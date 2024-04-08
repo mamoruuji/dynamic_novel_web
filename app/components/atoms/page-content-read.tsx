@@ -1,3 +1,4 @@
+'use client'
 import {
   List,
   ListItemButton,
@@ -6,17 +7,31 @@ import {
   IconButton,
 } from '@mui/material'
 
+import { useSortable } from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
+
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
-import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import CloseIcon from '@mui/icons-material/Close'
 
 export const PageContentRead = ({ page }) => {
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: page.pageId })
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  }
+
   // const daletePageHandle = () => {}
 
   return (
-    <ListItemButton sx={{ pl: 4 }}>
+    <ListItemButton
+      sx={{ pl: 4 }}
+      ref={setNodeRef}
+      style={style}
+      {...listeners}
+      {...attributes}
+    >
       <ListItemIcon>
         <ArrowRightIcon />
       </ListItemIcon>

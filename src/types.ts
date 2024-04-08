@@ -14,19 +14,19 @@ export type GetDynamicType = {
   overview: string
   userId: string
   published: boolean
-  chapters: ChapterType[]
+  chapters: GetChaptersType[]
   createdTime: string
   updatedTime: string
 }
 
-type ChapterType = {
+export type GetChaptersType = {
   chapterId: number
   title: string
   order: number
-  pages: PageType[]
+  pages: GetPagesType[]
 }
 
-type PageType = {
+export type GetPagesType = {
   pageId: number
   title: string
   order: number

@@ -1,30 +1,85 @@
 'use client'
+import { useEffect, useState } from 'react'
 import {
-  Typography,
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Box,
   List,
+  Typography,
 } from '@mui/material'
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  MouseSensor,
+  useSensor,
+  useSensors,
+  DragOverlay,
+} from '@dnd-kit/core'
+import {
+  arrayMove,
+  useSortable,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable'
+import { restrictToVerticalAxis } from '@dnd-kit/modifiers'
+import { CSS } from '@dnd-kit/utilities'
 
-import { PageContentRead } from '@/common/atoms'
-
-import ArrowRightIcon from '@mui/icons-material/ArrowRight'
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
-import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import CloseIcon from '@mui/icons-material/Close'
-
-import { dynamicAtom } from '@/states/search-request.ts'
+import { PageContentRead, AddPageButton } from '@/common/atoms'
+import { chaptersAtom, pagesAtom } from '@/states/search-request.ts'
 import { useRecoilState } from 'recoil'
 
-export const ChapterContentRead = ({ chapter, chapterKey }) => {
-  const [dynamic, setDynamic] = useRecoilState(dynamicAtom)
-  console.log(chapterKey)
-  console.log(chapter)
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+
+export const ChapterContentRead = ({ chapter, chapterKey, id }) => {
+  const [activeId, setActiveId] = useState(null)
+  const [pages, setPages] = useRecoilState(pagesAtom(chapter.chapterId))
+  useEffect(() => {
+    setPages(chapter.pages)
+  }, [])
+
+  // dnd 章部分
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: chapter.chapterId })
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  }
+
+  // dnd ページ部分
+  const sensors = useSensors(
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
+    useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
+  )
+
+  function handleDragStart(event) {
+    setActiveId(event.active.id)
+  }
+
+  function handleDragEnd(event) {
+    const { active, over } = event
+
+    if (over !== null && active.id !== over.id) {
+      const oldIndex = pages.findIndex((page) => page.pageId === active.id)
+      const newIndex = pages.findIndex((page) => page.pageId === over.id)
+      setPages((pages) => arrayMove(pages, oldIndex, newIndex))
+    }
+    setActiveId(null)
+  }
 
   return (
-    <Accordion key={chapterKey}>
+    <Accordion
+      key={chapterKey}
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+    >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls={`panel-content-${chapterKey}`}
@@ -32,16 +87,32 @@ export const ChapterContentRead = ({ chapter, chapterKey }) => {
       >
         <Typography>{chapter.title}</Typography>
       </AccordionSummary>
-      {typeof chapter.pages !== 'undefined' &&
-        chapter.pages.map((page, index) => {
-          return (
-            <AccordionDetails key={index}>
-              <List component='div' disablePadding>
-                <PageContentRead page={page} />
-              </List>
-            </AccordionDetails>
-          )
-        })}
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        modifiers={[restrictToVerticalAxis]}
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+      >
+        {typeof pages !== 'undefined' && (
+          <SortableContext
+            items={pages.map((_, index) => index)}
+            strategy={verticalListSortingStrategy}
+          >
+            {pages.map((page, index) => {
+              return (
+                <AccordionDetails key={index} id={index}>
+                  <List component='div' disablePadding>
+                    <PageContentRead page={page} />
+                  </List>
+                </AccordionDetails>
+              )
+            })}
+          </SortableContext>
+        )}
+        <DragOverlay>{activeId ? <Box id={activeId} /> : null}</DragOverlay>
+      </DndContext>
+      <AddPageButton />
     </Accordion>
   )
 }

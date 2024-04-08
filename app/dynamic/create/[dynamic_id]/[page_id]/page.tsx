@@ -7,11 +7,12 @@ import { Spinner } from '@/common/atoms'
 import { SearchResults } from './components'
 import { Box } from '@mui/material'
 
-import { dynamicAtom } from '@/states/search-request.ts'
+import { dynamicAtom, chaptersAtom } from '@/states/search-request.ts'
 import { useRecoilState } from 'recoil'
 
 export default function Page() {
   const [dynamic, setDynamic] = useRecoilState(dynamicAtom)
+  const [chapters, setChapters] = useRecoilState(chaptersAtom)
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState<boolean | null>(false)
   const { dynamic_id, page_id } = useParams()
@@ -28,6 +29,7 @@ export default function Page() {
           setError('作品がありません')
         } else {
           setDynamic(data)
+          setChapters(data.chapters)
         }
       } catch (error) {
         console.error('API Routesの通信に失敗しました', error)

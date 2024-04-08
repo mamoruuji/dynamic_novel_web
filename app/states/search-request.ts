@@ -1,4 +1,4 @@
-import { atom } from 'recoil'
+import { atom, atomFamily } from 'recoil'
 import { ListDynamicsType } from '@/type/'
 
 export const searchKeywordsAtom = atom<string[]>({
@@ -39,4 +39,14 @@ export const dynamicsAtom = atom<ListDynamicsType[]>({
 export const dynamicAtom = atom<GetDynamicType>({
   key: 'dynamicAtom',
   default: {},
+})
+
+export const chaptersAtom = atom<GetChaptersType[]>({
+  key: 'chaptersAtom',
+  default: [],
+})
+
+export const pagesAtom = atomFamily<GetPagesType[] | null, number>({
+  key: 'pagesAtom',
+  default: [],
 })

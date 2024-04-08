@@ -1,4 +1,5 @@
 export * from './app-bar'
+export * from './add-page-button'
 export * from './date-picker'
 export * from './drawer'
 export * from './drawer-header'

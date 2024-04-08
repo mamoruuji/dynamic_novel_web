@@ -5,9 +5,10 @@ import {
   DndContext,
   closestCenter,
   KeyboardSensor,
-  PointerSensor,
+  MouseSensor,
   useSensor,
   useSensors,
+  DragOverlay,
 } from '@dnd-kit/core'
 import {
   arrayMove,
@@ -15,14 +16,11 @@ import {
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable'
+import { restrictToVerticalAxis } from '@dnd-kit/modifiers'
 
 import { Spinner, ChapterContentRead } from '@/common/atoms'
-import { dynamicAtom } from '@/states/search-request.ts'
+import { chaptersAtom } from '@/states/search-request.ts'
 import { useRecoilState } from 'recoil'
-
-import ArrowRightIcon from '@mui/icons-material/ArrowRight'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import CloseIcon from '@mui/icons-material/Close'
 
 // エラー対策 'Warning: Prop id did not match.'
 import dynamic from 'next/dynamic'
@@ -32,48 +30,60 @@ const SortableItem = dynamic<Record<string, unknown>>(
 )
 
 export const Kanban = () => {
-  const [items, setItems] = useState([1, 2, 3])
-  const [dynamic, setDynamic] = useRecoilState(dynamicAtom)
+  const [activeId, setActiveId] = useState(null)
+  const [chapters, setChapters] = useRecoilState(chaptersAtom)
   const sensors = useSensors(
-    useSensor(PointerSensor),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
     }),
+    useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
   )
+
+  function handleDragStart(event) {
+    setActiveId(event.active.id)
+  }
 
   function handleDragEnd(event) {
     const { active, over } = event
 
-    if (active.id !== over.id) {
-      setItems((items) => {
-        const oldIndex = items.indexOf(active.id)
-        const newIndex = items.indexOf(over.id)
-
-        return arrayMove(items, oldIndex, newIndex)
-      })
+    if (over !== null && active.id !== over.id) {
+      const oldIndex = chapters.findIndex(
+        (chapter) => chapter.chapterId === active.id,
+      )
+      const newIndex = chapters.findIndex(
+        (chapter) => chapter.chapterId === over.id,
+      )
+      setChapters((chapters) => arrayMove(chapters, oldIndex, newIndex))
     }
+    setActiveId(null)
   }
 
-  if (Object.keys(dynamic).length === 0) return <Spinner />
+  if (Object.keys(chapters).length === 0) return <Spinner />
 
   return (
-    // <DndContext
-    //   sensors={sensors}
-    //   collisionDetection={closestCenter}
-    //   onDragEnd={handleDragEnd}
-    // >
-    //   <SortableContext items={items} strategy={verticalListSortingStrategy}>
-    //     {items.map((id) => (
-    //       <SortableItem key={id} id={id} />
-    //     ))}
-    //   </SortableContext>
-    // </DndContext>
-    <Box>
-      {dynamic.chapters.map((chapter, key) => {
-        return (
-          <ChapterContentRead chapter={chapter} chapterKey={key} key={key} />
-        )
-      })}
-    </Box>
+    <DndContext
+      sensors={sensors}
+      collisionDetection={closestCenter}
+      modifiers={[restrictToVerticalAxis]}
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+    >
+      <SortableContext
+        items={chapters.map((_, index) => index)}
+        strategy={verticalListSortingStrategy}
+      >
+        {chapters.map((chapter, key) => {
+          return (
+            <ChapterContentRead
+              chapter={chapter}
+              chapterKey={key}
+              key={key}
+              id={key}
+            />
+          )
+        })}
+      </SortableContext>
+      <DragOverlay>{activeId ? <Box id={activeId} /> : null}</DragOverlay>
+    </DndContext>
   )
 }

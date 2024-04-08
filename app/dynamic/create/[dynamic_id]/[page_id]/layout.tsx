@@ -3,12 +3,8 @@
 import Image from 'next/image'
 import React from 'react'
 import { Container } from '@mui/material'
-import {
-  LocalHeader,
-  RightDrawer,
-  LeftDrawer,
-  SearchResults,
-} from '@/common/organisms'
+import { LocalHeader, RightDrawer, SearchResults } from '@/common/organisms'
+import { LeftDrawer } from './components'
 import { Main } from '@/common/molecules'
 import { DrawerHeader } from '@/common/atoms'
 
