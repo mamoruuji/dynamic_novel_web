@@ -8,7 +8,7 @@ import useTheme from '@mui/material/styles/useTheme'
 import { leftDrawerStateAtom } from '@/states/drawer-state.ts'
 import { dynamicsAtom } from '@/states/search-request.ts'
 import { Search, Sort, Filter } from '@/common/molecules'
-import { DrawerHeader, Drawer } from '@/common/atoms'
+import { DrawerHeaderWithIcon, Drawer } from '@/common/atoms'
 import { GetSearchDynamics } from 'app/actions/search.ts'
 
 import {
@@ -48,15 +48,10 @@ export const LeftDrawer = () => {
 
   return (
     <Drawer anchor='left' open={leftOpen}>
-      <DrawerHeader className='justify-end'>
-        <IconButton onClick={() => setLeftOpen(false)}>
-          {theme.direction === 'ltr' ? (
-            <ChevronLeftIcon />
-          ) : (
-            <ChevronRightIcon />
-          )}
-        </IconButton>
-      </DrawerHeader>
+      <DrawerHeaderWithIcon
+        className='justify-end'
+        onClick={() => setLeftOpen(false)}
+      />
       <Divider />
       <Box sx={{ mx: 'auto' }}>
         <form action={formAction}>

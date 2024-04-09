@@ -4,7 +4,7 @@ import * as React from 'react'
 import useTheme from '@mui/material/styles/useTheme'
 import Image from 'next/image'
 
-import { DrawerHeader, Drawer } from '@/common/atoms'
+import { DrawerHeaderWithIcon, Drawer } from '@/common/atoms'
 import { rightDrawerStateAtom } from '@/states/drawer-state.ts'
 import { useRecoilState } from 'recoil'
 
@@ -21,11 +21,6 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material'
-
-import ArrowRightIcon from '@mui/icons-material/ArrowRight'
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
-import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 type itemType = {
   name: string
@@ -48,15 +43,10 @@ export const RightDrawer = () => {
 
   return (
     <Drawer anchor='right' open={rightOpen}>
-      <DrawerHeader className='justify-start'>
-        <IconButton onClick={() => setRightOpen(false)}>
-          {theme.direction === 'rtl' ? (
-            <ChevronLeftIcon />
-          ) : (
-            <ChevronRightIcon />
-          )}
-        </IconButton>
-      </DrawerHeader>
+      <DrawerHeaderWithIcon
+        className='justify-start'
+        onClose={() => setRightOpen(false)}
+      />
       <Divider />
       <Image
         src={item.url}
