@@ -13,7 +13,7 @@ import { CSS } from '@dnd-kit/utilities'
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import CloseIcon from '@mui/icons-material/Close'
 
-export const PageContentRead = ({ page }) => {
+export const ContentsPage = ({ page }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: page.pageId })
 

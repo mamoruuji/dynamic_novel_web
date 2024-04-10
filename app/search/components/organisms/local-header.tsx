@@ -1,6 +1,5 @@
 'use client'
 
-import * as React from 'react'
 import { Toolbar, Typography, IconButton } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import ContactSupportIcon from '@mui/icons-material/ContactSupport'
@@ -8,13 +7,13 @@ import ContactSupportIcon from '@mui/icons-material/ContactSupport'
 import { AppBar } from '@/common/atoms'
 import {
   leftDrawerStateAtom,
-  // rightDrawerStateAtom,
+  rightDrawerStateAtom,
 } from '@/states/drawer-state.ts'
 import { useRecoilState } from 'recoil'
 
 export const LocalHeader = () => {
   const [leftOpen, setLeftOpen] = useRecoilState(leftDrawerStateAtom)
-  // const [rightOpen, setRightOpen] = useRecoilState(rightDrawerStateAtom)
+  const [rightOpen, setRightOpen] = useRecoilState(rightDrawerStateAtom)
 
   return (
     <>
@@ -32,7 +31,7 @@ export const LocalHeader = () => {
           <Typography variant='h6' noWrap component='div' sx={{ m: '0 auto' }}>
             個別ヘッダー
           </Typography>
-          {/* <IconButton
+          <IconButton
             color='inherit'
             aria-label='open drawer'
             edge='end'
@@ -40,7 +39,7 @@ export const LocalHeader = () => {
             sx={{ ml: 2, ...(rightOpen && { display: 'none' }) }}
           >
             <ContactSupportIcon />
-          </IconButton> */}
+          </IconButton>
         </Toolbar>
       </AppBar>
     </>

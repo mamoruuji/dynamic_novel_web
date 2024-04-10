@@ -1,9 +1,7 @@
 'use client'
 
-import useTheme from '@mui/material/styles/useTheme'
-
 import { DrawerHeaderWithIcon, Drawer } from '@/common/atoms'
-import { Kanban } from '@/common/molecules'
+import { Contexts } from '../molecules'
 import { leftDrawerStateAtom } from '@/states/drawer-state.ts'
 import { useRecoilState } from 'recoil'
 
@@ -13,7 +11,6 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 
 export const LeftDrawer = () => {
-  const theme = useTheme()
   const [leftOpen, setLeftOpen] = useRecoilState(leftDrawerStateAtom)
 
   return (
@@ -24,9 +21,8 @@ export const LeftDrawer = () => {
       />
       <Divider />
       <Box>
-        <Kanban />
+        <Contexts />
       </Box>
-      <Divider />
     </Drawer>
   )
 }

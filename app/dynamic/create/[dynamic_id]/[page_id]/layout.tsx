@@ -1,18 +1,12 @@
 'use client'
 
-import Image from 'next/image'
-import React from 'react'
 import { Container } from '@mui/material'
 import { LocalHeader, RightDrawer, SearchResults } from '@/common/organisms'
-import { LeftDrawer } from './components'
-import { Main } from '@/common/molecules'
+import { LeftDrawer } from './components/organismes/'
 import { DrawerHeader } from '@/common/atoms'
+import { Main } from '@/common/molecules'
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <>
       <LeftDrawer />

@@ -1,12 +1,10 @@
 'use client'
-import Link from 'next/link'
-import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 
 import { Alert } from '@mui/material'
 import { Spinner } from '@/common/atoms'
-import { SearchResults } from './components'
+import { SearchResults } from './components/organisms/'
 
 import { dynamicsAtom } from '@/states/search-request.ts'
 

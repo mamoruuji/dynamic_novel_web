@@ -1,8 +1,6 @@
 'use client'
 
-import Image from 'next/image'
-import React from 'react'
-import { Box, Container } from '@mui/material'
+import { Container } from '@mui/material'
 import {
   LocalHeader,
   RightDrawer,
@@ -24,11 +22,7 @@ const dynamics = [
   '感想数',
 ]
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: ReactNode }) {
   const searchResults = [
     {
       id: 1,
@@ -48,23 +42,19 @@ export default function RootLayout({
   return (
     <>
       <LeftDrawer />
-      <Box>
-        <LocalHeader />
-      </Box>
-      <Box>
-        <Main>
-          <DrawerHeader />
-          <DrawerHeader />
-          <Search />
-          <Sort />
-          <LoginButton />
-          {children}
+      <LocalHeader />
+      <Main>
+        <DrawerHeader />
+        <DrawerHeader />
+        <Search />
+        <Sort />
+        <LoginButton />
+        {children}
 
-          <Container className='summary'>
-            <SearchResults results={searchResults} />
-          </Container>
-        </Main>
-      </Box>
+        <Container className='summary'>
+          <SearchResults results={searchResults} />
+        </Container>
+      </Main>
       <RightDrawer />
     </>
   )

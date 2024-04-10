@@ -17,14 +17,14 @@ export const Main = styled('main')(({ theme }) => {
     padding: theme.spacing(3),
     position: 'relative',
     ...leaveTransition(theme, 'margin'),
-    // marginLeft: `-${process.env.NEXT_PUBLIC_DRAWERWIDTH}`,
+    marginLeft: 0,
     ...(leftOpen && {
-      // marginLeft: 0,
+      marginLeft: `${process.env.NEXT_PUBLIC_DRAWERWIDTH}`,
       ...enterTransition(theme, 'margin'),
     }),
-    // marginRight: `-${process.env.NEXT_PUBLIC_DRAWERWIDTH}`,
+    marginRight: 0,
     ...(rightOpen && {
-      // marginRight: 0,
+      marginRight: `${process.env.NEXT_PUBLIC_DRAWERWIDTH}`,
       ...enterTransition(theme, 'margin'),
     }),
   }

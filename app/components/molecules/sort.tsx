@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import {
-  Box,
   FormControl,
   FormControlLabel,
   FormLabel,
@@ -12,7 +11,6 @@ import {
   RadioGroup,
   Select,
   Stack,
-  Typography,
 } from '@mui/material'
 import { SelectChangeEvent } from '@mui/material/Select'
 

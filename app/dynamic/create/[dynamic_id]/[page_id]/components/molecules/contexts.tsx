@@ -18,18 +18,12 @@ import {
 } from '@dnd-kit/sortable'
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers'
 
-import { Spinner, ChapterContentRead } from '@/common/atoms'
+import { ContentsChapter } from '../atoms'
+import { Spinner } from '@/common/atoms'
 import { chaptersAtom } from '@/states/search-request.ts'
 import { useRecoilState } from 'recoil'
 
-// エラー対策 'Warning: Prop id did not match.'
-import dynamic from 'next/dynamic'
-const SortableItem = dynamic<Record<string, unknown>>(
-  () => import('@/common/atoms').then((module) => module.SortableItem),
-  { ssr: false },
-)
-
-export const Kanban = () => {
+export const Contexts = () => {
   const [activeId, setActiveId] = useState(null)
   const [chapters, setChapters] = useRecoilState(chaptersAtom)
   const sensors = useSensors(
@@ -74,7 +68,7 @@ export const Kanban = () => {
       >
         {chapters.map((chapter, key) => {
           return (
-            <ChapterContentRead
+            <ContentsChapter
               chapter={chapter}
               chapterKey={key}
               key={key}

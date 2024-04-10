@@ -1,6 +1,5 @@
 'use client'
 
-import * as React from 'react'
 import { Toolbar, Typography, IconButton } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import ContactSupportIcon from '@mui/icons-material/ContactSupport'

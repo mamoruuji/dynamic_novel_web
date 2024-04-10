@@ -27,13 +27,13 @@ import {
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers'
 import { CSS } from '@dnd-kit/utilities'
 
-import { PageContentRead, AddPageButton } from '@/common/atoms'
+import { ContentsPage, AddPageButton } from './'
 import { chaptersAtom, pagesAtom } from '@/states/search-request.ts'
 import { useRecoilState } from 'recoil'
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
-export const ChapterContentRead = ({ chapter, chapterKey, id }) => {
+export const ContentsChapter = ({ chapter, chapterKey, id }) => {
   const [activeId, setActiveId] = useState(null)
   const [pages, setPages] = useRecoilState(pagesAtom(chapter.chapterId))
   useEffect(() => {
@@ -103,7 +103,7 @@ export const ChapterContentRead = ({ chapter, chapterKey, id }) => {
               return (
                 <AccordionDetails key={index} id={index}>
                   <List component='div' disablePadding>
-                    <PageContentRead page={page} />
+                    <ContentsPage page={page} />
                   </List>
                 </AccordionDetails>
               )

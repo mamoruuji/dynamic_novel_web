@@ -3,7 +3,6 @@
 import { useEffect, useRef } from 'react'
 import { useFormState } from 'react-dom'
 import { useRecoilState } from 'recoil'
-import useTheme from '@mui/material/styles/useTheme'
 
 import { leftDrawerStateAtom } from '@/states/drawer-state.ts'
 import { dynamicsAtom } from '@/states/search-request.ts'
@@ -11,22 +10,9 @@ import { Search, Sort, Filter } from '@/common/molecules'
 import { DrawerHeaderWithIcon, Drawer } from '@/common/atoms'
 import { GetSearchDynamics } from 'app/actions/search.ts'
 
-import {
-  Box,
-  Button,
-  Divider,
-  FormGroup,
-  IconButton,
-  Stack,
-} from '@mui/material'
-
-import ArrowRightIcon from '@mui/icons-material/ArrowRight'
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
-import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import { Box, Button, Divider, FormGroup, Stack } from '@mui/material'
 
 export const LeftDrawer = () => {
-  const theme = useTheme()
   const [leftOpen, setLeftOpen] = useRecoilState(leftDrawerStateAtom)
   const [dynamics, setDynamics] = useRecoilState(dynamicsAtom)
   const ref = useRef(true)
@@ -50,7 +36,7 @@ export const LeftDrawer = () => {
     <Drawer anchor='left' open={leftOpen}>
       <DrawerHeaderWithIcon
         className='justify-end'
-        onClick={() => setLeftOpen(false)}
+        onClose={() => setLeftOpen(false)}
       />
       <Divider />
       <Box sx={{ mx: 'auto' }}>
