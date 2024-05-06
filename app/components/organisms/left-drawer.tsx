@@ -7,7 +7,7 @@ import { useRecoilState } from 'recoil'
 import { leftDrawerStateAtom } from '@/states/drawer-state.ts'
 import { dynamicAtom } from '@/states/search-request.ts'
 import { DrawerHeaderWithIcon, Drawer } from '@/common/atoms'
-import { Contexts } from '@/common/molecules'
+// import { Contents } from '@/common/molecules'
 
 import { Box, Divider } from '@mui/material'
 
@@ -20,7 +20,6 @@ export const LeftDrawer = () => {
   const ref = useRef(true)
   const ref2 = useRef(true)
   // const [formState, formAction] = useFormState(GetSearchDynamics, {})
-  // console.dir(dynamic)
   const chapterPages = {
     章1: ['ページ1-1', 'ページ1-2', 'ページ1-3'],
     章2: [],
@@ -36,8 +35,6 @@ export const LeftDrawer = () => {
     章2653453: [],
     章2333: [],
   }
-
-  // console.dir(chapterPages)
 
   // useEffect(() => {
   //   if (ref.current) {

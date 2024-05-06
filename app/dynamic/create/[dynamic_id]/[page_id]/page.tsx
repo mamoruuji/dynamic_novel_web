@@ -2,10 +2,8 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation'
 
-import { Alert } from '@mui/material'
-import { Spinner } from '@/common/atoms'
+import { Alert, Box, CircularProgress } from '@mui/material'
 import { SearchResults } from './components'
-import { Box } from '@mui/material'
 
 import { dynamicAtom, chaptersAtom } from '@/states/search-request.ts'
 import { useRecoilState } from 'recoil'
@@ -20,7 +18,7 @@ export default function Page() {
   useEffect(() => {
     ;(async () => {
       try {
-        const apiUrl = `/api/contents?dynamic_id=${dynamic_id}&page_id=${page_id}`
+        const apiUrl = `/api/dynamic?dynamic_id=${dynamic_id}&page_id=${page_id}`
         const response = await fetch(apiUrl, {
           cache: 'no-store',
         })
@@ -46,7 +44,7 @@ export default function Page() {
         {error}
       </Alert>
     )
-  if (isLoading) return <Spinner />
+  if (isLoading) return <CircularProgress />
 
   return (
     <>

@@ -17,14 +17,16 @@ export const Main = styled('main')(({ theme }) => {
     padding: theme.spacing(3),
     position: 'relative',
     ...leaveTransition(theme, 'margin'),
-    marginLeft: 0,
+    // marginLeft: 0,
+    marginLeft: `${process.env.NEXT_PUBLIC_DRAWERWIDTH}`,
     ...(leftOpen && {
-      marginLeft: `${process.env.NEXT_PUBLIC_DRAWERWIDTH}`,
+      // marginLeft: `${process.env.NEXT_PUBLIC_DRAWERWIDTH}`,
       ...enterTransition(theme, 'margin'),
     }),
-    marginRight: 0,
+    // marginRight: 0,
+    marginRight: `${process.env.NEXT_PUBLIC_DRAWERWIDTH}`,
     ...(rightOpen && {
-      marginRight: `${process.env.NEXT_PUBLIC_DRAWERWIDTH}`,
+      // marginRight: `${process.env.NEXT_PUBLIC_DRAWERWIDTH}`,
       ...enterTransition(theme, 'margin'),
     }),
   }

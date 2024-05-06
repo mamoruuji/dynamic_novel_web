@@ -1,8 +1,8 @@
 'use client'
 
 import { DrawerHeaderWithIcon, Drawer } from '@/common/atoms'
-import { Contexts } from '../molecules'
 import { leftDrawerStateAtom } from '@/states/drawer-state.ts'
+import { Contents } from '../molecules/Contents'
 import { useRecoilState } from 'recoil'
 
 import { Box, Divider, IconButton } from '@mui/material'
@@ -21,7 +21,7 @@ export const LeftDrawer = () => {
       />
       <Divider />
       <Box>
-        <Contexts />
+        <Contents />
       </Box>
     </Drawer>
   )

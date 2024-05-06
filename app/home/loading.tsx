@@ -1,5 +1,5 @@
-import { Spinner } from '@/common/atoms'
+import { CircularProgress } from '@mui/material'
 
 export default function Loading() {
-  return <Spinner />
+  return <CircularProgress />
 }

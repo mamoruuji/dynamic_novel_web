@@ -2,8 +2,7 @@
 import { useState, useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 
-import { Alert } from '@mui/material'
-import { Spinner } from '@/common/atoms'
+import { Alert, CircularProgress } from '@mui/material'
 import { SearchResults } from './components/organisms/'
 
 import { dynamicsAtom } from '@/states/search-request.ts'
@@ -25,7 +24,7 @@ export default function Page() {
   useEffect(() => {
     ;(async () => {
       try {
-        const response = await fetch('/api/dynamic', {
+        const response = await fetch('/api/search', {
           cache: 'no-store',
         })
         const data = await response.json()
@@ -49,6 +48,6 @@ export default function Page() {
         {error}
       </Alert>
     )
-  if (isLoading) return <Spinner />
+  if (isLoading) return <CircularProgress />
   return <SearchResults />
 }

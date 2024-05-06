@@ -19,11 +19,11 @@ import {
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers'
 
 import { ContentsChapter } from '../atoms'
-import { Spinner } from '@/common/atoms'
+import { CircularProgress } from '@/common/atoms'
 import { chaptersAtom } from '@/states/search-request.ts'
 import { useRecoilState } from 'recoil'
 
-export const Contexts = () => {
+export const Contents = () => {
   const [activeId, setActiveId] = useState(null)
   const [chapters, setChapters] = useRecoilState(chaptersAtom)
   const sensors = useSensors(
@@ -52,7 +52,7 @@ export const Contexts = () => {
     setActiveId(null)
   }
 
-  if (Object.keys(chapters).length === 0) return <Spinner />
+  if (Object.keys(chapters).length === 0) return <CircularProgress />
 
   return (
     <DndContext
