@@ -6,7 +6,13 @@ module.exports = {
     // require("@tailwindcss/forms"),
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        mPlus1: ["var(--gothic-font)"],
+        sawarabiMincho: ["var(--mincho-font)"],
+        shipporiAntiqueB1: ["var(--antique-font)"],
+      },
+    },
   },
   corePlugins: {
     preflight: false, // リセットCSSの無効化

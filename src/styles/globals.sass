@@ -46,23 +46,19 @@ figure
 
 // 吹き出し左右共通のスタイリング
 .section
-  display: inline-block
+  display: inline-flex
   box-sizing: content-box
-
-.left-side, .right-side
-  width: 100%
-  margin: 40px 0
-  resize: vertical
+  padding: 40px 0
 
 .icon
-  width: 120px
+  min-width: 120px
   height: 100%
   text-align: center
 
   img
     width: 100px
     height: 100px
-    border: solid 3px hsl(0, 0%, 90%)
+    border: solid 3px var(--mui-palette-common-onBackground)
     border-radius: 25%
 
   p
@@ -70,170 +66,144 @@ figure
     word-wrap: break-word
 
 .bubble
-  max-width: 70%
   padding: 20px
+  margin: 0 20px
   display: inline-block
-  background: hsl(0, 0%, 90%)
   position: relative
+  min-width: 600px
+  background: var(--mui-palette-grey-500)
 
+.left-talk-bubble
   &::before
     content: ""
     width: 0
     height: 0
     border: 10px solid transparent
     position: absolute
+    float: left
+    top: 15px
+    left: -19px
+    border-right-color: var(--mui-palette-grey-500)
 
-.think-bubble
-  max-width: 70%
-  padding: 20px
+.right-talk-bubble
+  &::before
+    content: ""
+    width: 0
+    height: 0
+    border: 10px solid transparent
+    position: absolute
+    float: right
+    top: 15px
+    right: -19px
+    border-left-color: var(--mui-palette-grey-500)
+
+.left-thought-bubble
   border-radius: 10px
-  display: inline-block
-  background: hsl(0, 0%, 90%)
-  position: relative
 
   &::before
     content: ""
     width: 15px
     height: 15px
     border-radius: 50%
-    background: hsl(0, 0%, 90%)
+    background: var(--mui-palette-grey-500)
     position: absolute
+    float: left
+    top: 15px
+    left: -18px
 
   &::after
     content: ""
     width: 10px
     height: 10px
     border-radius: 50%
-    background: hsl(0, 0%, 90%)
+    background: var(--mui-palette-grey-500)
     position: absolute
-
-.zigzag-bubble
-  max-width: 80%
-  display: inline-block
-  position: relative
-
-.left-side
-  .icon
     float: left
-    margin-left: 10px
+    top: 25px
+    left: -28px
 
-  .bubble
-    float: left
-    top: 10px
-    left: 20px
-
-    &::before
-      float: left
-      top: 15px
-      left: -20px
-      border-right-color: hsl(0, 0%, 90%)
-
-  .think-bubble
-    float: left
-    top: 10px
-    left: 20px
-
-    &::before
-      float: left
-      top: 15px
-      left: -20px
-
-    &::after
-      float: left
-      top: 25px
-      left: -28px
-
-  .zigzag-box, .zigzag-top, .zigzag-bottom
-    float: left
-    top: 10px
-    left: 40px
-
-.right-side
-  .icon
-    float: right
-    margin-right: 10px
-
-  .bubble
-    float: right
-    top: 10px
-    right: 20px
-
-    &::before
-      float: right
-      top: 15px
-      right: -20px
-      border-left-color: hsl(0, 0%, 90%)
-
-  .think-bubble
-    float: right
-    top: 10px
-    right: 20px
-
-    &::before
-      float: right
-      top: 15px
-      right: -18px
-
-    &::after
-      float: right
-      top: 25px
-      right: -28px
-
-  .zigzag-box, .zigzag-top, .zigzag-bottom
-    float: right
-    top: 10px
-    right: 40px
-
-.zigzag-box
-  max-width: 75%
-  padding: 20px
-  background: hsl(0, 0%, 90%)
-  display: inline-block
-  position: relative
+.right-thought-bubble
+  border-radius: 10px
 
   &::before
-    background: linear-gradient(315deg, hsl(0, 0%, 90%) 50%, transparent 52%), linear-gradient(45deg, transparent 50%, hsl(0, 0%, 90%) 52%)
-    background-size: 30px 30px
     content: ""
+    width: 15px
+    height: 15px
+    border-radius: 50%
+    background: var(--mui-palette-grey-500)
     position: absolute
-    top: 0
-    left: -30px
-    height: 100%
-    width: 30px
+    float: right
+    top: 15px
+    right: -18px
 
   &::after
-    background: linear-gradient(45deg, hsl(0, 0%, 90%) 50%, transparent 52%), linear-gradient(315deg, transparent 50%, hsl(0, 0%, 90%) 52%)
-    background-size: 30px 30px
+    content: ""
+    width: 10px
+    height: 10px
+    border-radius: 50%
+    background: var(--mui-palette-grey-500)
+    position: absolute
+    float: right
+    top: 25px
+    right: -28px
+
+.shout-bubble-column
+  margin: 0 20px -30px 20px
+  display: inline-block
+  position: relative
+  min-width: 600px
+
+  &::before
+    display: inline-block
+    background: linear-gradient(45deg, var(--mui-palette-grey-500) 50%, transparent 50%), linear-gradient(-45deg, var(--mui-palette-grey-500) 50%, transparent 50%)
+    background-size: 32px
+    content: ""
+    position: absolute
+    top: -16px
+    height: 32px
+    width: -webkit-fill-available
+
+  &::after
+    display: inline-block
+    background: linear-gradient(135deg, var(--mui-palette-grey-500) 50%, transparent 50%), linear-gradient(-135deg, var(--mui-palette-grey-500) 50%, transparent 50%)
+    background-size: 32px
+    content: ""
+    position: absolute
+    bottom: -16px
+    height: 32px
+    width: -webkit-fill-available
+
+.shout-bubble-row
+  padding: 20px
+  display: block
+  min-width: 600px
+  height: 100%
+  background: var(--mui-palette-grey-500)
+
+  &::before
+    background: linear-gradient(315deg, var(--mui-palette-grey-500) 50%, transparent 52%), linear-gradient(45deg, transparent 50%, var(--mui-palette-grey-500) 50%)
+    background-size: 32px 32px
     content: ""
     position: absolute
     top: 0
-    right: -30px
+    left: -16px
     height: 100%
-    width: 30px
+    width: 32px
 
-.zigzag-top, .zigzag-bottom
-  position: relative
-  width: 75%
-  height: 0px
+  &::after
+    background: linear-gradient(45deg, var(--mui-palette-grey-500) 50%, transparent 52%), linear-gradient(315deg, transparent 50%, var(--mui-palette-grey-500) 50%)
+    background-size: 32px 32px
+    content: ""
+    position: absolute
+    top: 0
+    right: -16px
+    height: 100%
+    width: 32px
+
+.text
+  padding: 20px
+  margin: 0 20px
   display: inline-block
-  background-color: hsl(0, 0%, 90%)
-
-.zigzag-top::before
-  height: 20px
-  content: ""
-  position: absolute
-  left: 0
-  width: 100%
-  top: -20px
-  background: linear-gradient(45deg, hsl(0, 0%, 90%) 10px, transparent 0), linear-gradient(315deg, hsl(0, 0%, 90%) 10px, transparent 0)
-  background-size: 20px 20px
-
-.zigzag-bottom::after
-  height: 20px
-  content: ""
-  position: absolute
-  left: 0
-  width: 100%
-  bottom: -20px
-  background: linear-gradient(135deg, hsl(0, 0%, 90%) 10px, transparent 0), linear-gradient(225deg, hsl(0, 0%, 90%) 10px, transparent 0)
-  background-size: 20px 20px
+  position: relative
+  min-width: 840px
+  background: var(--mui-palette-grey-500)
