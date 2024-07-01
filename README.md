@@ -1,15 +1,7 @@
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+[API routes](https://nextjs.org/docs/api-routes/introduction)
 
 ## Deploy on Vercel
 
@@ -17,6 +9,7 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
+## メモ
 psql -U postgres
 
 `yarn prisma init`
@@ -28,7 +21,7 @@ prisma/schema.prisma
 `yarn prisma migrate dev --name initial-migration --create-only`
 初期状態のマイグレーションファイルを生成
 
-`yarn prisma migrate dev --name modify-sql-column-length --create-only`
+`yarn prisma migrate dev --name redesign-types --create-only`
 マイグレーションファイルを更新
 
 `yarn prisma migrate dev`
@@ -38,17 +31,16 @@ prisma/schema.prisma
 ER 図作成
 
 // ts ファイル実行（DB テストデータ作成）
-// 実行前にpackage.jsonの記載を一時的に更新
-// - "type": "commonjs"
-// + "type": "module"
-`yarn node --loader ts-node/esm prisma/seed.ts`
+`yarn node --import ./ts-node.register.mjs prisma/seed`
 
 curl \
 --header "Content-Type: application/json" \
 --data '{"search_keyword": [],"sort_category": "4","sort_order": "asc","filter_keyword": [],"filter_start_date": "","filter_end_date": ""}' \
 http://dynamic_novel_server:8080/proto.todo.v1.DynamicService/ListDynamics
 
-curl \
---header "Content-Type: application/json" \
---data '{}' \
-http://dynamic_novel_server:8080/proto.dynamic.v1.SortService/ListSorts
+warning @mermaid-js/mermaid-cli > puppeteer@19.11.1: < 22.6.4 is no longer supported
+warning eslint > file-entry-cache > flat-cache > rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+warning eslint > file-entry-cache > flat-cache > rimraf > glob@7.2.3: Glob versions prior to v9 are no longer supported
+warning eslint > file-entry-cache > flat-cache > rimraf > glob > inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+warning eslint > @humanwhocodes/config-array@0.11.14: Use @eslint/config-array instead
+warning eslint > @humanwhocodes/config-array > @humanwhocodes/object-schema@2.0.3: Use @eslint/object-schema instead

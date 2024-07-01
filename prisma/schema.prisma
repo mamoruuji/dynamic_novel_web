@@ -42,11 +42,12 @@ model Dynamic {
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 
-  user        User             @relation(fields: [userId], references: [id])
+  image       Image?
+  user        User          @relation(fields: [userId], references: [id])
   chapters    Chapter[]
   impressions Impression[]
   marks       Mark[]
-  terms       DynamicTerm[]
+  terms       Term[]
   tags        DynamicsOnTags[]
 
   @@unique([userId, title])
@@ -63,7 +64,7 @@ model Chapter {
 
   dynamic Dynamic       @relation(fields: [dynamicId], references: [id])
   pages   Page[]
-  terms   ChapterTerm[]
+  terms   Term[]
 
   @@unique([dynamicId, title])
   @@unique([dynamicId, order])
@@ -80,7 +81,7 @@ model Page {
 
   chapter  Chapter    @relation(fields: [chapterId], references: [id])
   sections Section[]
-  terms    PageTerm[]
+  terms    Term[]
 
   @@unique([chapterId, title])
   @@unique([chapterId, order])
@@ -88,28 +89,31 @@ model Page {
 }
 
 model Section {
-  id         Int      @id @default(autoincrement()) @map(name: "section_id")
-  order      Int
-  frameColor String?  @map(name: "frame_color") @db.VarChar(7)
-  text       String?
-  textColor  String?  @map(name: "text_color") @db.VarChar(7)
-  textSize   Int?     @map(name: "text_size")
-  pageId     Int      @map(name: "page_id")
-  typeId     Int?     @map(name: "type_id")
-  positionId Int?     @map(name: "position_id")
-  bubbleId   Int?     @map(name: "bubble_id")
-  imageId    Int?     @map(name: "image_id")
-  fontId     Int?     @map(name: "font_id")
-  createdAt  DateTime @default(now()) @map(name: "created_at")
-  updatedAt  DateTime @updatedAt @map(name: "updated_at")
+  id              Int      @id @default(autoincrement()) @map(name: "section_id")
+  name            String   @default("") @db.VarChar(255)
+  order           Int
+  typeSectionId   Int      @default(1) @map(name: "type_of_section_id")
+  typePositionId  Int      @default(1) @map(name: "type_of_position_id")
+  typeAnimationId Int      @default(1) @map(name: "type_of_animation_id")
+  imageId         Int?     @map(name: "image_id")
+  frameColorId    Int      @default(1) @map(name: "frame_color_id")
+  typeFontId      Int      @default(1) @map(name: "type_of_font_id")
+  text            String   @default("")
+  textColorId     Int      @default(1) @map(name: "text_color_id")
+  textSize        Int      @default(16) @map(name: "text_size")
+  pageId          Int      @map(name: "page_id")
+  createdAt       DateTime @default(now()) @map(name: "created_at")
+  updatedAt       DateTime @updatedAt @map(name: "updated_at")
 
-  page     Page         @relation(fields: [pageId], references: [id])
-  type     Type?        @relation(fields: [typeId], references: [id])
-  position Position?    @relation(fields: [positionId], references: [id])
-  bubble   Bubble?      @relation(fields: [bubbleId], references: [id])
-  image    Image?       @relation(fields: [imageId], references: [id])
-  font     Font?        @relation(fields: [fontId], references: [id])
-  term     SectionTerm?
+  page          Page           @relation(fields: [pageId], references: [id])
+  type          TypeSection    @relation(fields: [typeSectionId], references: [id])
+  position      TypePosition?  @relation(fields: [typePositionId], references: [id])
+  animation     TypeAnimation? @relation(fields: [typeAnimationId], references: [id])
+  font          TypeFont       @relation(fields: [typeFontId], references: [id])
+  frameColor    TypeColor      @relation("frameColor", fields: [frameColorId], references: [id])
+  textColor     TypeColor      @relation("textColor", fields: [textColorId], references: [id])
+  term          Term[]
+  image         Image?         @relation(fields: [imageId], references: [id])
 
   @@unique([order, pageId])
   @@map(name: "sections")
@@ -123,9 +127,9 @@ model Folder {
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 
-  user     User     @relation(fields: [userId], references: [id])
-  parent   Folder?  @relation("ParentChilds", fields: [parentId], references: [id])
-  children Folder[] @relation("ParentChilds")
+  user     User        @relation(fields: [userId], references: [id])
+  parent   Folder?     @relation("ParentChilds", fields: [parentId], references: [id])
+  children Folder[]    @relation("ParentChilds")
   images   Image[]
 
   @@unique([name, userId])
@@ -163,134 +167,119 @@ model Mark {
   @@map(name: "marks")
 }
 
-model Type {
-  id        Int      @id @default(autoincrement()) @map(name: "type_id")
-  name      String   @unique @db.VarChar(10)
+model TypeSection {
+  id        Int      @id @default(autoincrement()) @map(name: "type_of_section_id")
+  name      String   @unique @db.VarChar(30)
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 
   sections Section[]
 
-  @@map(name: "types")
+  @@map(name: "type_of_sections")
 }
 
-model Position {
-  id        Int      @id @default(autoincrement()) @map(name: "position_id")
-  name      String   @unique @db.VarChar(10)
+model TypePosition {
+  id        Int      @id @default(autoincrement()) @map(name: "type_of_position_id")
+  name      String   @unique @db.VarChar(30)
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 
   sections Section[]
 
-  @@map(name: "positions")
+  @@map(name: "type_of_positions")
 }
 
-model Bubble {
-  id        Int      @id @default(autoincrement()) @map(name: "bubble_id")
-  name      String   @unique @db.VarChar(10)
+model TypeAnimation {
+  id        Int      @id @default(autoincrement()) @map(name: "type_of_animation_id")
+  name      String   @unique @db.VarChar(30)
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 
   sections Section[]
 
-  @@map(name: "bubbles")
+  @@map(name: "type_of_animations")
+}
+
+model TypeColor {
+  id        Int      @id @default(autoincrement()) @map(name: "type_of_color_id")
+  name      String   @unique @db.VarChar(30)
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+  frame Section[] @relation("frameColor")
+  text  Section[] @relation("textColor")
+
+  @@map(name: "type_of_colors")
 }
 
 model Image {
   id        Int      @id @default(autoincrement()) @map(name: "image_id")
   name      String   @db.VarChar(255)
+  path      String   @db.VarChar(2048)
   userId    String   @map(name: "user_id")
-  folderId  Int?     @default(0) @map(name: "folder_id")
+  typeId    Int      @default(1) @map(name: "type_of_Image_id")
+  dynamicId Int?     @map(name: "dynamic_id") @unique
+  folderId  Int?     @map(name: "folder_id")
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 
-  user         User          @relation(fields: [userId], references: [id])
-  folder       Folder?       @relation(fields: [folderId], references: [id])
-  sections     Section[]
-  dynamicTerms DynamicTerm[]
-  chapterTerms ChapterTerm[]
-  pageTerms    PageTerm[]
-  sectionTerms SectionTerm[]
+  user     User      @relation(fields: [userId], references: [id])
+  type     TypeImage @relation(fields: [typeId], references: [id])
+  dynamic  Dynamic?  @relation(fields: [dynamicId], references: [id])
+  section  Section[]
+  folder   Folder?   @relation(fields: [folderId], references: [id])
+  term     Term[]
 
   @@unique([name, userId])
   @@map(name: "images")
 }
 
-model Font {
-  id        Int      @id @default(autoincrement()) @map(name: "font_id")
+model TypeImage {
+  id        Int      @id @default(autoincrement()) @map(name: "type_of_image_id")
+  name      String   @unique @db.VarChar(50)
+  ratio     String
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+  image Image[]
+
+  @@map(name: "type_of_images")
+}
+
+model TypeFont {
+  id        Int      @id @default(autoincrement()) @map(name: "type_of_font_id")
   name      String   @unique @db.VarChar(50)
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 
   sections Section[]
 
-  @@map(name: "fonts")
+  @@map(name: "type_of_fonts")
 }
 
-model DynamicTerm {
-  id        Int      @id @default(autoincrement()) @map(name: "dynamic_term_id")
+model Term {
+  id        Int      @id @default(autoincrement()) @map(name: "term_id")
   name      String   @db.VarChar(50)
   text      String   @db.VarChar(200)
   order     Int
-  dynamicId Int      @map(name: "dynamic_id")
+  dynamicId Int?     @map(name: "dynamic_id")
+  chapterId Int?     @map(name: "chapter_id")
+  pageId    Int?     @map(name: "page_id")
+  sectionId Int?     @map(name: "section_id")
   imageId   Int?     @map(name: "image_id")
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 
-  image   Image?  @relation(fields: [imageId], references: [id])
-  dynamic Dynamic @relation(fields: [dynamicId], references: [id])
+  dynamic Dynamic?    @relation(fields: [dynamicId], references: [id])
+  chapter Chapter?    @relation(fields: [chapterId], references: [id])
+  page    Page?       @relation(fields: [pageId], references: [id])
+  section Section?    @relation(fields: [sectionId], references: [id])
+  image   Image?      @relation(fields: [imageId], references: [id])
 
   @@unique([order, dynamicId])
-  @@map(name: "dynamic_terms")
-}
-
-model ChapterTerm {
-  id        Int      @id @default(autoincrement()) @map(name: "chapter_term_id")
-  name      String   @db.VarChar(50)
-  text      String   @db.VarChar(200)
-  order     Int
-  chapterId Int      @map(name: "chapter_id")
-  imageId   Int?     @map(name: "image_id")
-  createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
-
-  image   Image?  @relation(fields: [imageId], references: [id])
-  chapter Chapter @relation(fields: [chapterId], references: [id])
-
   @@unique([order, chapterId])
-  @@map(name: "chapter_terms")
-}
-
-model PageTerm {
-  id        Int      @id @default(autoincrement()) @map(name: "page_term_id")
-  name      String   @db.VarChar(50)
-  text      String   @db.VarChar(200)
-  order     Int
-  pageId    Int      @map(name: "chapter_id")
-  imageId   Int?     @map(name: "image_id")
-  createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
-
-  page  Page   @relation(fields: [pageId], references: [id])
-  image Image? @relation(fields: [imageId], references: [id])
-
   @@unique([order, pageId])
-  @@map(name: "page_terms")
-}
-
-model SectionTerm {
-  id        Int      @id @default(autoincrement()) @map(name: "section_term_id")
-  name      String   @db.VarChar(50)
-  text      String   @db.VarChar(200)
-  sectionId Int      @unique @map(name: "section_id")
-  imageId   Int?     @map(name: "image_id")
-  createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
-
-  section Section @relation(fields: [sectionId], references: [id])
-  image   Image?  @relation(fields: [imageId], references: [id])
-
-  @@map(name: "section_terms")
+  @@map(name: "terms")
 }
 
 model Tag {
@@ -317,12 +306,12 @@ model DynamicsOnTags {
   @@map(name: "dynamics_on_tags")
 }
 
-model Sort {
-  id        Int      @id @default(autoincrement()) @map(name: "sort_id")
+model TypeSort {
+  id        Int      @id @default(autoincrement()) @map(name: "type_of_sort_id")
   name      String   @db.VarChar(30)
   sql       String   @db.VarChar(50)
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 
-  @@map(name: "sorts")
+  @@map(name: "type_of_sorts")
 }

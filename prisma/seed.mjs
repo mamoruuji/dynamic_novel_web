@@ -1,28 +1,21 @@
-import 'ts-node/register'
 import { PrismaClient } from '@prisma/client'
 import {
   middleUserData,
   heavyUserData,
   lightUserData,
   readerUserData,
-} from './data/user.ts'
+} from './data/user'
 
 const prisma = new PrismaClient()
+// const prisma = new PrismaClient({
+//   log: ["query"],
+// })
 
 const deleteAllData = async () => {
   try {
     await prisma.dynamicsOnTags.deleteMany()
-
-    await prisma.dynamicTerm.deleteMany()
-    await prisma.chapterTerm.deleteMany()
-    await prisma.pageTerm.deleteMany()
-    await prisma.sectionTerm.deleteMany()
-    await prisma.$queryRaw`ALTER SEQUENCE dynamic_terms_dynamic_term_id_seq RESTART WITH 1;`
-    await prisma.$queryRaw`ALTER SEQUENCE chapter_terms_chapter_term_id_seq RESTART WITH 1;`
-    await prisma.$queryRaw`ALTER SEQUENCE page_terms_page_term_id_seq RESTART WITH 1;`
-    await prisma.$queryRaw`ALTER SEQUENCE section_terms_section_term_id_seq RESTART WITH 1;`
-
     await prisma.tag.deleteMany()
+    await prisma.term.deleteMany()
     await prisma.mark.deleteMany()
     await prisma.impression.deleteMany()
     await prisma.image.deleteMany()
@@ -32,7 +25,9 @@ const deleteAllData = async () => {
     await prisma.chapter.deleteMany()
     await prisma.dynamic.deleteMany()
     await prisma.user.deleteMany()
+    await prisma.$queryRaw`ALTER SEQUENCE dynamics_on_tags_dynamics_on_tags_id_seq RESTART WITH 1;`
     await prisma.$queryRaw`ALTER SEQUENCE tags_tag_id_seq RESTART WITH 1;`
+    await prisma.$queryRaw`ALTER SEQUENCE terms_term_id_seq RESTART WITH 1;`
     await prisma.$queryRaw`ALTER SEQUENCE marks_mark_id_seq RESTART WITH 1;`
     await prisma.$queryRaw`ALTER SEQUENCE impressions_impression_id_seq RESTART WITH 1;`
     await prisma.$queryRaw`ALTER SEQUENCE images_image_id_seq RESTART WITH 1;`
@@ -52,13 +47,13 @@ const deleteAllData = async () => {
 const createCreaterUserData = async () => {
   try {
     await prisma.user.create({
-      data: middleUserData,
-    })
-    await prisma.user.create({
       data: lightUserData,
     })
     await prisma.user.create({
       data: heavyUserData,
+    })
+    await prisma.user.create({
+      data: middleUserData,
     })
     console.log('著者ユーザの登録完了')
   } catch (error) {
@@ -115,7 +110,6 @@ async function main() {
           children: true,
         },
       },
-      images: true,
     },
   })
   console.log('著者データ作成 完了:', creaters)
@@ -134,18 +128,6 @@ async function main() {
 
   console.log('読者データ作成 完了:', readers)
 
-  // const heavyUserTerms = await prisma.dynamic.findMany({
-  //   where: {
-  //     name: { contains: 'user2-dynamic1' },
-  //   },
-  // })
-
-  // const heavyUserOneTerm = await prisma.dynamic.findMany({
-  //   where: {
-  //     name: { contains: 'user2-dynamic2' },
-  //   },
-  // })
-  // console.log('読者データ作成 完了:', readers)
   console.log('リレーション作成 開始')
   console.log('感想とお気に入りのリレーションを作成')
   console.log('reader1:感想とお気に入り（非公開）を1件づつ所持')
@@ -196,7 +178,7 @@ async function main() {
   })
 
   creaters[1].dynamics.map(
-    async (dynamic: { id: number }) =>
+    async (dynamic) =>
       await prisma.user.update({
         where: {
           id: readers[1].id,
@@ -211,15 +193,11 @@ async function main() {
       }),
   )
 
-  function getRandom(min: number, max: number) {
-    var random = Math.floor(Math.random() * (max + 1 - min)) + min
-
-    return random
-  }
+  const getRandom = (min, max) => Math.floor(Math.random() * (max + 1 - min)) + min
 
   console.log('reader3:感想n件と、お気に入り1件所持')
   creaters[2].dynamics.map(
-    async (dynamic: { id: number }, key: number) =>
+    async (dynamic, key) =>
       await prisma.user.update({
         where: {
           id: readers[2].id,
@@ -253,216 +231,48 @@ async function main() {
   console.log('感想とお気に入りのリレーションを作成 完了')
 
   console.log('一般ユーザのリレーション作成')
-  // await prisma.dynamicsOnTerms.create({
-  //   data: {
-  //     dynamicId: creaters[0].dynamics[0].id,
-  //     termId: creaters[0].terms[0].id,
-  //   },
-  // })
-
-  // await prisma.chaptersOnTerms.create({
-  //   data: {
-  //     chapterId: creaters[0].dynamics[0].chapters[0].id,
-  //     termId: creaters[0].terms[0].id,
-  //   },
-  // })
-
   console.log('ヘビーユーザのリレーション作成')
-  console.log(`用語-作品 多対一`)
-  const dynamicTerms = await prisma.dynamicTerm.findMany({
+
+  console.log(`用語-作品 章 ページ 区間`)
+  setRelationTermToImage('dynamic')
+  setRelationTermToImage('chapter')
+  setRelationTermToImage('page')
+  setRelationTermToImage('section')
+
+  console.log(`画像-区間`)
+  const sectionIconImage = await prisma.image.findFirst({
     where: {
-      text: { contains: 'dynamic1' },
+      name: { contains: 'icon' },
     },
   })
-  console.log(1)
 
-  const author2dynamic1 = await prisma.dynamic.findMany({
+  await prisma.section.updateMany({
     where: {
-      title: 'id2-dynamic1',
-    },
-    include: {
-      user: true,
-    },
-  })
-  console.log(2)
-
-  const dynamicTermImages = await prisma.image.findMany({
-    where: {
-      name: { contains: 'dynamic1' },
-    },
-  })
-
-  dynamicTerms.map(async (term: any, key: number) => {
-    await prisma.dynamicsOnTerms.create({
-      data: {
-        dynamicId: author2dynamic1[0].id,
-        termId: term.id,
-      },
-    })
-
-    console.log(term.userId)
-    console.log(term.order)
-    console.log(author2dynamic1[0].id)
-    await prisma.term.update({
-      where: {
-        id: term.id,
-      },
-      data: {
-        dynamicId: author2dynamic1[0].id,
-        imageId: dynamicTermImages[key].id,
-      },
-    })
-  })
-
-  console.log(`用語-章 複数`)
-  const chapterTerms = await prisma.term.findMany({
-    where: {
-      text: { contains: 'chapter1' },
-    },
-  })
-
-  const author2chapter1 = await prisma.chapter.findMany({
-    where: {
-      title: 'id2-dynamic1-chapter1',
-    },
-  })
-
-  const chapterTermImages = await prisma.image.findMany({
-    where: {
-      name: { contains: 'chapter1' },
-    },
-  })
-
-  chapterTerms.map(async (term: any, key: number) => {
-    await prisma.chaptersOnTerms.create({
-      data: {
-        chapterId: author2chapter1[0].id,
-        termId: term.id,
-      },
-    })
-
-    await prisma.term.update({
-      where: {
-        id: term.id,
-      },
-      data: {
-        dynamicId: author2chapter1[0].id,
-        imageId: chapterTermImages[key].id,
-      },
-    })
-    console.log(key)
-  })
-
-  console.log(`用語-作品 1`)
-  const dynamicOneTerm = await prisma.term.findMany({
-    where: {
-      name: 'id20-dynamic0',
-    },
-  })
-
-  const author2dynamic2 = await prisma.dynamic.findMany({
-    where: {
-      title: 'id3-dynamic2',
-    },
-  })
-
-  const dynamicOneTermImage = await prisma.image.findMany({
-    where: {
-      name: { contains: 'dynamic0' },
-    },
-  })
-
-  await prisma.dynamicsOnTerms.create({
-    data: {
-      dynamicId: author2dynamic2[0].id,
-      termId: dynamicOneTerm[0].id,
-    },
-  })
-
-  await prisma.term.update({
-    where: {
-      id: dynamicOneTerm[0].id,
+      name: 'id3-dynamic1-chapter1-page1-section2',
     },
     data: {
-      imageId: dynamicOneTermImage[0].id,
+      imageId: sectionIconImage.id,
     },
   })
 
-  console.log(`用語-章 1`)
-  const chapterOneTerm = await prisma.term.findMany({
+  const sectionIllustrationImage = await prisma.image.findFirst({
     where: {
-      name: 'id21-chapter0',
+      name: { contains: 'illustration' },
     },
   })
 
-  const author2chapter2 = await prisma.chapter.findMany({
+  await prisma.section.updateMany({
     where: {
-      title: 'id3-dynamic1-chapter2',
-    },
-  })
-
-  const chapterOneTermImage = await prisma.image.findMany({
-    where: {
-      name: { contains: 'chapter0' },
-    },
-  })
-
-  await prisma.chaptersOnTerms.create({
-    data: {
-      chapterId: author2chapter2[0].id,
-      termId: chapterOneTerm[0].id,
-    },
-  })
-
-  await prisma.term.update({
-    where: {
-      id: chapterOneTerm[0].id,
+      name: 'id9-dynamic1-chapter1-page1-section8',
     },
     data: {
-      imageId: chapterOneTermImage[0].id,
-    },
-  })
-
-  console.log(`用語-区間 1`)
-  const sectionOneTerm = await prisma.term.findMany({
-    where: {
-      name: 'id22-section0',
-    },
-  })
-
-  const author2section2 = await prisma.section.findMany({
-    where: {
-      text: 'id2-dynamic1-chapter1-page1-section1',
-    },
-  })
-
-  const sectionOneTermImage = await prisma.image.findMany({
-    where: {
-      name: { contains: 'section0' },
-    },
-  })
-
-  await prisma.section.update({
-    where: {
-      id: author2section2[0].id,
-    },
-    data: {
-      termId: sectionOneTerm[0].id,
-    },
-  })
-
-  await prisma.term.update({
-    where: {
-      id: sectionOneTerm[0].id,
-    },
-    data: {
-      imageId: sectionOneTermImage[0].id,
+      imageId: sectionIllustrationImage.id,
     },
   })
 
   console.log(`画像-フォルダ`)
 
-  const parentFolderId = await prisma.folder.findMany({
+  const parentFolder = await prisma.folder.findFirst({
     where: {
       name: 'id2-parent1',
     },
@@ -473,11 +283,11 @@ async function main() {
       name: 'id24-parent1.png',
     },
     data: {
-      folderId: parentFolderId[0].id,
+      folderId: parentFolder.id,
     },
   })
 
-  const childFolderId = await prisma.folder.findMany({
+  const childFolder = await prisma.folder.findFirst({
     where: {
       name: 'id11-parent1-child1',
     },
@@ -488,11 +298,11 @@ async function main() {
       name: 'id25-child1.png',
     },
     data: {
-      folderId: childFolderId[0].id,
+      folderId: childFolder.id,
     },
   })
 
-  const grandchildFolderId = await prisma.folder.findMany({
+  const grandchildFolder = await prisma.folder.findFirst({
     where: {
       name: 'id22-child1-grandchild1',
     },
@@ -503,21 +313,23 @@ async function main() {
       name: 'id26-grandchild1.png',
     },
     data: {
-      folderId: grandchildFolderId[0].id,
+      folderId: grandchildFolder.id,
     },
   })
 
   console.log(`フォルダ-階層 リレーション`)
+  console.log(`親-子 複数`)
   await prisma.folder.updateMany({
     where: {
       name: { contains: 'parent1-child' },
     },
     data: {
-      parentId: parentFolderId[0].id,
+      parentId: parentFolder.id,
     },
   })
 
-  const parentFolder2Id = await prisma.folder.findMany({
+  console.log(`親-子 一つ`)
+  const parentFolder2 = await prisma.folder.findFirst({
     where: {
       name: 'id3-parent2',
     },
@@ -528,20 +340,22 @@ async function main() {
       name: 'id21-parent2-child1',
     },
     data: {
-      parentId: parentFolder2Id[0].id,
+      parentId: parentFolder2.id,
     },
   })
 
+  console.log(`子-孫 複数`)
   await prisma.folder.updateMany({
     where: {
-      name: { contains: 'child1-grandchild' },
+      name: 'child1-grandchild' ,
     },
     data: {
-      parentId: childFolderId[0].id,
+      parentId: childFolder.id,
     },
   })
 
-  const childFolder2Id = await prisma.folder.findMany({
+  console.log(`子-孫 一つ`)
+  const childFolder2 = await prisma.folder.findFirst({
     where: {
       name: 'id12-parent1-child2',
     },
@@ -552,11 +366,106 @@ async function main() {
       name: 'id31-child2-grandchild1',
     },
     data: {
-      parentId: childFolder2Id[0].id,
+      parentId: childFolder2.id,
+    },
+  })
+
+  console.log(`表紙画像`)
+  await prisma.dynamic.update({
+    where: {
+      id: creaters[0].dynamics[0].id,
+    },
+    data: {
+      image: {
+        create: {
+          name: 'id1-user1-dynamic1.png',
+          user: { connect: { id: creaters[0].id } },
+          path: 'id1-creater1/',
+          type: { connect: { name: 'cover' } },
+        },
+      },
+    },
+  })
+
+  await prisma.dynamic.update({
+    where: {
+      id: creaters[1].dynamics[0].id,
+    },
+    data: {
+      image: {
+        create: {
+          name: 'id2-user2-dynamic1.png',
+          user: { connect: { id: creaters[1].id } },
+          path: 'id2-creater2/',
+          type: { connect: { name: 'cover' } },
+        },
+      },
+    },
+  })
+
+  console.log(`タグ`)
+  const tag = await prisma.tag.findFirst({
+    where: {
+      name: 'id11-user2-dynamic2-tag11',
+    },
+  })
+
+  await prisma.dynamic.update({
+    where: {
+      id: creaters[1].dynamics[0].id,
+    },
+    data: {
+      tags: {
+        create: {
+          tag: {
+            connect: { id: tag.id },
+          },
+        },
+      },
     },
   })
 
   console.log('テストデータ作成 完了')
+}
+
+const setRelationTermToImage = async (text) => {
+  const terms = await prisma.term.findMany({
+    where: {
+      text: { contains: text + '1' },
+    },
+  })
+
+  const termImages = await prisma.image.findMany({
+    where: {
+      name: { contains: 'user2-terms-' + text + '1.png' },
+    },
+  })
+
+  terms.map(async (term, key) => {
+    await prisma.term.update({
+      where: {
+        id: term.id,
+      },
+      data: {
+        imageId: termImages[key].id,
+      },
+    })
+  })
+
+  const oneTermImage = await prisma.image.findFirst({
+    where: {
+      name: { contains: 'user2-term-' + text + '2.png' },
+    },
+  })
+
+  await prisma.term.updateMany({
+    where: {
+      name: { contains: text + '2' },
+    },
+    data: {
+      imageId: oneTermImage.id,
+    },
+  })
 }
 
 main()

@@ -40,11 +40,11 @@ erDiagram
 
   "sections" {
     Int id "🗝️"
+    String name 
     Int order 
-    String frameColor "❓"
-    String text "❓"
-    String textColor "❓"
-    Int textSize "❓"
+    String text 
+    Int textSize 
+    Int termId "❓"
     DateTime createdAt 
     DateTime updatedAt 
     }
@@ -75,7 +75,7 @@ erDiagram
     }
   
 
-  "types" {
+  "type_of_sections" {
     Int id "🗝️"
     String name 
     DateTime createdAt 
@@ -83,7 +83,7 @@ erDiagram
     }
   
 
-  "positions" {
+  "type_of_positions" {
     Int id "🗝️"
     String name 
     DateTime createdAt 
@@ -91,7 +91,15 @@ erDiagram
     }
   
 
-  "bubbles" {
+  "type_of_animations" {
+    Int id "🗝️"
+    String name 
+    DateTime createdAt 
+    DateTime updatedAt 
+    }
+  
+
+  "type_of_colors" {
     Int id "🗝️"
     String name 
     DateTime createdAt 
@@ -102,12 +110,22 @@ erDiagram
   "images" {
     Int id "🗝️"
     String name 
+    String path 
     DateTime createdAt 
     DateTime updatedAt 
     }
   
 
-  "fonts" {
+  "type_of_images" {
+    Int id "🗝️"
+    String name 
+    String ratio 
+    DateTime createdAt 
+    DateTime updatedAt 
+    }
+  
+
+  "type_of_fonts" {
     Int id "🗝️"
     String name 
     DateTime createdAt 
@@ -115,40 +133,11 @@ erDiagram
     }
   
 
-  "dynamic_terms" {
-    Int id "🗝️"
-    String name 
-    String text 
-    Int order 
-    DateTime createdAt 
-    DateTime updatedAt 
-    }
-  
-
-  "chapter_terms" {
-    Int id "🗝️"
-    String name 
-    String text 
-    Int order 
-    DateTime createdAt 
-    DateTime updatedAt 
-    }
-  
-
-  "page_terms" {
+  "terms" {
     Int id "🗝️"
     String name 
     String text 
     Int order 
-    DateTime createdAt 
-    DateTime updatedAt 
-    }
-  
-
-  "section_terms" {
-    Int id "🗝️"
-    String name 
-    String text 
     DateTime createdAt 
     DateTime updatedAt 
     }
@@ -169,7 +158,7 @@ erDiagram
     }
   
 
-  "sorts" {
+  "type_of_sorts" {
     Int id "🗝️"
     String name 
     String sql 
@@ -182,25 +171,28 @@ erDiagram
     "users" o{--}o "impressions" : "impressions"
     "users" o{--}o "folders" : "folders"
     "users" o{--}o "images" : "images"
+    "dynamics" o{--}o "images" : "image"
     "dynamics" o|--|| "users" : "user"
     "dynamics" o{--}o "chapters" : "chapters"
     "dynamics" o{--}o "impressions" : "impressions"
     "dynamics" o{--}o "marks" : "marks"
-    "dynamics" o{--}o "dynamic_terms" : "terms"
+    "dynamics" o{--}o "terms" : "terms"
     "dynamics" o{--}o "dynamics_on_tags" : "tags"
     "chapters" o|--|| "dynamics" : "dynamic"
     "chapters" o{--}o "pages" : "pages"
-    "chapters" o{--}o "chapter_terms" : "terms"
+    "chapters" o{--}o "terms" : "terms"
     "pages" o|--|| "chapters" : "chapter"
     "pages" o{--}o "sections" : "sections"
-    "pages" o{--}o "page_terms" : "terms"
+    "pages" o{--}o "terms" : "terms"
     "sections" o|--|| "pages" : "page"
-    "sections" o|--|o "types" : "type"
-    "sections" o|--|o "positions" : "position"
-    "sections" o|--|o "bubbles" : "bubble"
+    "sections" o|--|| "type_of_sections" : "type"
+    "sections" o|--|o "type_of_positions" : "position"
+    "sections" o|--|o "type_of_animations" : "animation"
+    "sections" o|--|| "type_of_fonts" : "font"
+    "sections" o|--|| "type_of_colors" : "frameColor"
+    "sections" o|--|| "type_of_colors" : "textColor"
+    "sections" o{--}o "terms" : "term"
     "sections" o|--|o "images" : "image"
-    "sections" o|--|o "fonts" : "font"
-    "sections" o{--}o "section_terms" : "term"
     "folders" o|--|| "users" : "user"
     "folders" o|--|o "folders" : "parent"
     "folders" o{--}o "folders" : "children"
@@ -209,25 +201,24 @@ erDiagram
     "impressions" o|--|| "dynamics" : "dynamic"
     "marks" o|--|| "users" : "user"
     "marks" o|--|| "dynamics" : "dynamic"
-    "types" o{--}o "sections" : "sections"
-    "positions" o{--}o "sections" : "sections"
-    "bubbles" o{--}o "sections" : "sections"
+    "type_of_sections" o{--}o "sections" : "sections"
+    "type_of_positions" o{--}o "sections" : "sections"
+    "type_of_animations" o{--}o "sections" : "sections"
+    "type_of_colors" o{--}o "sections" : "frame"
+    "type_of_colors" o{--}o "sections" : "text"
     "images" o|--|| "users" : "user"
+    "images" o|--|| "type_of_images" : "type"
+    "images" o|--|o "dynamics" : "dynamic"
+    "images" o{--}o "sections" : "section"
     "images" o|--|o "folders" : "folder"
-    "images" o{--}o "sections" : "sections"
-    "images" o{--}o "dynamic_terms" : "dynamicTerms"
-    "images" o{--}o "chapter_terms" : "chapterTerms"
-    "images" o{--}o "page_terms" : "pageTerms"
-    "images" o{--}o "section_terms" : "sectionTerms"
-    "fonts" o{--}o "sections" : "sections"
-    "dynamic_terms" o|--|o "images" : "image"
-    "dynamic_terms" o|--|| "dynamics" : "dynamic"
-    "chapter_terms" o|--|o "images" : "image"
-    "chapter_terms" o|--|| "chapters" : "chapter"
-    "page_terms" o|--|| "pages" : "page"
-    "page_terms" o|--|o "images" : "image"
-    "section_terms" o|--|| "sections" : "section"
-    "section_terms" o|--|o "images" : "image"
+    "images" o{--}o "terms" : "term"
+    "type_of_images" o{--}o "images" : "image"
+    "type_of_fonts" o{--}o "sections" : "sections"
+    "terms" o|--|o "dynamics" : "dynamic"
+    "terms" o|--|o "chapters" : "chapter"
+    "terms" o|--|o "pages" : "page"
+    "terms" o|--|o "sections" : "section"
+    "terms" o|--|o "images" : "image"
     "tags" o{--}o "dynamics_on_tags" : "dynamics"
     "dynamics_on_tags" o|--|| "dynamics" : "dynamic"
     "dynamics_on_tags" o|--|| "tags" : "tag"
