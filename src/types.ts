@@ -31,3 +31,9 @@ export type GetPagesType = {
   title: string
   order: number
 }
+
+export type GeTermsType = {
+  termId: number
+  name: string
+  order: number
+}

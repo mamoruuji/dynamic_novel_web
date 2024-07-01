@@ -2,6 +2,36 @@
 @tailwind components
 @tailwind utilities
 
+:root
+  --default: hsl(0, 0%, 73%)
+  --white: hsl(0, 0%, 0%)
+  --brack: hsl(0,  0%, 100%)
+  --red: hsl(0,  100%, 73%)
+  --orenge: hsl(30, 100%, 73%)
+  --yellow: hsl(60, 100%, 73%)
+  --yellow-green: hsl(90, 100%, 73%)
+  --green: hsl(120, 100%, 73%)
+  --light-green: hsl(150, 100%, 73%)
+  --light-blue: hsl(180, 100%, 73%)
+  --blue: hsl(210, 100%, 73%)
+  --dark-blue: hsl(240, 100%, 73%)
+  --purple: hsl(270, 100%, 73%)
+  --pink: hsl(300, 100%, 73%)
+  --red-purple: hsl(330, 100%, 73%)
+  --border-default: hsl(0, 0%, 73%)
+  --border-red: hsl(0,  100%, 37%)
+  --border-orenge: hsl(30, 100%, 37%)
+  --border-yellow: hsl(60, 100%, 37%)
+  --border-yellow-green: hsl(90, 100%, 37%)
+  --border-green: hsl(120, 100%, 37%)
+  --border-light-green: hsl(150, 100%, 37%)
+  --border-light-blue: hsl(180, 100%, 37%)
+  --border-blue: hsl(210, 100%, 37%)
+  --border-dark-blue: hsl(240, 100%, 37%)
+  --border-purple: hsl(270, 100%, 37%)
+  --border-pink: hsl(300, 100%, 37%)
+  --border-red-purple: hsl(330, 100%, 37%)
+
 html, body
   padding: 0
   margin: 0
@@ -14,24 +44,16 @@ a
 *
   box-sizing: border-box
 
-.globalAppBar
-  top: 0
-  z-index: 1100
-
-.localAppBar
-  top: 64px
-  z-index: 1000
-
 .main
   margin-top: 128px
 
-.summary
+// .summary
   // white-space: nowrap; // 改行しない
   // text-overflow: ellipsis; // …を表示
-  overflow: hidden // はみ出る部分を非表示
-  display: -webkit-box
-  -webkit-box-orient: vertical
-  -webkit-line-clamp: 5 // 任意の行数を指定
+  // overflow: hidden // はみ出る部分を非表示
+  // display: -webkit-box
+  // -webkit-box-orient: vertical
+  // -webkit-line-clamp: 5 // 任意の行数のみ それ以降は …を表示
 
 figure
   width: 300px
@@ -43,167 +65,3 @@ figure
 .cover-image
   max-width: 100%
   max-height: 100%
-
-// 吹き出し左右共通のスタイリング
-.section
-  display: inline-flex
-  box-sizing: content-box
-  padding: 40px 0
-
-.icon
-  min-width: 120px
-  height: 100%
-  text-align: center
-
-  img
-    width: 100px
-    height: 100px
-    border: solid 3px var(--mui-palette-common-onBackground)
-    border-radius: 25%
-
-  p
-    margin: 0px
-    word-wrap: break-word
-
-.bubble
-  padding: 20px
-  margin: 0 20px
-  display: inline-block
-  position: relative
-  min-width: 600px
-  background: var(--mui-palette-grey-500)
-
-.left-talk-bubble
-  &::before
-    content: ""
-    width: 0
-    height: 0
-    border: 10px solid transparent
-    position: absolute
-    float: left
-    top: 15px
-    left: -19px
-    border-right-color: var(--mui-palette-grey-500)
-
-.right-talk-bubble
-  &::before
-    content: ""
-    width: 0
-    height: 0
-    border: 10px solid transparent
-    position: absolute
-    float: right
-    top: 15px
-    right: -19px
-    border-left-color: var(--mui-palette-grey-500)
-
-.left-thought-bubble
-  border-radius: 10px
-
-  &::before
-    content: ""
-    width: 15px
-    height: 15px
-    border-radius: 50%
-    background: var(--mui-palette-grey-500)
-    position: absolute
-    float: left
-    top: 15px
-    left: -18px
-
-  &::after
-    content: ""
-    width: 10px
-    height: 10px
-    border-radius: 50%
-    background: var(--mui-palette-grey-500)
-    position: absolute
-    float: left
-    top: 25px
-    left: -28px
-
-.right-thought-bubble
-  border-radius: 10px
-
-  &::before
-    content: ""
-    width: 15px
-    height: 15px
-    border-radius: 50%
-    background: var(--mui-palette-grey-500)
-    position: absolute
-    float: right
-    top: 15px
-    right: -18px
-
-  &::after
-    content: ""
-    width: 10px
-    height: 10px
-    border-radius: 50%
-    background: var(--mui-palette-grey-500)
-    position: absolute
-    float: right
-    top: 25px
-    right: -28px
-
-.shout-bubble-column
-  margin: 0 20px -30px 20px
-  display: inline-block
-  position: relative
-  min-width: 600px
-
-  &::before
-    display: inline-block
-    background: linear-gradient(45deg, var(--mui-palette-grey-500) 50%, transparent 50%), linear-gradient(-45deg, var(--mui-palette-grey-500) 50%, transparent 50%)
-    background-size: 32px
-    content: ""
-    position: absolute
-    top: -16px
-    height: 32px
-    width: -webkit-fill-available
-
-  &::after
-    display: inline-block
-    background: linear-gradient(135deg, var(--mui-palette-grey-500) 50%, transparent 50%), linear-gradient(-135deg, var(--mui-palette-grey-500) 50%, transparent 50%)
-    background-size: 32px
-    content: ""
-    position: absolute
-    bottom: -16px
-    height: 32px
-    width: -webkit-fill-available
-
-.shout-bubble-row
-  padding: 20px
-  display: block
-  min-width: 600px
-  height: 100%
-  background: var(--mui-palette-grey-500)
-
-  &::before
-    background: linear-gradient(315deg, var(--mui-palette-grey-500) 50%, transparent 52%), linear-gradient(45deg, transparent 50%, var(--mui-palette-grey-500) 50%)
-    background-size: 32px 32px
-    content: ""
-    position: absolute
-    top: 0
-    left: -16px
-    height: 100%
-    width: 32px
-
-  &::after
-    background: linear-gradient(45deg, var(--mui-palette-grey-500) 50%, transparent 52%), linear-gradient(315deg, transparent 50%, var(--mui-palette-grey-500) 50%)
-    background-size: 32px 32px
-    content: ""
-    position: absolute
-    top: 0
-    right: -16px
-    height: 100%
-    width: 32px
-
-.text
-  padding: 20px
-  margin: 0 20px
-  display: inline-block
-  position: relative
-  min-width: 840px
-  background: var(--mui-palette-grey-500)

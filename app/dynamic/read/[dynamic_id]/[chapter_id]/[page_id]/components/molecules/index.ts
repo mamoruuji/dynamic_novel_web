@@ -1,0 +1,6 @@
+export * from './monologue/monologue'
+export * from './line-bubble/line-bubble'
+export * from './thought-bubble/thought-bubble'
+export * from './shout-bubble/shout-bubble'
+export * from './illustration/illustration'
+export * from './icon-space/icon-space'

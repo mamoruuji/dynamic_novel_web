@@ -1,4 +1,4 @@
-import { atom, atomFamily } from 'recoil'
+import { atom, atomFamily, selector } from 'recoil'
 import { ListDynamicsType } from '@/type/'
 
 export const searchKeywordsAtom = atom<string[]>({
@@ -46,7 +46,22 @@ export const chaptersAtom = atom<GetChaptersType[]>({
   default: [],
 })
 
+export const chapterAtom = atom<GetChapterType>({
+  key: 'chapterAtom',
+  default: {},
+})
+
 export const pagesAtom = atomFamily<GetPagesType[] | null, number>({
   key: 'pagesAtom',
+  default: [],
+})
+
+export const pageAtom = atom<GetpageType>({
+  key: 'pageAtom',
+  default: {},
+})
+
+export const termsAtom = atomFamily<GetTermsType[] | null, string>({
+  key: 'termsAtom',
   default: [],
 })

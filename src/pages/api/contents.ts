@@ -9,7 +9,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const apiUrl =
-      'http://dynamic_novel_server:8080/proto.dynamic.v1.DynamicService/GetDynamic'
+      'http://dynamic_novel_server:8080/proto.dynamic.v1.DynamicService/GetContents'
     const response = await fetch(apiUrl, {
       cache: 'no-store',
       method: 'POST',

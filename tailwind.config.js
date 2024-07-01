@@ -8,9 +8,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        mPlus1: ["var(--gothic-font)"],
-        sawarabiMincho: ["var(--mincho-font)"],
-        shipporiAntiqueB1: ["var(--antique-font)"],
+        mPlus1: ["var(--gag-font)"],
+        sawarabiMincho: ["var(--monologue-font)"],
+        shipporiAntiqueB1: ["var(--line-font)"],
       },
     },
   },
