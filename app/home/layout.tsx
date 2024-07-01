@@ -42,7 +42,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <>
       <LeftDrawer />
-      <LocalHeader />
+      <LocalHeader name='ホーム' />
       <Main>
         <DrawerHeader />
         <DrawerHeader />

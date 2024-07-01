@@ -14,7 +14,7 @@ export const Main = styled('main')(({ theme }) => {
 
   return {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    // padding: theme.spacing(3),
     position: 'relative',
     ...leaveTransition(theme, 'margin'),
     // marginLeft: 0,

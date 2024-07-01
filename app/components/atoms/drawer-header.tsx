@@ -13,13 +13,14 @@ export const DrawerHeader = styled('div')(({ theme }) => ({
   ...theme.mixins.toolbar,
 }))
 
-export const DrawerHeaderWithIcon = ({ onClose }) => {
-  const theme = useTheme()
+export const DrawerHeaderWithIcon = ({ onClose, anchor }) => {
+  const position = (anchor === 'left') ? 'end' : 'start'
+  const sx = { justifyContent: position }
 
   return (
-    <DrawerHeader className='justify-end'>
+    <DrawerHeader sx={sx}>
       <IconButton onClick={onClose}>
-        {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+        {anchor === 'left' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
       </IconButton>
     </DrawerHeader>
   )

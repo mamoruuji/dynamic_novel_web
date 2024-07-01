@@ -10,7 +10,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <>
       <LeftDrawer />
-      <LocalHeader />
+      <LocalHeader name='検索' />
       <Main>
         <DrawerHeader />
         <DrawerHeader />

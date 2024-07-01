@@ -35,8 +35,8 @@ export const LeftDrawer = () => {
   return (
     <Drawer anchor='left' open={leftOpen}>
       <DrawerHeaderWithIcon
-        className='justify-end'
         onClose={() => setLeftOpen(false)}
+        anchor='left'
       />
       <Divider />
       <Box sx={{ mx: 'auto' }}>

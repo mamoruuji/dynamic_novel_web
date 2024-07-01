@@ -1,6 +1,4 @@
 'use client'
-import Image from 'next/image'
-
 import { Box, Card, CardContent, Typography, CardMedia } from '@mui/material'
 
 export const SearchResults = ({ results }) => {

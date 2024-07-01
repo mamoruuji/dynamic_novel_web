@@ -41,8 +41,8 @@ export const RightDrawer = () => {
   return (
     <Drawer anchor='right' open={rightOpen}>
       <DrawerHeaderWithIcon
-        className='justify-start'
         onClose={() => setRightOpen(false)}
+        anchor='right'
       />
       <Divider />
       <Image
