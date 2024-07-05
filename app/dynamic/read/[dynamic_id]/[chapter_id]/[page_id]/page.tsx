@@ -1,16 +1,15 @@
 'use client'
-import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation'
 
 import { Sections } from './components/organisms'
 
-import { dynamicAtom, pageAtom, termsAtom } from '@/states/search-request.ts'
+import { dynamicAtom, chaptersAtom, pageAtom, termsAtom } from '@/states/search-request.ts'
 import { useRecoilState } from 'recoil'
 
 export default function Page() {
   const [dynamic, setDynamic] = useRecoilState(dynamicAtom)
-  // const [chapter, setDynamic] = useRecoilState(dynamicAtom)
+  const [chapters, setChapters] = useRecoilState(chaptersAtom)
   const [page, setPage] = useRecoilState(pageAtom)
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState<boolean | null>(false)
@@ -31,10 +30,10 @@ export default function Page() {
           setError('作品がありません')
         } else {
           setDynamic(data)
+          setChapters(data.chapters)
           setDynamicTerms(data.terms)
           data.chapters.map((chapter) => {
             if (chapter_id === String(chapter.chapterId)) {
-              // setChapter(chapter)
               setChapterTerms(chapter.terms)
               chapter.pages.map((page) => {
                 if (page_id === String(page.pageId)) {

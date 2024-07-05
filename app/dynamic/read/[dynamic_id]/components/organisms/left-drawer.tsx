@@ -3,7 +3,7 @@
 import { DrawerHeaderWithIcon, Drawer } from '@/common/atoms'
 import { leftDrawerStateAtom } from '@/states/drawer-state.ts'
 import { useRecoilState } from 'recoil'
-import { Contents } from '../molecules/'
+import { Contents } from '../molecules'
 
 export const LeftDrawer = () => {
   const [leftOpen, setLeftOpen] = useRecoilState(leftDrawerStateAtom)

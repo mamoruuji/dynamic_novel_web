@@ -1,5 +1,5 @@
 import { Paper } from '@mui/material'
-import { Text } from '../../atoms'
+import { Text } from '../../../atoms'
 import styles from './shout-bubble.module.sass'
 
 export const ShoutBubble = ({section}) => {

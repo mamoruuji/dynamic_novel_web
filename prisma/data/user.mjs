@@ -468,15 +468,15 @@ const dynamic1Chapters = [
   },
   {
     title: 'id6-dynamic1-chapter5',
-    order: 5,
-  },
-  {
-    title: 'id7-dynamic1-chapter6',
     order: 6,
   },
   {
-    title: 'id8-dynamic1-chapter7',
+    title: 'id7-dynamic1-chapter6',
     order: 7,
+  },
+  {
+    title: 'id8-dynamic1-chapter7',
+    order: 5,
   },
   {
     title: 'id9-dynamic1-chapter8',

@@ -1,7 +1,7 @@
 import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 
-export const AddPageButton = () => {
+export const AddChapterButton = () => {
   return (
     <ListItemButton sx={{ pl: 4 }}>
       <ListItemIcon>

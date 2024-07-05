@@ -1,0 +1,51 @@
+.bubble
+  padding: 20px
+  margin: 0 20px
+  position: relative
+  width: 600px
+
+$common-border-radius: 10px
+$common-before-dimension: 15px
+$common-after-dimension: 10px
+$common-before-top: 17px
+$common-after-top: 27px
+$common-before-offset: -22px
+$common-after-offset: -32px
+
+.left-thought-bubble, .right-thought-bubble
+  border-radius: $common-border-radius
+
+  &::before, &::after
+    content: ""
+    border-radius: 50%
+    position: absolute
+
+.left-thought-bubble
+  &::before
+    width: $common-before-dimension
+    height: $common-before-dimension
+    top: $common-before-top
+    left: $common-before-offset
+    float: left
+
+  &::after
+    width: $common-after-dimension
+    height: $common-after-dimension
+    top: $common-after-top
+    left: $common-after-offset
+    float: left
+
+.right-thought-bubble
+  &::before
+    width: $common-before-dimension
+    height: $common-before-dimension
+    top: $common-before-top
+    right: $common-before-offset
+    float: right
+
+  &::after
+    width: $common-after-dimension
+    height: $common-after-dimension
+    top: $common-after-top
+    right: $common-after-offset
+    float: right

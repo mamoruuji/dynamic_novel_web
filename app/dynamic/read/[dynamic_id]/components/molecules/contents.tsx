@@ -2,22 +2,24 @@
 
 import { ContentsChapter } from '../atoms'
 import { CircularProgress } from '@mui/material'
-import { dynamicAtom } from '@/states/search-request.ts'
+import { chaptersAtom } from '@/states/search-request.ts'
 import { useRecoilValue } from 'recoil'
 
 export const Contents = () => {
-  const dynamic = useRecoilValue(dynamicAtom)
+  const chapters = useRecoilValue(chaptersAtom)
 
-  if (!dynamic.chapters) return <CircularProgress />
+  if (!chapters) return <CircularProgress />
 
-  return dynamic.chapters.map((chapter, key) => {
-    return (
-      <ContentsChapter
-        chapter={chapter}
-        chapterKey={key}
-        key={key}
-        id={chapter.chapterId}
-      />
-    )
+  return chapters.map((chapter, key) => {
+    if(chapter.pages !== undefined){
+      return (
+        <ContentsChapter
+          chapter={chapter}
+          chapterKey={key}
+          key={key}
+          id={chapter.chapterId}
+        />
+      )
+    }
   })
 }

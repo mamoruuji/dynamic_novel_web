@@ -1,11 +1,12 @@
 'use client'
+import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation'
 
 import { Alert, Box, CircularProgress } from '@mui/material'
-import { SearchResults } from './components'
+import { Overview } from './components/organisms/'
 
-import { dynamicAtom, chaptersAtom } from '@/states/search-request.ts'
+import { dynamicAtom, chaptersAtom, termsAtom } from '@/states/search-request.ts'
 import { useRecoilState } from 'recoil'
 
 export default function Page() {
@@ -14,6 +15,7 @@ export default function Page() {
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState<boolean | null>(false)
   const { dynamic_id } = useParams()
+  const [dynamicTerms, setDynamicTerms] = useRecoilState(termsAtom('dynamic'))
 
   useEffect(() => {
     ;(async () => {
@@ -28,6 +30,7 @@ export default function Page() {
         } else {
           setDynamic(data)
           setChapters(data.chapters)
+          setDynamicTerms(data.terms)
         }
       } catch (error) {
         console.error('API Routesの通信に失敗しました', error)
@@ -38,17 +41,5 @@ export default function Page() {
     })()
   }, [])
 
-  if (error)
-    return (
-      <Alert severity='warning' onClose={() => setError(null)}>
-        {error}
-      </Alert>
-    )
-  if (isLoading) return <CircularProgress />
-
-  return (
-    <>
-      <Box>{dynamic.dynamic_id}</Box>
-    </>
-  )
+  return <Overview />
 }

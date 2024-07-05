@@ -2,8 +2,9 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation'
 
-import { Alert, Box, CircularProgress } from '@mui/material'
-import { SearchResults } from './components'
+// import { Alert, Box, CircularProgress } from '@mui/material'
+// import { SearchResults } from './components'
+import { Sections } from './components/organisms'
 
 import { dynamicAtom, chaptersAtom } from '@/states/search-request.ts'
 import { useRecoilState } from 'recoil'
@@ -38,17 +39,18 @@ export default function Page() {
     })()
   }, [])
 
-  if (error)
-    return (
-      <Alert severity='warning' onClose={() => setError(null)}>
-        {error}
-      </Alert>
-    )
-  if (isLoading) return <CircularProgress />
+  // if (error)
+  //   return (
+  //     <Alert severity='warning' onClose={() => setError(null)}>
+  //       {error}
+  //     </Alert>
+  //   )
+  // if (isLoading) return <CircularProgress />
 
-  return (
-    <>
-      <Box>{dynamic.dynamic_id}</Box>
-    </>
-  )
+  // return (
+  //   <>
+  //     <Box>{dynamic.dynamic_id}</Box>
+  //   </>
+  // )
+  return <Sections />
 }

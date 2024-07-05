@@ -1,3 +1,5 @@
+export * from './icon/icon'
 export * from './add-page-button'
+export * from './add-chapter-button'
 export * from './contents-page'
 export * from './contents-chapter'

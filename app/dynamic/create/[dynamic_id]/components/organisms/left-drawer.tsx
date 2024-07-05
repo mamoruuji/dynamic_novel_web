@@ -2,13 +2,8 @@
 
 import { DrawerHeaderWithIcon, Drawer } from '@/common/atoms'
 import { leftDrawerStateAtom } from '@/states/drawer-state.ts'
-import { Contents } from '../molecules/Contents'
 import { useRecoilState } from 'recoil'
-
-import { Box, Divider, IconButton } from '@mui/material'
-
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
-import ChevronRightIcon from '@mui/icons-material/ChevronRight'
+import { Contents } from '../molecules'
 
 export const LeftDrawer = () => {
   const [leftOpen, setLeftOpen] = useRecoilState(leftDrawerStateAtom)
@@ -19,10 +14,7 @@ export const LeftDrawer = () => {
         onClose={() => setLeftOpen(false)}
         anchor='left'
       />
-      <Divider />
-      <Box>
-        <Contents />
-      </Box>
+      <Contents />
     </Drawer>
   )
 }

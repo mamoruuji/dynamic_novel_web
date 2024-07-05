@@ -1,8 +1,8 @@
 import { Paper } from '@mui/material'
-import { Text } from '../../atoms'
-import styles from './thought-bubble.module.sass'
+import { Text } from '../../../atoms'
+import styles from './line-bubble.module.sass'
 
-export const ThoughtBubble = ({section}) => {
+export const LineBubble = ({section}) => {
   return(
     <Paper
       className={`${styles[`${section.typePosition}-${section.typeSection}`]} ${styles.bubble}`}
@@ -14,11 +14,11 @@ export const ThoughtBubble = ({section}) => {
           background: `var(--border-${section.frameColor})`
         },
         '&::after': {
-          background: `var(--border-${section.frameColor})`
+          background: `var(--${section.frameColor})`
         }
       }}
     >
-      <Text font={section.font}>{section.text}</Text>
+     <Text font={section.font}>{section.text}</Text>
     </Paper>
   )
 }

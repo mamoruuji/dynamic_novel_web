@@ -19,12 +19,13 @@ import {
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers'
 
 import { ContentsChapter } from '../atoms'
-import { chaptersAtom } from '@/states/search-request.ts'
+import { dynamicAtom, chaptersAtom } from '@/states/search-request.ts'
 import { useRecoilState } from 'recoil'
 
 export const Contents = () => {
   const [activeId, setActiveId] = useState(null)
   const [chapters, setChapters] = useRecoilState(chaptersAtom)
+
   const sensors = useSensors(
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
@@ -71,7 +72,7 @@ export const Contents = () => {
               chapter={chapter}
               chapterKey={key}
               key={key}
-              id={key}
+              id={chapter.chapterId}
             />
           )
         })}

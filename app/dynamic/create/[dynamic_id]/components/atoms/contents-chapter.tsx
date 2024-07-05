@@ -38,6 +38,7 @@ export const ContentsChapter = ({ chapter, chapterKey, id }) => {
   const [pages, setPages] = useRecoilState(pagesAtom(chapter.chapterId))
   useEffect(() => {
     setPages(chapter.pages)
+    console.log(pages)
   }, [])
 
   // dnd 章部分

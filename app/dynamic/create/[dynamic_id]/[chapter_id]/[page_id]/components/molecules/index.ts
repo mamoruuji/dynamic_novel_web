@@ -1,1 +1,6 @@
-export * from './contents'
+export * from './sections/monologue/monologue'
+export * from './sections/line-bubble/line-bubble'
+export * from './sections/thought-bubble/thought-bubble'
+export * from './sections/shout-bubble/shout-bubble'
+export * from './sections/illustration/illustration'
+export * from './sections/icon-space/icon-space'

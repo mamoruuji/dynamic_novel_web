@@ -1,0 +1,49 @@
+.bubble
+  padding: 20px
+  margin: 0 20px
+  position: relative
+  width: 600px
+
+$common-background-size: 32px
+$common-content: ""
+$common-position: absolute
+$common-before-height: 32px
+
+.shout-bubble-column, .shout-bubble-row
+  &::before, &::after
+    background-size: $common-background-size
+    content: $common-content
+    position: $common-position
+
+.shout-bubble-column
+  margin: 0 20px -30px 20px
+  position: relative
+
+  &::before
+    top: -16px
+    height: $common-before-height
+    width: -webkit-fill-available
+
+  &::after
+    bottom: -16px
+    height: $common-before-height
+    width: -webkit-fill-available
+
+.shout-bubble-row
+  padding: 20px
+  width: 600px
+  height: 100%
+
+  &::before
+    background-size: $common-background-size $common-background-size
+    top: 0
+    left: -16px
+    height: 100%
+    width: $common-background-size
+
+  &::after
+    background-size: $common-background-size $common-background-size
+    top: 0
+    right: -16px
+    height: 100%
+    width: $common-background-size

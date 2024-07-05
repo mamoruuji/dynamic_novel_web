@@ -1,10 +1,10 @@
 'use client'
 
 import { Container } from '@mui/material'
-import { LocalHeader, RightDrawer, SearchResults } from '@/common/organisms'
-import { LeftDrawer } from './components/organisms'
 import { DrawerHeader } from '@/common/atoms'
 import { Main } from '@/common/molecules'
+import { LocalHeader } from '@/common/organisms'
+import { LeftDrawer, RightDrawer } from './components/organisms'
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -14,7 +14,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <Main>
         <DrawerHeader />
         <DrawerHeader />
-
         <Container className='summary'>{children}</Container>
       </Main>
       <RightDrawer />
