@@ -1,7 +1,7 @@
 'use client'
 
-import { FormControl, InputLabel, Stack } from '@mui/material'
-import { TextField, DatePicker } from '@/common/atoms'
+import { FormControl, InputLabel } from '@mui/material'
+import { DatePicker, SearchStack, TextField } from '@/common/atoms'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
 import { ja } from 'date-fns/locale/ja'
@@ -23,7 +23,7 @@ export const Filter = () => {
 
   return (
     <FormControl>
-      <Stack spacing={2} sx={{ width: 300, py: 2 }}>
+      <SearchStack>
         <InputLabel id='fliter-label'>フィルタ機能</InputLabel>
         <TextField
           id='filter-input'
@@ -52,7 +52,7 @@ export const Filter = () => {
             onChange={setFilterEndDate}
           />
         </LocalizationProvider>
-      </Stack>
+      </SearchStack>
     </FormControl>
   )
 }

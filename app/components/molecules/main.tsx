@@ -1,7 +1,7 @@
 'use client'
 
-import { styled, Theme } from '@mui/material/styles'
-import { DrawerHeader, leaveTransition, enterTransition } from '@/common/atoms'
+import { styled } from '@mui/material/styles'
+import { leaveTransition, enterTransition } from '@/common/atoms'
 import {
   leftDrawerStateAtom,
   rightDrawerStateAtom,
@@ -14,7 +14,7 @@ export const Main = styled('main')(({ theme }) => {
 
   return {
     flexGrow: 1,
-    // padding: theme.spacing(3),
+    paddingTop: theme.spacing(18),
     position: 'relative',
     ...leaveTransition(theme, 'margin'),
     // marginLeft: 0,

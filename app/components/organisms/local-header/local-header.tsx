@@ -20,7 +20,6 @@ export const LocalHeader = ({ name }) => {
     <AppBar className={styles['local-appbar']} >
       <Toolbar className={styles['local-toolbar']}>
         <IconButton
-          color='inherit'
           aria-label='open drawer'
           onClick={() => setLeftOpen(true)}
           edge='start'
@@ -32,7 +31,6 @@ export const LocalHeader = ({ name }) => {
           {name}
         </Typography>
         <IconButton
-          color='inherit'
           aria-label='open drawer'
           edge='end'
           onClick={() => setRightOpen(true)}

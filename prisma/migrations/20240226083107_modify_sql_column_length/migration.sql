@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "sorts" ALTER COLUMN "sql" SET DATA TYPE VARCHAR(50);

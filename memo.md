@@ -31,7 +31,13 @@ prisma/schema.prisma
 ER 図作成
 
 // ts ファイル実行（DB テストデータ作成）
-`yarn node --import ./ts-node.register.mjs prisma/seed`
+`yarn node --import ./ts-node.register.mjs prisma/seed-master`
+
+error: Environment variable not found: DATABASE_URL.
+	-->  schema.prisma:17
+エラーが発生した場合,環境変数を指定
+echo DATABASE_URL=postgresql://postgres:pass@db:5432/dynamic_novel?schema=public
+
 
 curl \
 --header "Content-Type: application/json" \

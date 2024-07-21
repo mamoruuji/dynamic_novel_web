@@ -28,20 +28,18 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   })
 
   return (
-    <>
-      <SessionProvider>
-        <RecoilRoot>
-          <CssVarsProvider theme={theme}>
-            <CssBaseline />
-            <html lang='jp' data-mui-color-scheme={isDarkMode}>
-              <Head />
-              <body>
-                <GlobalHeader>{children}</GlobalHeader>
-              </body>
-            </html>
-          </CssVarsProvider>
-        </RecoilRoot>
-      </SessionProvider>
-    </>
+    <SessionProvider>
+      <RecoilRoot>
+        <CssVarsProvider theme={theme}>
+          <CssBaseline />
+          <html lang='jp' data-mui-color-scheme={isDarkMode}>
+            <Head />
+            <body>
+              <GlobalHeader>{children}</GlobalHeader>
+            </body>
+          </html>
+        </CssVarsProvider>
+      </RecoilRoot>
+    </SessionProvider>
   )
 }

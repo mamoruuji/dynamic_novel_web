@@ -10,10 +10,10 @@ import {
   Radio,
   RadioGroup,
   Select,
-  Stack,
 } from '@mui/material'
 import { SelectChangeEvent } from '@mui/material/Select'
 
+import { SearchStack } from '@/common/atoms'
 import { sortCategoryAtom, sortOrderAtom } from '@/states/search-request'
 import { useRecoilState } from 'recoil'
 
@@ -49,37 +49,35 @@ export const Sort = () => {
   const [sortOrder, setSortOrder] = useRecoilState(sortOrderAtom)
 
   return (
-    <>
-      <FormControl>
-        <Stack spacing={2} sx={{ width: 300, py: 2 }}>
-          <InputLabel id='sort-selecter-label'>ソート対象</InputLabel>
-          <Select
-            labelId='sort-selecter-label'
-            id='sort-selecter'
-            name='sort-category'
-            value={isloads ? sortCategory : ''}
-            onChange={(event) => setSortCategory(event.target.value)}
-          >
-            {sortOptions.map((item, index) => {
-              return (
-                <MenuItem value={index} key={index}>
-                  {item.name}
-                </MenuItem>
-              )
-            })}
-          </Select>
-          <FormLabel id='sort-order-label'>並び順</FormLabel>
-          <RadioGroup
-            aria-labelledby='sort-order-label'
-            name='sort-order'
-            value={sortOrder}
-            onChange={(event) => setSortOrder(event.target.value)}
-          >
-            <FormControlLabel value='asc' control={<Radio />} label='昇順' />
-            <FormControlLabel value='desc' control={<Radio />} label='降順' />
-          </RadioGroup>
-        </Stack>
-      </FormControl>
-    </>
+    <FormControl>
+      <SearchStack>
+        <InputLabel id='sort-selecter-label'>ソート対象</InputLabel>
+        <Select
+          labelId='sort-selecter-label'
+          id='sort-selecter'
+          name='sort-category'
+          value={isloads ? sortCategory : ''}
+          onChange={(event) => setSortCategory(event.target.value)}
+        >
+          {sortOptions.map((item, index) => {
+            return (
+              <MenuItem value={index} key={index}>
+                {item.name}
+              </MenuItem>
+            )
+          })}
+        </Select>
+        <FormLabel id='sort-order-label'>並び順</FormLabel>
+        <RadioGroup
+          aria-labelledby='sort-order-label'
+          name='sort-order'
+          value={sortOrder}
+          onChange={(event) => setSortOrder(event.target.value)}
+        >
+          <FormControlLabel value='asc' control={<Radio />} label='昇順' />
+          <FormControlLabel value='desc' control={<Radio />} label='降順' />
+        </RadioGroup>
+      </SearchStack>
+    </FormControl>
   )
 }
