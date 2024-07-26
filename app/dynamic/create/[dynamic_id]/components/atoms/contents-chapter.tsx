@@ -27,8 +27,8 @@ import {
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers'
 import { CSS } from '@dnd-kit/utilities'
 
-import { ContentsPage, AddPageButton } from './'
-import { pagesAtom } from '@/states/search-request.ts'
+import { AddChapterButton, ContentsPage, AddPageButton } from '.'
+import { pagesAtom } from '@/states/operation-dynamic.ts'
 import { useRecoilState } from 'recoil'
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
@@ -36,9 +36,10 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 export const ContentsChapter = ({ chapter, chapterKey, id }) => {
   const [activeId, setActiveId] = useState(null)
   const [pages, setPages] = useRecoilState(pagesAtom(chapter.chapterId))
+  const sx = chapter.pages === undefined ? { backgroundColor: 'red' } : {}
+
   useEffect(() => {
     setPages(chapter.pages)
-    console.log(pages)
   }, [])
 
   // dnd 章部分
@@ -58,11 +59,9 @@ export const ContentsChapter = ({ chapter, chapterKey, id }) => {
     useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
   )
 
-  function handleDragStart(event) {
-    setActiveId(event.active.id)
-  }
+  const handleDragStart = event => setActiveId(event.active.id)
 
-  function handleDragEnd(event) {
+  const handleDragEnd = event => {
     const { active, over } = event
 
     if (over !== null && active.id !== over.id) {
@@ -85,6 +84,7 @@ export const ContentsChapter = ({ chapter, chapterKey, id }) => {
         expandIcon={<ExpandMoreIcon />}
         aria-controls={`panel-content-${chapterKey}`}
         id={`panel-header-${chapterKey}`}
+        sx={{ ...sx }}
       >
         <Typography>{chapter.title}</Typography>
       </AccordionSummary>

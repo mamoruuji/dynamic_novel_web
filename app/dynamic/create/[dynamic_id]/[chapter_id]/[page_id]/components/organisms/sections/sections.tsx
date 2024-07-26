@@ -1,6 +1,6 @@
 import { Box, CircularProgress } from '@mui/material'
 import { useRecoilValue } from 'recoil'
-import { pageAtom } from '@/states/search-request.ts'
+import { pageAtom } from '@/states/operation-dynamic.ts'
 import { useParams } from 'next/navigation'
 import {
   IconSpace,

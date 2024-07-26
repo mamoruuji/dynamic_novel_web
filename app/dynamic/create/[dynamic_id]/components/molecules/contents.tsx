@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { Box, CircularProgress } from '@mui/material'
+import { Accordion, Box, CircularProgress } from '@mui/material'
 import {
   DndContext,
   closestCenter,
@@ -18,8 +18,8 @@ import {
 } from '@dnd-kit/sortable'
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers'
 
-import { ContentsChapter } from '../atoms'
-import { dynamicAtom, chaptersAtom } from '@/states/search-request.ts'
+import { AddChapterButton, ContentsChapter } from '../atoms'
+import { dynamicAtom, chaptersAtom } from '@/states/operation-dynamic.ts'
 import { useRecoilState } from 'recoil'
 
 export const Contents = () => {
@@ -33,11 +33,9 @@ export const Contents = () => {
     useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
   )
 
-  function handleDragStart(event) {
-    setActiveId(event.active.id)
-  }
+  const handleDragStart = event => setActiveId(event.active.id)
 
-  function handleDragEnd(event) {
+  const handleDragEnd = event => {
     const { active, over } = event
 
     if (over !== null && active.id !== over.id) {
@@ -55,29 +53,34 @@ export const Contents = () => {
   if (Object.keys(chapters).length === 0) return <CircularProgress />
 
   return (
-    <DndContext
-      sensors={sensors}
-      collisionDetection={closestCenter}
-      modifiers={[restrictToVerticalAxis]}
-      onDragStart={handleDragStart}
-      onDragEnd={handleDragEnd}
-    >
-      <SortableContext
-        items={chapters.map((_, index) => index)}
-        strategy={verticalListSortingStrategy}
+    <>
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        modifiers={[restrictToVerticalAxis]}
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
       >
-        {chapters.map((chapter, key) => {
-          return (
-            <ContentsChapter
-              chapter={chapter}
-              chapterKey={key}
-              key={key}
-              id={chapter.chapterId}
-            />
-          )
-        })}
-      </SortableContext>
-      <DragOverlay>{activeId ? <Box id={activeId} /> : null}</DragOverlay>
-    </DndContext>
+        <SortableContext
+          items={chapters.map((_, index) => index)}
+          strategy={verticalListSortingStrategy}
+        >
+          {chapters.map((chapter, key) => {
+            return (
+              <ContentsChapter
+                chapter={chapter}
+                chapterKey={key}
+                key={key}
+                id={chapter.chapterId}
+              />
+            )
+          })}
+        </SortableContext>
+        <DragOverlay>{activeId ? <Box id={activeId} /> : null}</DragOverlay>
+      </DndContext>
+      <Accordion>
+        <AddChapterButton />
+      </Accordion>
+    </>
   )
 }

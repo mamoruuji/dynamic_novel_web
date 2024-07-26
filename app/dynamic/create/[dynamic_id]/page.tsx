@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation'
 import { Alert, Box, CircularProgress } from '@mui/material'
 import { Overview } from './components/organisms/'
 
-import { dynamicAtom, chaptersAtom, termsAtom } from '@/states/search-request.ts'
+import { dynamicAtom, chaptersAtom, termsAtom } from '@/states/operation-dynamic.ts'
 import { useRecoilState } from 'recoil'
 
 export default function Page() {
@@ -29,8 +29,8 @@ export default function Page() {
           setError('作品がありません')
         } else {
           setDynamic(data)
-          setChapters(data.chapters)
-          setDynamicTerms(data.terms)
+          setChapters(data.chapters || [])
+          setDynamicTerms(data.terms || [])
         }
       } catch (error) {
         console.error('API Routesの通信に失敗しました', error)

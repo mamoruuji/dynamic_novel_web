@@ -9,7 +9,7 @@ import {
 } from '@mui/material'
 
 import { ContentsPage } from './'
-import { pagesAtom } from '@/states/search-request.ts'
+import { pagesAtom } from '@/states/operation-dynamic.ts'
 import { useRecoilState } from 'recoil'
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'

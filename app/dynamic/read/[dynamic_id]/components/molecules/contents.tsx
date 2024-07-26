@@ -2,7 +2,7 @@
 
 import { ContentsChapter } from '../atoms'
 import { CircularProgress } from '@mui/material'
-import { chaptersAtom } from '@/states/search-request.ts'
+import { chaptersAtom } from '@/states/operation-dynamic.ts'
 import { useRecoilValue } from 'recoil'
 
 export const Contents = () => {

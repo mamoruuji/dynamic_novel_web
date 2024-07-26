@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { Box, Typography, Divider, CircularProgress } from '@mui/material'
+import { AddTermButton } from '../atoms'
 
 export const Terms = ({ terms }) => {
   const imageWidth = '160'
@@ -9,26 +10,24 @@ export const Terms = ({ terms }) => {
   if (!terms) return <CircularProgress />
   return (
     <>
-      {terms.map((term, key) => {
-        return (
-          <Box key={key}>
-            <Image
-              src={imageUrl}
-              width={imageWidth}
-              height={imageHeight}
-              className='w-full h-auto object-cover'
-              alt='text'
-            />
-            <Typography variant='h5' component='div'>
-              {term.name}
-            </Typography>
-            <Typography variant='body2' color='text.secondary'>
-              {term.text}
-            </Typography>
-            <Divider />
-          </Box>
-        )
-      })}
+      {terms.map((term, key) => (
+        <Box key={key}>
+          <Image
+            src={imageUrl}
+            width={imageWidth}
+            height={imageHeight}
+            className='w-full h-auto object-cover'
+            alt='text'
+          />
+          <Typography variant='h5' component='div'>
+            {term.name}
+          </Typography>
+          <Typography variant='body2' color='text.secondary'>
+            {term.text}
+          </Typography>
+          <Divider />
+        </Box>
+      ))}
     </>
   )
 }

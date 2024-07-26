@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { DrawerHeaderWithIcon, Drawer } from '@/common/atoms'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { rightDrawerStateAtom } from '@/states/drawer-state.ts'
-import { termsAtom } from '@/states/search-request.ts'
+import { termsAtom } from '@/states/operation-dynamic.ts'
 import { Terms } from '../molecules'
 
 import {
@@ -32,17 +32,30 @@ export const RightDrawer = () => {
         anchor='right'
       />
       <Divider />
-      <Terms terms={dynamicTerms} />
-      <Divider />
-      <Box display='flex' alignItems='center'>
-        <Typography variant='h2'>　章</Typography>
-      </Box>
-      <Terms terms={chapterTerms} />
-      <Divider />
-      <Box display='flex' alignItems='center'>
-        <Typography variant='h2'>　ページ</Typography>
-      </Box>
-      <Terms terms={pageTerms} />
+        {dynamicTerms.length !== 0 && (
+            <Terms terms={dynamicTerms} />
+          )
+        }
+        {chapterTerms.length !== 0 && (
+            <>
+              <Divider />
+              <Box display='flex' alignItems='center'>
+                <Typography variant='h2'>　章</Typography>
+              </Box>
+              <Terms terms={chapterTerms} />
+            </>
+          )
+        }
+        {pageTerms.length !== 0 && (
+            <>
+              <Divider />
+              <Box display='flex' alignItems='center'>
+                <Typography variant='h2'>　ページ</Typography>
+              </Box>
+              <Terms terms={pageTerms} />
+            </>
+          )
+        }
     </Drawer>
   )
 }

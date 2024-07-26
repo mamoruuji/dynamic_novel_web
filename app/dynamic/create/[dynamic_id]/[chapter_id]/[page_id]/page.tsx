@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation'
 // import { SearchResults } from './components'
 import { Sections } from './components/organisms'
 
-import { dynamicAtom, chaptersAtom } from '@/states/search-request.ts'
+import { dynamicAtom, chaptersAtom } from '@/states/operation-dynamic.ts'
 import { useRecoilState } from 'recoil'
 
 export default function Page() {

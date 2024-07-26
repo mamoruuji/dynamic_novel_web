@@ -36,32 +36,3 @@ export const dynamicsAtom = atom<ListDynamicsType[]>({
   default: [],
 })
 
-export const dynamicAtom = atom<GetDynamicType>({
-  key: 'dynamicAtom',
-  default: {},
-})
-
-export const chaptersAtom = atom<GetChaptersType[]>({
-  key: 'chaptersAtom',
-  default: [],
-})
-
-export const chapterAtom = atom<GetChapterType>({
-  key: 'chapterAtom',
-  default: {},
-})
-
-export const pagesAtom = atomFamily<GetPagesType[] | null, number>({
-  key: 'pagesAtom',
-  default: [],
-})
-
-export const pageAtom = atom<GetpageType>({
-  key: 'pageAtom',
-  default: {},
-})
-
-export const termsAtom = atomFamily<GetTermsType[] | null, string>({
-  key: 'termsAtom',
-  default: [],
-})

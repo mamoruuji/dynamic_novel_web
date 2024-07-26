@@ -4,7 +4,7 @@ import { useParams } from 'next/navigation'
 
 import { Sections } from './components/organisms'
 
-import { dynamicAtom, chaptersAtom, pageAtom, termsAtom } from '@/states/search-request.ts'
+import { dynamicAtom, chaptersAtom, pageAtom, termsAtom } from '@/states/operation-dynamic.ts'
 import { useRecoilState } from 'recoil'
 
 export default function Page() {
