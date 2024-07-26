@@ -5,15 +5,8 @@ import { useRecoilState } from 'recoil'
 import { Alert, CircularProgress } from '@mui/material'
 import { SearchResults } from './components/organisms/'
 
-import { dynamicsAtom } from '@/states/search-request.ts'
-
 import {
-  searchKeywordsAtom,
-  sortCategoryAtom,
-  sortOrderAtom,
-  filterKeywordsAtom,
-  filterStartDateAtom,
-  filterEndDateAtom,
+  dynamicsAtom,
 } from '@/states/search-request.ts'
 
 export default function Page() {

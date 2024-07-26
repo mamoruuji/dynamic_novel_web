@@ -1,5 +1,2 @@
 export * from './local-header/local-header'
 export * from './global-header/global-header'
-export * from './right-drawer'
-export * from './left-drawer'
-export * from './search-results'

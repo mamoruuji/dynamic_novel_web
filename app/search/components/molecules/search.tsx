@@ -2,7 +2,7 @@
 
 import { FormControl, InputLabel } from '@mui/material'
 
-import { SearchStack, TextField } from '@/common/atoms'
+import { SearchStack, TextField } from '../atoms'
 import { searchKeywordsAtom } from '@/states/search-request'
 import { useRecoilState } from 'recoil'
 

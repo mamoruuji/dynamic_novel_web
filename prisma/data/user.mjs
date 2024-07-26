@@ -720,6 +720,7 @@ const folders = [
     name: 'id10-parent9',
     parentId: null,
   },
+  // フォルダ id2-parent1
   {
     name: 'id11-parent1-child1',
     parentId: null,
@@ -760,10 +761,12 @@ const folders = [
     name: 'id20-parent1-child9',
     parentId: null,
   },
+  // フォルダ id3-parent2
   {
     name: 'id21-parent2-child1',
     parentId: null,
   },
+  // フォルダ id11-parent1-child1
   {
     name: 'id22-child1-grandchild1',
     parentId: null,
@@ -1035,6 +1038,7 @@ const images = [
     name: 'id45-user2-parent1.png',
     path: 'id2-creater2/parent/',
     type: { connect: { name: 'icon' } },
+    // folder: { connect: { name: 'cover' } },
   },
   {
     name: 'id46-user2-child1.png',

@@ -271,7 +271,6 @@ async function main() {
   })
 
   console.log(`画像-フォルダ`)
-
   const parentFolder = await prisma.folder.findFirst({
     where: {
       name: 'id2-parent1',
@@ -280,7 +279,7 @@ async function main() {
 
   await prisma.image.updateMany({
     where: {
-      name: 'id24-parent1.png',
+      name: 'id45-user2-parent1.png',
     },
     data: {
       folderId: parentFolder.id,
@@ -295,7 +294,7 @@ async function main() {
 
   await prisma.image.updateMany({
     where: {
-      name: 'id25-child1.png',
+      name: 'id46-user2-child1.png',
     },
     data: {
       folderId: childFolder.id,
@@ -310,7 +309,7 @@ async function main() {
 
   await prisma.image.updateMany({
     where: {
-      name: 'id26-grandchild1.png',
+      name: 'id47-user2-grandchild1.png',
     },
     data: {
       folderId: grandchildFolder.id,
@@ -347,10 +346,15 @@ async function main() {
   console.log(`子-孫 複数`)
   await prisma.folder.updateMany({
     where: {
-      name: 'child1-grandchild' ,
+      name: { contains: 'child1-grandchild' },
     },
     data: {
       parentId: childFolder.id,
+    },
+  })
+  const test = await prisma.folder.findMany({
+    where: {
+      name: { contains: 'child1-grandchild' },
     },
   })
 

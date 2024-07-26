@@ -3,11 +3,13 @@
 import { useEffect, useRef } from 'react'
 import { useFormState } from 'react-dom'
 import { useRecoilState } from 'recoil'
+import { useTheme } from '@mui/material/styles'
 
 import { leftDrawerStateAtom } from '@/states/drawer-state.ts'
 import { dynamicsAtom } from '@/states/search-request.ts'
-import { Search, Sort, Filter } from '@/common/molecules'
+import { Search, Sort, Filter } from '../molecules'
 import { DrawerHeaderWithIcon, Drawer } from '@/common/atoms'
+import { SearchStack } from '../atoms'
 import { GetSearchDynamics } from 'app/actions/search.ts'
 
 import { Box, Button, Divider, FormGroup, Stack } from '@mui/material'
@@ -18,6 +20,7 @@ export const LeftDrawer = () => {
   const ref = useRef(true)
   const ref2 = useRef(true)
   const [formState, formAction] = useFormState(GetSearchDynamics, {})
+  const theme = useTheme()
 
   useEffect(() => {
     if (ref.current) {
@@ -41,15 +44,15 @@ export const LeftDrawer = () => {
       <Divider />
       <Box sx={{ mx: 'auto' }}>
         <form action={formAction}>
-          <FormGroup sx={{ width: 300 }}>
-            <Stack spacing={2} sx={{ width: 300, py: 2 }}>
+          <FormGroup>
+            <SearchStack>
               <Search />
               <Button variant='contained' type='submit'>
                 検索
               </Button>
               <Sort />
               <Filter />
-            </Stack>
+            </SearchStack>
           </FormGroup>
         </form>
       </Box>

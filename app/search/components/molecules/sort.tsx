@@ -13,7 +13,7 @@ import {
 } from '@mui/material'
 import { SelectChangeEvent } from '@mui/material/Select'
 
-import { SearchStack } from '@/common/atoms'
+import { SearchStack } from '../atoms'
 import { sortCategoryAtom, sortOrderAtom } from '@/states/search-request'
 import { useRecoilState } from 'recoil'
 
