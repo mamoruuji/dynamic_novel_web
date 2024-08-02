@@ -1,4 +1,5 @@
 export * from './app-bar'
+export * from './dialog'
 export * from './drawer'
 export * from './drawer-header'
 export * from './transitions'

@@ -13,6 +13,9 @@
       ],
       "@/states/*": [
         "app/states/*"
+      ],
+      "@/auth/*": [
+        "src/auth/*"
       ]
     }
   }

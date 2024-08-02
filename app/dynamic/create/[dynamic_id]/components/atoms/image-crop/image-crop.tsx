@@ -11,7 +11,7 @@ import ReactCrop, {
 } from 'react-image-crop'
 import { canvasPreview } from './canvas-preview'
 import { useDebounceEffect } from './use-debounce-effect'
-import { Dialog } from '../'
+import { Dialog } from '@/common/atoms'
 
 import {
   Box,
@@ -163,7 +163,11 @@ export const ImageCrop = () => {
   )
 
   return (
-    <Dialog className="app">
+    <Dialog
+      className="app"
+      dialogTitle="表紙画像を追加してください"
+      buttonText="クリックで画像を追加更新"
+    >
       <Box className="Crop-Controls">
         <Input type="file" accept="image/*" onChange={onSelectFile} />
       </Box>

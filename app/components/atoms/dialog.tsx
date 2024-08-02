@@ -10,16 +10,16 @@ import {
   DialogTitle,
 } from '@mui/material'
 
-export const Dialog = ({children}) => {
+export const Dialog = ({ children, dialogTitle, buttonText }) => {
   const [dialogOpen, setDialogOpen] = useState(false)
 
   return(
     <>
       <Button variant="outlined" onClick={() => setDialogOpen(true)}>
-        クリックで画像を追加更新
+        {buttonText}
       </Button>
       <MuiDialog onClose={() => setDialogOpen(false)} open={dialogOpen}>
-        <DialogTitle>Set backup account</DialogTitle>
+        <DialogTitle>{dialogTitle}</DialogTitle>
         {children}
       </MuiDialog>
     </>
