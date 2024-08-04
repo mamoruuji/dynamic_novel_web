@@ -6,6 +6,7 @@ import {
   Avatar,
   Box,
   Button,
+  Divider,
   IconButton,
   Menu,
   MenuItem,
@@ -19,9 +20,6 @@ import {
   signOut
 } from 'next-auth/react'
 
-import {
-  Dialog,
-} from '@/common/atoms'
 import auth from '@/auth'
 
 export const LoginButton = () => {
@@ -65,28 +63,22 @@ export const LoginButton = () => {
                 <Typography textAlign="center">ユーザページへ</Typography>
               </Link>
             </MenuItem>
-            {/* <MenuItem key='logout' onClick={() => signOut()}>
-            </MenuItem> */}
+            <MenuItem key='logout' onClick={() => signOut()}>
+              ログアウト
+            </MenuItem>
           </Menu>
         </Box>
       </>
     )
   }
   return (
-    <Dialog
-      className="app"
-      dialogTitle="ログイン方法を選択してください"
-      buttonText="ログイン"
-    >
-      <Button style={{ marginRight: 10 }} onClick={() => signIn()}>
-        Sign in
+    <>
+      <Button variant="contained" color="primary" onClick={() => signIn()}>
+        サインイン
       </Button>
-      <Button style={{ marginRight: 10 }} onClick={() => signIn('google')}>
-        Sign in with google
+      <Button variant="contained" color="secondary" onClick={() => signIn('email', { callbackUrl: 'user/new-account' })}>
+        新規アカウント追加
       </Button>
-      <Button style={{ marginRight: 10 }} onClick={() => signIn('github')}>
-        Sign in with github
-      </Button>
-    </Dialog>
+    </>
   )
 }

@@ -1,11 +1,14 @@
-import NextAuth, { NextAuthConfig } from 'next-auth'
+import NextAuth from 'next-auth'
 import GitHub from 'next-auth/providers/github'
 import Google from 'next-auth/providers/google'
+import Credentials from 'next-auth/providers/credentials'
 // import Resend from "next-auth/providers/resend"
 // import { PrismaAdapter } from "@auth/prisma-adapter"
 import { PrismaClient } from "@prisma/client"
+import { saltAndHashPassword } from "../lib/password"
+import { signInSchema } from "../lib/zod"
 
-export const config: NextAuthConfig = {
+export const { handlers, auth, signIn, signOut } = NextAuth({
   // adapter: PrismaAdapter(prisma),
   providers: [
     GitHub({
@@ -16,7 +19,26 @@ export const config: NextAuthConfig = {
       clientId: process.env.GOOGLE_ID!,
       clientSecret: process.env.GOOGLE_SECRET!,
     }),
-    // Resend,
+    Credentials({
+      credentials: {
+        email: { label: 'Email', type: 'email' },
+        password: { label: 'Password', type: 'password' },
+      },
+      authorize: async (credentials) => {
+        try {
+          let user = null
+          const { email, password } = await signInSchema.parseAsync(credentials)
+          const pwHash = saltAndHashPassword(credentials.password)
+          user = await getUserFromDb(credentials.email, pwHash)
+
+          if (!user) throw new Error("User not found.")
+
+          return user
+        } catch (error) {
+          if (error instanceof ZodError) return null
+        }
+      },
+    }),
     // TwitterProvider({
     //   clientId: process.env.TWITTER_ID!,
     //   clientSecret: process.env.TWITTER_SECRET!,
@@ -38,6 +60,4 @@ export const config: NextAuthConfig = {
       return token
     },
   },
-}
-
-export const { handlers, auth, signIn, signOut } = NextAuth(config)
+})
