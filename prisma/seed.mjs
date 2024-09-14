@@ -7,9 +7,6 @@ import {
 } from './data/user'
 
 const prisma = new PrismaClient()
-// const prisma = new PrismaClient({
-//   log: ["query"],
-// })
 
 const deleteAllData = async () => {
   try {
@@ -25,17 +22,17 @@ const deleteAllData = async () => {
     await prisma.chapter.deleteMany()
     await prisma.dynamic.deleteMany()
     await prisma.user.deleteMany()
-    await prisma.$queryRaw`ALTER SEQUENCE dynamics_on_tags_dynamics_on_tags_id_seq RESTART WITH 1;`
-    await prisma.$queryRaw`ALTER SEQUENCE tags_tag_id_seq RESTART WITH 1;`
-    await prisma.$queryRaw`ALTER SEQUENCE terms_term_id_seq RESTART WITH 1;`
-    await prisma.$queryRaw`ALTER SEQUENCE marks_mark_id_seq RESTART WITH 1;`
-    await prisma.$queryRaw`ALTER SEQUENCE impressions_impression_id_seq RESTART WITH 1;`
-    await prisma.$queryRaw`ALTER SEQUENCE images_image_id_seq RESTART WITH 1;`
-    await prisma.$queryRaw`ALTER SEQUENCE folders_folder_id_seq RESTART WITH 1;`
-    await prisma.$queryRaw`ALTER SEQUENCE sections_section_id_seq RESTART WITH 1;`
-    await prisma.$queryRaw`ALTER SEQUENCE pages_page_id_seq RESTART WITH 1;`
-    await prisma.$queryRaw`ALTER SEQUENCE chapters_chapter_id_seq RESTART WITH 1;`
-    await prisma.$queryRaw`ALTER SEQUENCE dynamics_dynamic_id_seq RESTART WITH 1;`
+    await prisma.$executeRaw`ALTER SEQUENCE dynamics_on_tags_dynamics_on_tags_id_seq RESTART WITH 1;`
+    await prisma.$executeRaw`ALTER SEQUENCE tags_tag_id_seq RESTART WITH 1;`
+    await prisma.$executeRaw`ALTER SEQUENCE terms_term_id_seq RESTART WITH 1;`
+    await prisma.$executeRaw`ALTER SEQUENCE marks_mark_id_seq RESTART WITH 1;`
+    await prisma.$executeRaw`ALTER SEQUENCE impressions_impression_id_seq RESTART WITH 1;`
+    await prisma.$executeRaw`ALTER SEQUENCE images_image_id_seq RESTART WITH 1;`
+    await prisma.$executeRaw`ALTER SEQUENCE folders_folder_id_seq RESTART WITH 1;`
+    await prisma.$executeRaw`ALTER SEQUENCE sections_section_id_seq RESTART WITH 1;`
+    await prisma.$executeRaw`ALTER SEQUENCE pages_page_id_seq RESTART WITH 1;`
+    await prisma.$executeRaw`ALTER SEQUENCE chapters_chapter_id_seq RESTART WITH 1;`
+    await prisma.$executeRaw`ALTER SEQUENCE dynamics_dynamic_id_seq RESTART WITH 1;`
     console.log('入力データの削除完了')
   } catch (error) {
     console.error('入力データの削除中にエラーが発生しました', error)

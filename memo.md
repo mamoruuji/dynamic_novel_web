@@ -21,7 +21,7 @@ prisma/schema.prisma
 `yarn prisma migrate dev --name initial-migration --create-only`
 初期状態のマイグレーションファイルを生成
 
-`yarn prisma migrate dev --name redesign-types --create-only`
+`yarn prisma migrate dev --name add-login-tables --create-only`
 マイグレーションファイルを更新
 
 `yarn prisma migrate dev`

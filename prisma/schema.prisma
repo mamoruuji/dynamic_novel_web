@@ -18,19 +18,66 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(cuid()) @map(name: "user_id")
-  name      String   @db.VarChar(30)
-  email     String   @unique @db.VarChar(319)
-  createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  id            String   @id @default(cuid()) @map(name: "user_id")
+  name          String   @db.VarChar(30)
+  email         String   @unique @db.VarChar(319)
+  emailVerified DateTime?
+  image         String?
+  createdAt     DateTime @default(now()) @map(name: "created_at")
+  updatedAt     DateTime @updatedAt @map(name: "updated_at")
 
   dynamics    Dynamic[]
   marks       Mark[]
   impressions Impression[]
   folders     Folder[]
   images      Image[]
+  accounts    Account[]
+  sessions    Session[]
 
   @@map(name: "users")
+}
+
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  createdAt         DateTime @default(now()) @map(name: "created_at")
+  updatedAt         DateTime @updatedAt @map(name: "updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+  @@map(name: "accounts")
+}
+
+model Session {
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  createdAt    DateTime @default(now()) @map(name: "created_at")
+  updatedAt    DateTime @updatedAt @map(name: "updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map(name: "sessions")
+}
+
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+
+  @@id([identifier, token])
+  @@map(name: "verificationTokens")
 }
 
 model Dynamic {

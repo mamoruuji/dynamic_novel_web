@@ -5,8 +5,41 @@ erDiagram
     String id "🗝️"
     String name 
     String email 
+    DateTime emailVerified "❓"
+    String image "❓"
     DateTime createdAt 
     DateTime updatedAt 
+    }
+  
+
+  "accounts" {
+    String type 
+    String provider "🗝️"
+    String providerAccountId "🗝️"
+    String refresh_token "❓"
+    String access_token "❓"
+    Int expires_at "❓"
+    String token_type "❓"
+    String scope "❓"
+    String id_token "❓"
+    String session_state "❓"
+    DateTime createdAt 
+    DateTime updatedAt 
+    }
+  
+
+  "sessions" {
+    String sessionToken 
+    DateTime expires 
+    DateTime createdAt 
+    DateTime updatedAt 
+    }
+  
+
+  "verificationTokens" {
+    String identifier "🗝️"
+    String token "🗝️"
+    DateTime expires 
     }
   
 
@@ -170,6 +203,10 @@ erDiagram
     "users" o{--}o "impressions" : "impressions"
     "users" o{--}o "folders" : "folders"
     "users" o{--}o "images" : "images"
+    "users" o{--}o "accounts" : "accounts"
+    "users" o{--}o "sessions" : "sessions"
+    "accounts" o|--|| "users" : "user"
+    "sessions" o|--|| "users" : "user"
     "dynamics" o|--|o "images" : "image"
     "dynamics" o|--|| "users" : "user"
     "dynamics" o{--}o "chapters" : "chapters"
