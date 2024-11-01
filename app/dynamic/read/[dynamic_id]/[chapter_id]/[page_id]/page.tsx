@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation'
 
-import { Sections } from './components/organisms'
+import { Sections } from '@/components/read/page/organisms'
 
 import { dynamicAtom, chaptersAtom, pageAtom, termsAtom } from '@/states/operation-dynamic.ts'
 import { useRecoilState } from 'recoil'

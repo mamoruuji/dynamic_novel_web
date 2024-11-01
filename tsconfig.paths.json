@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/common/*": [
+      "@/components/*": [
         "app/components/*"
       ],
       "@/type/*": [
@@ -13,9 +13,6 @@
       ],
       "@/states/*": [
         "app/states/*"
-      ],
-      "@/auth/*": [
-        "src/auth/*"
       ]
     }
   }

@@ -37,3 +37,19 @@ export type GeTermsType = {
   name: string
   order: number
 }
+
+export type GetUserType = {
+  userId: string
+  name: string
+  email: string
+  image: string
+}
+
+// export type GetImageType = {
+//   imageId: string
+//   name: string
+//   path: string
+//   folderId: number
+//   createdTime: string
+//   updatedTime: string
+// }

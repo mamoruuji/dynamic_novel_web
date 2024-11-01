@@ -18,8 +18,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const filterKeywords = snapshot.getLoadable(filterKeywordsAtom).contents
   const filterStartDate = snapshot.getLoadable(filterStartDateAtom).contents
   const filterEndDate = snapshot.getLoadable(filterEndDateAtom).contents
+  const { user_id } = req.query
 
   const body = {
+    user_id: user_id,
     search_keywords: searchKeywords[0] === '' ? [] : searchKeywords,
     sort_category: sortCategory,
     sort_order: sortOrder,

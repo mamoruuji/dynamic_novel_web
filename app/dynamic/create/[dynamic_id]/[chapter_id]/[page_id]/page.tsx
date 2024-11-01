@@ -2,9 +2,7 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation'
 
-// import { Alert, Box, CircularProgress } from '@mui/material'
-// import { SearchResults } from './components'
-import { Sections } from './components/organisms'
+import { Sections } from '@/components/create/page/organisms'
 
 import { dynamicAtom, chaptersAtom } from '@/states/operation-dynamic.ts'
 import { useRecoilState } from 'recoil'

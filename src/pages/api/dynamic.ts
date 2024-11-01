@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { NextResponse } from 'next/server'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { dynamic_id } = req.query

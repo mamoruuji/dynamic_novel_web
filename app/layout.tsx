@@ -6,7 +6,7 @@ import { RecoilRoot } from 'recoil'
 import SessionProvider from '../src/provider/SessionProvider'
 import { CssBaseline } from '@mui/material'
 import Head from './head'
-import { GlobalHeader } from '@/common/organisms'
+import { GlobalHeader } from '@/components/common/organisms'
 
 import {
   Experimental_CssVarsProvider as CssVarsProvider,

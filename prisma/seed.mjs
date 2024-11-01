@@ -21,6 +21,9 @@ const deleteAllData = async () => {
     await prisma.page.deleteMany()
     await prisma.chapter.deleteMany()
     await prisma.dynamic.deleteMany()
+    await prisma.account.deleteMany()
+    await prisma.session.deleteMany()
+    await prisma.verificationToken.deleteMany()
     await prisma.user.deleteMany()
     await prisma.$executeRaw`ALTER SEQUENCE dynamics_on_tags_dynamics_on_tags_id_seq RESTART WITH 1;`
     await prisma.$executeRaw`ALTER SEQUENCE tags_tag_id_seq RESTART WITH 1;`

@@ -1,13 +1,12 @@
 'use client'
+
 import { useState, useEffect } from 'react'
 import { useRecoilState } from 'recoil'
 
 import { Alert, CircularProgress } from '@mui/material'
-import { SearchResults } from './components/organisms/'
+import { SearchResults } from '@/components/search/organisms/'
 
-import {
-  dynamicsAtom,
-} from '@/states/search-request.ts'
+import { dynamicsAtom } from '@/states/search-request.ts'
 
 export default function Page() {
   const [dynamics, setDynamics] = useRecoilState(dynamicsAtom)
