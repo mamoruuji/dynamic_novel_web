@@ -18,25 +18,29 @@ datasource db {
 }
 
 model User {
-  id            String   @id @default(cuid()) @map(name: "user_id")
-  name          String   @db.VarChar(30)
-  email         String   @unique @db.VarChar(319)
+  id            String    @id @default(cuid()) @map(name: "user_id")
+  name          String    @db.VarChar(30)
+  email         String    @unique @db.VarChar(319)
   emailVerified DateTime?
-  image         String?
-  createdAt     DateTime @default(now()) @map(name: "created_at")
-  updatedAt     DateTime @updatedAt @map(name: "updated_at")
+  penName       String    @default("無名") @map(name: "pen_name") @db.VarChar(255)
+  text          String    @default("") @db.VarChar(500)
+  imageUrl      String    @default("no_image") @map(name: "image_url")
+  // iconImage     String    @map(name: "icon_image")
+  createdAt     DateTime  @default(now()) @map(name: "created_at")
+  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
 
-  dynamics    Dynamic[]
-  marks       Mark[]
-  impressions Impression[]
-  folders     Folder[]
-  images      Image[]
-  accounts    Account[]
-  sessions    Session[]
+  dynamics      Dynamic[]
+  following     Follow[]      @relation("followingRelation")
+  followers     Follow[]      @relation("followerRelation")
+  impressions   Impression[]
+  viewHistories ViewHistory[]
+  folders       Folder[]
+  images        Image[]
+  accounts      Account[]
+  sessions      Session[]
 
   @@map(name: "users")
 }
-
 
 model Account {
   userId            String
@@ -86,17 +90,16 @@ model Dynamic {
   overview  String   @db.VarChar(500)
   published Boolean  @default(false)
   userId    String   @map(name: "user_id")
-  imageId   Int?     @map(name: "image_id")
+  imageUrl  String   @default("no_image") @map(name: "image_url")
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 
-  image       Image?          @relation(fields: [imageId], references: [id])
-  user        User            @relation(fields: [userId], references: [id])
-  chapters    Chapter[]
-  impressions Impression[]
-  marks       Mark[]
-  terms       Term[]
-  tags        DynamicsOnTags[]
+  user          User             @relation(fields: [userId], references: [id])
+  chapters      Chapter[]
+  impressions   Impression[]
+  viewHistories ViewHistory[]
+  terms         Term[]
+  tags          DynamicsOnTags[]
 
   @@unique([userId, title])
   @@map(name: "dynamics")
@@ -127,9 +130,10 @@ model Page {
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 
-  chapter  Chapter   @relation(fields: [chapterId], references: [id])
-  sections Section[]
-  terms    Term[]
+  chapter       Chapter       @relation(fields: [chapterId], references: [id])
+  sections      Section[]
+  viewHistories ViewHistory[]
+  terms         Term[]
 
   @@unique([chapterId, title])
   @@unique([chapterId, order])
@@ -143,7 +147,8 @@ model Section {
   typeSectionId   Int      @default(1) @map(name: "type_of_section_id")
   typePositionId  Int      @default(1) @map(name: "type_of_position_id")
   typeAnimationId Int      @default(1) @map(name: "type_of_animation_id")
-  imageId         Int?     @map(name: "image_id")
+  // imageId         Int?     @map(name: "image_id")
+  imageUrl        String   @default("no_image") @map(name: "image_url")
   frameColorId    Int      @default(1) @map(name: "frame_color_id")
   typeFontId      Int      @default(1) @map(name: "type_of_font_id")
   text            String   @default("")
@@ -161,7 +166,7 @@ model Section {
   frameColor TypeColor      @relation("frameColor", fields: [frameColorId], references: [id])
   textColor  TypeColor      @relation("textColor", fields: [textColorId], references: [id])
   term       Term[]
-  image      Image?         @relation(fields: [imageId], references: [id])
+  // image      Image?         @relation(fields: [imageId], references: [id])
 
   @@unique([order, pageId])
   @@map(name: "sections")
@@ -194,12 +199,11 @@ model Image {
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 
-  user    User      @relation(fields: [userId], references: [id])
-  type    TypeImage @relation(fields: [typeId], references: [id])
-  dynamic Dynamic[]
-  section Section[]
-  folder  Folder?   @relation(fields: [folderId], references: [id])
-  term    Term[]
+  user   User      @relation(fields: [userId], references: [id])
+  type   TypeImage @relation(fields: [typeId], references: [id])
+  // section Section[]
+  folder Folder?   @relation(fields: [folderId], references: [id])
+  // term    Term[]
 
   @@unique([name, userId])
   @@map(name: "images")
@@ -214,7 +218,8 @@ model Term {
   chapterId Int?     @map(name: "chapter_id")
   pageId    Int?     @map(name: "page_id")
   sectionId Int?     @map(name: "section_id")
-  imageId   Int?     @map(name: "image_id")
+  // imageId   Int?     @map(name: "image_id")
+  imageUrl  String   @default("no_image") @map(name: "image_url")
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 
@@ -222,7 +227,7 @@ model Term {
   chapter Chapter? @relation(fields: [chapterId], references: [id])
   page    Page?    @relation(fields: [pageId], references: [id])
   section Section? @relation(fields: [sectionId], references: [id])
-  image   Image?   @relation(fields: [imageId], references: [id])
+  // image   Image?   @relation(fields: [imageId], references: [id])
 
   @@unique([order, dynamicId])
   @@unique([order, chapterId])
@@ -254,11 +259,28 @@ model DynamicsOnTags {
   @@map(name: "dynamics_on_tags")
 }
 
+model Follow {
+  id         Int      @id @default(autoincrement()) @map(name: "follow_id")
+  followerId String   @map(name: "follower_id")
+  followeeId String   @map(name: "followee_id")
+  createdAt  DateTime @default(now()) @map(name: "created_at")
+  updatedAt  DateTime @updatedAt @map(name: "updated_at")
+
+  follower User @relation("followingRelation", fields: [followerId], references: [id])
+  followee User @relation("followerRelation", fields: [followeeId], references: [id])
+
+  @@unique([followerId, followeeId])
+  @@index([followerId])
+  @@index([followeeId])
+  @@map(name: "follows")
+}
+
 model Impression {
   id        Int      @id @default(autoincrement()) @map(name: "impression_id")
   rate      Int      @default(1)
   title     String   @db.VarChar(30)
   text      String   @db.VarChar(500)
+  published Boolean  @default(false)
   userId    String   @map(name: "user_id")
   dynamicId Int      @map(name: "dynamic_id")
   createdAt DateTime @default(now()) @map(name: "created_at")
@@ -271,18 +293,21 @@ model Impression {
   @@map(name: "impressions")
 }
 
-model Mark {
-  id        Int      @id @default(autoincrement()) @map(name: "mark_id")
+model ViewHistory {
+  id        Int      @id @default(autoincrement()) @map(name: "view_history_id")
   userId    String   @map(name: "user_id")
   dynamicId Int      @map(name: "dynamic_id")
+  pageId    Int      @map(name: "page_id")
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 
-  user    User    @relation(fields: [userId], references: [id])
-  dynamic Dynamic @relation(fields: [dynamicId], references: [id])
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  dynamic Dynamic @relation(fields: [dynamicId], references: [id], onDelete: Cascade)
+  page    Page    @relation(fields: [pageId], references: [id], onDelete: Cascade)
 
   @@unique([userId, dynamicId])
-  @@map(name: "marks")
+  @@index([userId, createdAt])
+  @@map(name: "view_histories")
 }
 
 model TypeAnimation {

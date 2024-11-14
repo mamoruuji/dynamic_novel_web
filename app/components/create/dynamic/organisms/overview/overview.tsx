@@ -11,13 +11,19 @@ import {
   Container,
   FormGroup,
   Input,
+  InputLabel,
+  IconButton,
   TextField,
   Typography,
-  IconButton,
 } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 
-import { titleAtom, overviewAtom, dynamicAtom} from '@/states/operation-dynamic.ts'
+import {
+  titleAtom,
+  overviewAtom,
+  dynamicAtom,
+  // tagsAtom,
+} from '@/states/operation-dynamic.ts'
 import styles from './overview.module.sass'
 
 const formatDate = (isoString: string): string => {
@@ -35,6 +41,7 @@ const formatDate = (isoString: string): string => {
 
 export const Overview = () => {
   const [dynamic, setDynamic] = useRecoilState(dynamicAtom)
+  // const [tags, setTags] = useRecoilState(tagsAtom)
   const ref = useRef(true)
   const ref2 = useRef(true)
   const [formState, formAction] = useFormState(UpdateDynamic, {})
@@ -68,12 +75,8 @@ export const Overview = () => {
 
   const imageWidth = '360'
   const imageHeight = '640'
-  let imageUrl = '/images/testCover.png'
-  if(dynamic.imagePath !== undefined){
-    imageUrl = '/images/testCover.png'
-  // }else{
-  //   imageUrl = dynamic.imagePath
-  }
+  let imageUrl =
+    dynamic.imageUrl !== undefined ? dynamic.imageUrl : '/images/testCover.png'
 
   return (
     <Box className={styles.overview}>
@@ -94,11 +97,11 @@ export const Overview = () => {
             <Box mb={2}>
               <TextField
                 name='title'
-                value={dynamic.title || ""}
+                value={dynamic.title || ''}
                 onChange={setTitle}
-                sx={{ "& .MuiInputBase-input": { height: 50 }, width: 400 }}
+                sx={{ '& .MuiInputBase-input': { height: 50 }, width: 400 }}
                 placeholder='作品タイトル'
-                variant="outlined"
+                variant='outlined'
                 className={styles.h3TextField}
               />
             </Box>
@@ -107,27 +110,42 @@ export const Overview = () => {
                 <Typography variant='h6'>　作者：</Typography>
                 <Typography variant='h6'>{dynamic.userName}</Typography>
               </Box>
-              <Box mb={2} >
+              <Box mb={2}>
                 <Typography variant='h6'>　更新日時：</Typography>
-                <Typography variant='h6'>{formatDate(dynamic.updatedTime)}</Typography>
+                <Typography variant='h6'>
+                  {formatDate(dynamic.updatedTime)}
+                </Typography>
               </Box>
             </Box>
+            {/* <Box>
+              <InputLabel id='tag-label'>作品タグ</InputLabel>
+              <TextField
+                id='tag-input'
+                name='tags'
+                value={tags}
+                onChange={setTags}
+                itemKey='tag-key'
+                label='タグ'
+              />
+            </Box> */}
             <Box>
               <TextField
                 name='overview'
-                value={dynamic.overview || ""}
+                value={dynamic.overview || ''}
                 onChange={setOverview}
-                sx={{ "& .MuiInputBase-input": { height: 50 }, width: 400 }}
+                sx={{ '& .MuiInputBase-input': { height: 50 }, width: 400 }}
                 placeholder='作品概要'
                 multiline
                 rows={17}
               />
             </Box>
           </Box>
+          <Input
+            type='hidden'
+            name='dynamic-id'
+            dynamicid={dynamic.dynamicId}
+          />
         </FormGroup>
-        <Input type="hidden" name='user-id' userid={dynamic.userId} />
-        <Input type="hidden" name='dynamic-id' dynamicid={dynamic.dynamicId} />
-        <Input type="hidden" name='type-of-image' typeofimage={'illustration'} />
       </form>
     </Box>
   )

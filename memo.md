@@ -19,10 +19,8 @@ prisma/schema.prisma
 既存 DB のスキーマの取得
 
 `yarn prisma migrate dev --name initial-migration --create-only`
-初期状態のマイグレーションファイルを生成
-
-`yarn prisma migrate dev --name add-login-tables --create-only`
-マイグレーションファイルを更新
+`yarn prisma migrate dev --name add-ViewedPages-tables-and-add-image-column --create-only`
+マイグレーションファイルを生成
 
 `yarn prisma migrate dev`
 作成したマイグレーションファイルを適用

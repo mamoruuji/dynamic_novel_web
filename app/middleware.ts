@@ -31,6 +31,9 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     '/user/:userId*',
+    '/user/:userId/bookmarks',
+    '/user/:userId/follows',
+    '/user/:userId/images',
     '/user/:userId/search',
     '/user/:userId/create/:dynamicId*',
   ],

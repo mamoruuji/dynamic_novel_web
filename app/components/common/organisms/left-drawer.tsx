@@ -6,6 +6,9 @@ import { useParams, usePathname } from 'next/navigation'
 import { leftDrawerStateAtom } from '@/states/drawer-state.ts'
 import { DrawerHeaderWithIcon, Drawer } from '@/components/common/atoms'
 import { UserLinks } from '@/components/user/molecules'
+import { Contents as CreateContents } from '@/components/create/dynamic/molecules'
+import { Contents as ReadContents } from '@/components/read/dynamic/molecules'
+
 import { SearchForm } from '@/components/search/organisms'
 import { GetSearchDynamics } from 'app/actions/search.ts'
 
@@ -19,6 +22,8 @@ export const LeftDrawer = () => {
   const { user_id } = useParams()
   const router = usePathname()
   const isSearch = router.includes('search')
+  const isCreate = user_id && router.includes('dynamic')
+  const isRead = !user_id && router.includes('dynamic')
 
   return (
     <Drawer anchor='left' open={leftOpen}>
@@ -36,6 +41,18 @@ export const LeftDrawer = () => {
       {isSearch && (
         <>
           <SearchForm action={GetSearchDynamics}/>
+          <Divider />
+        </>
+      )}
+      {isCreate && (
+        <>
+          <ReadContents />
+          <Divider />
+        </>
+      )}
+      {isRead && (
+        <>
+          <ReadContents />
           <Divider />
         </>
       )}

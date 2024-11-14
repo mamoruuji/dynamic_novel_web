@@ -1,7 +1,5 @@
 'use server'
 
-// import { authOptions } from "src/auth"
-// import { getServerSession } from "next-auth"
 import { headers } from 'next/headers'
 import { revalidatePath } from 'next/cache'
 
@@ -13,14 +11,10 @@ export const GetSearchDynamics = async (prevState, formData: FormData) => {
   const filterStartDate = formData.get('filter-start-date')
   const filterEndDate = formData.get('filter-end-date')
 
-  // urlからuser_idを取得
   const requestUrl = headers().get('referer')
   const match = requestUrl.includes('user/') ? requestUrl.match(/user\/(.*?)\/search/) : null
 
   const userId = match && match[1] ? match[1] : null
-  // セッションからuser_idを取得
-  // const session = await getServerSession(authOptions)
-  // let userId = session?.user?.id
 
   const body = {
     user_id: userId,

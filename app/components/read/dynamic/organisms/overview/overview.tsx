@@ -1,10 +1,6 @@
 import Image from 'next/image'
 
-import {
-  Box,
-  Typography,
-  Container,
-} from '@mui/material'
+import { Box, Typography, Container } from '@mui/material'
 import { useRecoilValue } from 'recoil'
 import { dynamicAtom } from '@/states/operation-dynamic.ts'
 import styles from './overview.module.sass'
@@ -27,12 +23,8 @@ export const Overview = () => {
 
   const imageWidth = 360
   const imageHeight = 640
-  let imageUrl = '/images/testCover.png'
-  if(dynamic.imagePath !== undefined){
-    imageUrl = '/images/testCover.png'
-  // }else{
-  //   imageUrl = dynamic.imagePath
-  }
+  let imageUrl =
+    dynamic.imageUrl !== undefined ? dynamic.imageUrl : '/images/testCover.png'
 
   return (
     <Container className={styles.overview}>
@@ -57,9 +49,11 @@ export const Overview = () => {
             <Typography variant='h6'>　作者：</Typography>
             <Typography variant='h6'>{dynamic.userName}</Typography>
           </Box>
-          <Box mb={2} >
+          <Box mb={2}>
             <Typography variant='h6'>　更新日時：</Typography>
-            <Typography variant='h6'>{formatDate(dynamic.updatedTime)}</Typography>
+            <Typography variant='h6'>
+              {formatDate(dynamic.updatedTime)}
+            </Typography>
           </Box>
         </Box>
         <Box>

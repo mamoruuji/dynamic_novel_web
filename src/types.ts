@@ -3,6 +3,9 @@ export type ListDynamicsType = {
   title: string
   overview: string
   userId: string
+  userPenName: string
+  imageUrl: string
+  tags: GetTagType[]
   published: boolean
   createdTime: string
   updatedTime: string
@@ -32,17 +35,26 @@ export type GetPagesType = {
   order: number
 }
 
-export type GeTermsType = {
+export type GetTermsType = {
   termId: number
   name: string
   order: number
 }
 
+export type GetTagType = {
+  tagId: number
+  name: string
+}
+
 export type GetUserType = {
-  userId: string
+  userId: number
   name: string
   email: string
-  image: string
+  penName: string
+  text: string
+  imageUrl: string
+  createdTime: string
+  updatedTime: string
 }
 
 // export type GetImageType = {

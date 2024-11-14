@@ -21,5 +21,8 @@
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "extensions.recommendations": [
     "ms-ceintl.vscode-language-pack-ja"
-  ]
+  ],
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  }
 }

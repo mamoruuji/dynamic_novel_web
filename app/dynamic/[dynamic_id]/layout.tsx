@@ -2,8 +2,7 @@
 
 import { Container } from '@mui/material'
 import { Main } from '@/components/common/molecules'
-import { LocalHeader } from '@/components/common/organisms'
-import { LeftDrawer, RightDrawer } from '@/components/read/dynamic/organisms'
+import { LocalHeader, LeftDrawer, RightDrawer} from '@/components/common/organisms'
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
