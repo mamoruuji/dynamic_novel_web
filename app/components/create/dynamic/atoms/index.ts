@@ -1,5 +1,4 @@
 export * from './icon/icon'
-export * from './image-crop/image-crop'
 export * from './add-page-button'
 export * from './add-chapter-button'
 export * from './add-term-button'

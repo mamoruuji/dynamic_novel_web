@@ -9,8 +9,8 @@ import Head from './head'
 import { GlobalHeader } from '@/components/common/organisms'
 
 import {
-  Experimental_CssVarsProvider as CssVarsProvider,
-  experimental_extendTheme as extendTheme,
+  ThemeProvider,
+  createTheme,
   getInitColorSchemeScript,
 } from '@mui/material/styles'
 
@@ -21,7 +21,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     ? 'dark'
     : 'light'
 
-  const theme = extendTheme({
+  const theme = createTheme({
     palette: {
       mode: isDarkMode,
     },
@@ -30,7 +30,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <SessionProvider>
       <RecoilRoot>
-        <CssVarsProvider theme={theme}>
+        <ThemeProvider theme={theme}>
           <CssBaseline />
           <html lang='jp' data-mui-color-scheme={isDarkMode}>
             <Head />
@@ -38,7 +38,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
               <GlobalHeader>{children}</GlobalHeader>
             </body>
           </html>
-        </CssVarsProvider>
+        </ThemeProvider>
       </RecoilRoot>
     </SessionProvider>
   )

@@ -6,19 +6,14 @@ import { useFormState } from 'react-dom'
 
 import { SearchStack } from '../atoms'
 import { Search, Sort, Filter } from '../molecules'
-import {
-  Box,
-  Button,
-  FormGroup
-} from '@mui/material'
+import { Box, Button, FormGroup } from '@mui/material'
 import { GetSearchDynamics } from 'app/actions/search.ts'
-
 import { dynamicsAtom } from '@/states/search-request.ts'
 
-export const SearchForm = ({action}) => {
+export const SearchForm = () => {
   const ref = useRef(true)
   const ref2 = useRef(true)
-  const [formState, formAction] = useFormState(action, {})
+  const [formState, formAction] = useFormState(GetSearchDynamics, {})
   const [dynamics, setDynamics] = useRecoilState(dynamicsAtom)
 
   useEffect(() => {
@@ -34,7 +29,7 @@ export const SearchForm = ({action}) => {
     setDynamics(formState)
   }, [formState, formAction])
 
-  return(
+  return (
     <Box sx={{ mx: 'auto' }}>
       <form action={formAction}>
         <FormGroup>

@@ -10,12 +10,8 @@ import { Contents as CreateContents } from '@/components/create/dynamic/molecule
 import { Contents as ReadContents } from '@/components/read/dynamic/molecules'
 
 import { SearchForm } from '@/components/search/organisms'
-import { GetSearchDynamics } from 'app/actions/search.ts'
 
-import {
-  Divider,
-  Stack
-} from '@mui/material'
+import { Divider, Stack } from '@mui/material'
 
 export const LeftDrawer = () => {
   const [leftOpen, setLeftOpen] = useRecoilState(leftDrawerStateAtom)
@@ -27,10 +23,7 @@ export const LeftDrawer = () => {
 
   return (
     <Drawer anchor='left' open={leftOpen}>
-      <DrawerHeaderWithIcon
-        onClose={() => setLeftOpen(false)}
-        anchor='left'
-      />
+      <DrawerHeaderWithIcon onClose={() => setLeftOpen(false)} anchor='left' />
       <Divider />
       {user_id && (
         <>
@@ -40,13 +33,13 @@ export const LeftDrawer = () => {
       )}
       {isSearch && (
         <>
-          <SearchForm action={GetSearchDynamics}/>
+          <SearchForm />
           <Divider />
         </>
       )}
       {isCreate && (
         <>
-          <ReadContents />
+          <CreateContents />
           <Divider />
         </>
       )}

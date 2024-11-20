@@ -1,10 +1,10 @@
 import Image from 'next/image'
 
-import { ImageCrop } from '../../atoms'
 import { useEffect, useRef } from 'react'
 import { useFormState } from 'react-dom'
 import { useRecoilState, useRecoilValue } from 'recoil'
 import { UpdateDynamic } from 'app/actions/update-dynamic'
+import { ImageCropper } from '@/components/common/molecules'
 
 import {
   Box,
@@ -75,8 +75,9 @@ export const Overview = () => {
 
   const imageWidth = '360'
   const imageHeight = '640'
-  let imageUrl =
-    dynamic.imageUrl !== undefined ? dynamic.imageUrl : '/images/testCover.png'
+  // let imageUrl =
+  //   dynamic.imageUrl !== undefined ? dynamic.imageUrl : '/images/testCover.png'
+  let imageUrl = '/images/testCover.png'
 
   return (
     <Box className={styles.overview}>
@@ -89,7 +90,7 @@ export const Overview = () => {
           className='w-full h-auto object-cover'
           alt='text'
         />
-        <ImageCrop />
+        <ImageCropper type='cover' />
       </Box>
       <form action={formAction}>
         <FormGroup>
@@ -108,7 +109,7 @@ export const Overview = () => {
             <Box className={styles['detail-two']}>
               <Box>
                 <Typography variant='h6'>　作者：</Typography>
-                <Typography variant='h6'>{dynamic.userName}</Typography>
+                <Typography variant='h6'>{dynamic.penName}</Typography>
               </Box>
               <Box mb={2}>
                 <Typography variant='h6'>　更新日時：</Typography>

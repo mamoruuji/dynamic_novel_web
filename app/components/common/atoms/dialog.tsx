@@ -1,25 +1,24 @@
-
 'use client'
 
-import { useState } from 'react'
+import { useRecoilState } from 'recoil'
+import { dialogStateAtom } from '@/states/dialog-state.ts'
 
-import {
-  Box,
-  Button,
-  Dialog as MuiDialog,
-  DialogTitle,
-} from '@mui/material'
+import { Box, Button, Dialog as MuiDialog } from '@mui/material'
 
-export const Dialog = ({ children, dialogTitle, buttonText }) => {
-  const [dialogOpen, setDialogOpen] = useState(false)
+export const Dialog = ({ children, buttonText }) => {
+  const [dialogOpen, setDialogOpen] = useRecoilState(dialogStateAtom)
 
-  return(
+  return (
     <>
-      <Button variant="outlined" onClick={() => setDialogOpen(true)}>
+      <Button variant='outlined' onClick={() => setDialogOpen(true)}>
         {buttonText}
       </Button>
-      <MuiDialog onClose={() => setDialogOpen(false)} open={dialogOpen}>
-        <DialogTitle>{dialogTitle}</DialogTitle>
+      <MuiDialog
+        open={dialogOpen}
+        onClose={() => setDialogOpen(false)}
+        fullWidth
+        maxWidth='sm'
+      >
         {children}
       </MuiDialog>
     </>
