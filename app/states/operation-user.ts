@@ -11,7 +11,7 @@ export const userAtom = atom<GetUserType>({
 //   default: [],
 // })
 
-export const imageAtom = atom<GetImageType>({
-  key: 'imageAtom',
-  default: {},
-})
+// export const imageAtom = atom<GetImageType>({
+//   key: 'imageAtom',
+//   default: {},
+// })

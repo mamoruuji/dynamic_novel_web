@@ -57,11 +57,11 @@ export type GetUserType = {
   updatedTime: string
 }
 
-export type GetImageType = {
-  imageId: string
-  name: string
-  imageUrl: string
-  folderId: number
-  createdTime: string
-  updatedTime: string
-}
+// export type GetImageType = {
+//   imageId: string
+//   name: string
+//   imageUrl: string
+//   folderId: number
+//   createdTime: string
+//   updatedTime: string
+// }
