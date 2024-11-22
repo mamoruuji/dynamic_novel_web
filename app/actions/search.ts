@@ -1,7 +1,6 @@
 'use server'
 
 import { headers } from 'next/headers'
-import { revalidatePath } from 'next/cache'
 
 export const GetSearchDynamics = async (prevState, formData: FormData) => {
   const searchKeywords = formData.get('search-keywords').split(',')
@@ -12,7 +11,9 @@ export const GetSearchDynamics = async (prevState, formData: FormData) => {
   const filterEndDate = formData.get('filter-end-date')
 
   const requestUrl = headers().get('referer')
-  const match = requestUrl.includes('user/') ? requestUrl.match(/user\/(.*?)\/search/) : null
+  const match = requestUrl.includes('user/')
+    ? requestUrl.match(/user\/(.*?)\/search/)
+    : null
 
   const userId = match && match[1] ? match[1] : null
 

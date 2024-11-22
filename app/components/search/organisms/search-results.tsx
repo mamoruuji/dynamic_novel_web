@@ -3,12 +3,7 @@ import Link from 'next/link'
 import { dynamicsAtom } from '@/states/search-request.ts'
 import { useRecoilValue } from 'recoil'
 
-import {
-  Card,
-  CardContent,
-  CardMedia,
-  Typography,
-} from '@mui/material'
+import { Card, CardContent, CardMedia, Typography } from '@mui/material'
 
 export const SearchResults = () => {
   const dynamics = useRecoilValue(dynamicsAtom)

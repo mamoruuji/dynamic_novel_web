@@ -7,11 +7,14 @@ import { Alert, CircularProgress } from '@mui/material'
 import { SearchResults } from '@/components/search/organisms/'
 
 import { dynamicsAtom } from '@/states/search-request.ts'
+// import { useSharedData } from 'src/store/use-shared-data'
 
 export default function Page() {
   const [dynamics, setDynamics] = useRecoilState(dynamicsAtom)
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState<boolean | null>(false)
+  // const apiUrl = '/api/search'
+  // const { data, error, isLoading } = useSharedData(apiUrl)
 
   useEffect(() => {
     ;(async () => {
@@ -41,5 +44,6 @@ export default function Page() {
       </Alert>
     )
   if (isLoading) return <CircularProgress />
+  // setDynamics(data.dynamics)
   return <SearchResults />
 }

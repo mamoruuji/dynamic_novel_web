@@ -10,11 +10,22 @@ import { Box, Button, FormGroup } from '@mui/material'
 import { GetSearchDynamics } from 'app/actions/search.ts'
 import { dynamicsAtom } from '@/states/search-request.ts'
 
+// import { useSharedData } from 'src/store/use-shared-data'
+
 export const SearchForm = () => {
   const ref = useRef(true)
   const ref2 = useRef(true)
   const [formState, formAction] = useFormState(GetSearchDynamics, {})
   const [dynamics, setDynamics] = useRecoilState(dynamicsAtom)
+
+  // const apiUrl = '/api/search'
+  // const { mutate } = useSharedData(apiUrl)
+
+  // const handleButtonClick = () => {
+  //   console.log(11111111)
+  //   const newUrl = `${apiUrl}/id1`
+  //   mutate(newUrl)
+  // }
 
   useEffect(() => {
     if (ref.current) {
@@ -35,7 +46,11 @@ export const SearchForm = () => {
         <FormGroup>
           <SearchStack>
             <Search />
-            <Button variant='contained' type='submit'>
+            <Button
+              variant='contained'
+              type='submit'
+              // onClick={handleButtonClick}
+            >
               検索
             </Button>
             <Sort />
