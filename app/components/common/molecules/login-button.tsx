@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { useState } from 'react'
 import {
   Avatar,
@@ -14,23 +13,20 @@ import {
   Typography,
 } from '@mui/material'
 
-import {
-  useSession,
-  signIn,
-  signOut
-} from 'next-auth/react'
-import { useRouter } from "next/navigation"
+import { useSession, signIn, signOut } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 export const LoginButton = () => {
   const { data: session, status } = useSession()
-  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => setAnchorElUser(event.currentTarget)
+  const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null)
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) =>
+    setAnchorElUser(event.currentTarget)
   const handleCloseUserMenu = () => setAnchorElUser(null)
   const router = useRouter()
 
   const handleLinkUserPage = () => {
     if (session?.user?.id) {
-      router.push(`/user/${session.user.id}`);
+      router.push(`/user/${session.user.id}`)
     }
   }
 
@@ -38,7 +34,7 @@ export const LoginButton = () => {
     return (
       <>
         <Box sx={{ flexGrow: 0 }}>
-          <Tooltip title="Open settings">
+          <Tooltip title='Open settings'>
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
               <Avatar
                 src={session.user?.image ?? ``}
@@ -49,7 +45,7 @@ export const LoginButton = () => {
           </Tooltip>
           <Menu
             sx={{ mt: '45px' }}
-            id="menu-appbar"
+            id='menu-appbar'
             anchorEl={anchorElUser}
             anchorOrigin={{
               vertical: 'top',
@@ -64,10 +60,10 @@ export const LoginButton = () => {
             onClose={handleCloseUserMenu}
           >
             <MenuItem key='user-page' onClick={handleLinkUserPage}>
-              <Typography textAlign="center">ユーザページへ</Typography>
+              <Typography textAlign='center'>ユーザページへ</Typography>
             </MenuItem>
             <MenuItem key='logout' onClick={() => signOut()}>
-              <Typography textAlign="center">ログアウト</Typography>
+              <Typography textAlign='center'>ログアウト</Typography>
             </MenuItem>
           </Menu>
         </Box>
@@ -76,7 +72,7 @@ export const LoginButton = () => {
   }
   return (
     <>
-      <Button variant="contained" color="primary" onClick={() => signIn()}>
+      <Button variant='contained' color='primary' onClick={() => signIn()}>
         サインイン
       </Button>
     </>

@@ -1,16 +1,31 @@
-import Link from 'next/link'
+'use client'
 
-import { dynamicsAtom } from '@/states/search-request.ts'
-import { useRecoilValue } from 'recoil'
-
-import { Card, CardContent, CardMedia, Typography } from '@mui/material'
+import useSWR from 'swr'
+import { useParams } from 'next/navigation'
+import {
+  Alert,
+  Card,
+  CardContent,
+  CardMedia,
+  CircularProgress,
+  Typography,
+} from '@mui/material'
 
 export const SearchResults = () => {
-  const dynamics = useRecoilValue(dynamicsAtom)
+  const { user_id } = useParams()
+  const url = `/api/search/${user_id}`
+  const { data, error, isLoading } = useSWR(url)
 
+  const isEmptyObject = (obj: object): boolean => {
+    return Object.keys(obj).length === 0
+  }
+
+  if (error) return <Alert severity='warning'>{error}</Alert>
+  if (isLoading) return <CircularProgress />
+  if (isEmptyObject(data)) return <Typography>No data</Typography>
   return (
     <>
-      {dynamics.map((dynamic) => (
+      {data.dynamics.map((dynamic) => (
         <Card key={dynamic.dynamicId} sx={{ display: 'flex', marginBottom: 2 }}>
           <CardMedia
             component='img'

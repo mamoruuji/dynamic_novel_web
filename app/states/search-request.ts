@@ -1,5 +1,4 @@
 import { atom, atomFamily, selector } from 'recoil'
-import { ListDynamicsType } from '@/type/'
 
 export const searchKeywordsAtom = atom<string[]>({
   key: 'searchKeywordsAtom',
@@ -30,9 +29,3 @@ export const filterEndDateAtom = atom<string>({
   key: 'filterEndDateAtom',
   default: '',
 })
-
-export const dynamicsAtom = atom<ListDynamicsType[]>({
-  key: 'dynamicsAtom',
-  default: [],
-})
-

@@ -1,16 +1,3 @@
-export type ListDynamicsType = {
-  dynamicId: number
-  title: string
-  overview: string
-  userId: string
-  userPenName: string
-  imageUrl: string
-  tags: GetTagType[]
-  published: boolean
-  createdTime: string
-  updatedTime: string
-}
-
 export type GetDynamicType = {
   dynamicId: number
   title: string

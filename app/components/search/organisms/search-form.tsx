@@ -1,55 +1,67 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
-import { useRecoilState } from 'recoil'
-import { useFormState } from 'react-dom'
+import { useRef } from 'react'
+import { useParams } from 'next/navigation'
+import useSWR from 'swr'
+import useSWRMutation from 'swr/mutation'
 
 import { SearchStack } from '../atoms'
 import { Search, Sort, Filter } from '../molecules'
 import { Box, Button, FormGroup } from '@mui/material'
-import { GetSearchDynamics } from 'app/actions/search.ts'
-import { dynamicsAtom } from '@/states/search-request.ts'
 
-// import { useSharedData } from 'src/store/use-shared-data'
+const poster = (url, { arg }) =>
+  fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(arg),
+  }).then((res) => res.json())
 
 export const SearchForm = () => {
-  const ref = useRef(true)
-  const ref2 = useRef(true)
-  const [formState, formAction] = useFormState(GetSearchDynamics, {})
-  const [dynamics, setDynamics] = useRecoilState(dynamicsAtom)
+  const { user_id } = useParams()
+  const formRef = useRef()
+  const url = `/api/search/${user_id}`
+  const { mutate } = useSWR(url)
+  const { trigger, isMutating } = useSWRMutation(url, poster, {
+    onSuccess: (newData) => {
+      mutate(newData, false)
+    },
+  })
 
-  // const apiUrl = '/api/search'
-  // const { mutate } = useSharedData(apiUrl)
+  const convertFilterDate = (string) => (string === 'YYYY/MM/DD' ? '' : string)
+  const convertKeywords = (array) => (array === '' ? [] : array.split())
 
-  // const handleButtonClick = () => {
-  //   console.log(11111111)
-  //   const newUrl = `${apiUrl}/id1`
-  //   mutate(newUrl)
-  // }
+  const handleButtonClick = (event) => {
+    const formData = new FormData(formRef.current)
+    const searchKeywords = convertKeywords(formData.get('search-keywords'))
+    const sortCategory = formData.get('sort-category')
+    const sortOrder = formData.get('sort-order')
+    const filterKeywords = convertKeywords(formData.get('filter-keywords'))
+    const filterStartDate = convertFilterDate(formData.get('filter-start-date'))
+    const filterEndDate = convertFilterDate(formData.get('filter-end-date'))
 
-  useEffect(() => {
-    if (ref.current) {
-      ref.current = false
-      return
+    const body = {
+      user_id: user_id === undefined ? '' : user_id,
+      search_keywords: searchKeywords,
+      sort_category: sortCategory,
+      sort_order: sortOrder,
+      filter_keywords: filterKeywords,
+      filter_start_date: filterStartDate,
+      filter_end_date: filterEndDate,
     }
-    // デバック用 StrictModeの２回実行対策
-    if (ref2.current) {
-      ref2.current = false
-      return
-    }
-    setDynamics(formState)
-  }, [formState, formAction])
+    trigger(body)
+  }
 
   return (
     <Box sx={{ mx: 'auto' }}>
-      <form action={formAction}>
+      <form ref={formRef}>
         <FormGroup>
           <SearchStack>
             <Search />
             <Button
               variant='contained'
-              type='submit'
-              // onClick={handleButtonClick}
+              type='button'
+              onClick={handleButtonClick}
+              disabled={isMutating}
             >
               検索
             </Button>

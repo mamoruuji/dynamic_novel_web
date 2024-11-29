@@ -1,4 +1,5 @@
 'use client'
+
 import Link from 'next/link'
 import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
 import { useParams } from 'next/navigation'
@@ -12,7 +13,10 @@ export const ContentsPage = ({ page, chapterId }) => {
       <ListItemIcon>
         <ArrowRightIcon />
       </ListItemIcon>
-      <Link href={`/dynamic/read/${dynamic_id}/${chapterId}/${page.pageId}`}>
+      <Link
+        href={`/dynamic/read/${dynamic_id}/${chapterId}/${page.pageId}`}
+        passHref
+      >
         <ListItemText primary={page.title} />
       </Link>
     </ListItemButton>
