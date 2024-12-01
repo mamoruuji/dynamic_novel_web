@@ -1,11 +1,5 @@
-import { atom } from "recoil"
+import { atom } from 'jotai'
 
-export const leftDrawerStateAtom = atom<boolean>({
-  key: "leftDrawerStateAtom",
-  default: false,
-})
+export const leftDrawerStateAtom = atom(false)
 
-export const rightDrawerStateAtom = atom<boolean>({
-  key: "rightDrawerStateAtom",
-  default: false,
-})
+export const rightDrawerStateAtom = atom(false)

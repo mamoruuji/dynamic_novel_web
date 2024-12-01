@@ -6,16 +6,27 @@ import { useParams } from 'next/navigation'
 import { Alert, Box, CircularProgress, Typography } from '@mui/material'
 import { Overview } from '@/components/read/dynamic/organisms'
 
-import { dynamicAtom, chaptersAtom, termsAtom } from '@/states/operation-dynamic.ts'
-import { useRecoilState } from 'recoil'
+import {
+  dynamicAtom,
+  chaptersAtom,
+  termsAtom,
+} from '@/states/operation-dynamic.ts'
+import { useAtom } from 'jotai'
+
+import useSWR from 'swr'
 
 export default function Page() {
-  const [dynamic, setDynamic] = useRecoilState(dynamicAtom)
-  const [chapters, setChapters] = useRecoilState(chaptersAtom)
+  const [dynamic, setDynamic] = useAtom(dynamicAtom)
+  const [chapters, setChapters] = useAtom(chaptersAtom)
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState<boolean | null>(false)
   const { dynamic_id } = useParams()
-  const [dynamicTerms, setDynamicTerms] = useRecoilState(termsAtom('dynamic'))
+
+  const [dynamicTerms, setDynamicTerms] = useAtom(termsAtom('dynamic'))
+
+  const url = '/api/tag'
+  // const { data, error, isLoading } = useSWR(url)
+  const { data } = useSWR(url)
 
   useEffect(() => {
     ;(async () => {

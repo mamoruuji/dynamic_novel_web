@@ -12,7 +12,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import { useRecoilState } from 'recoil'
+import { useAtom } from 'jotai'
 import { useFormState } from 'react-dom'
 import { UpdateUser } from 'app/actions/update-user'
 import { userAtom } from '@/states/operation-user.ts'
@@ -21,7 +21,7 @@ import styles from './user-detail.module.sass'
 import { useEffect, useRef } from 'react'
 
 export const UserDetail = () => {
-  const [user, setUser] = useRecoilState(userAtom)
+  const [user, setUser] = useAtom(userAtom)
   const ref = useRef(true)
   const ref2 = useRef(true)
   const [formState, formAction] = useFormState(UpdateUser, {})

@@ -15,7 +15,7 @@ import { SelectChangeEvent } from '@mui/material/Select'
 
 import { SearchStack } from '../atoms'
 import { sortCategoryAtom, sortOrderAtom } from '@/states/search-request'
-import { useRecoilState } from 'recoil'
+import { useAtom } from 'jotai'
 
 export const Sort = () => {
   const [sortOptions, setSortOptions] = useState([])
@@ -45,8 +45,8 @@ export const Sort = () => {
     })()
   }, [])
 
-  const [sortCategory, setSortCategory] = useRecoilState(sortCategoryAtom)
-  const [sortOrder, setSortOrder] = useRecoilState(sortOrderAtom)
+  const [sortCategory, setSortCategory] = useAtom(sortCategoryAtom)
+  const [sortOrder, setSortOrder] = useAtom(sortOrderAtom)
 
   return (
     <FormControl>

@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRecoilState } from 'recoil'
+import { useAtom } from 'jotai'
 import { useParams } from 'next/navigation'
 
 import { Alert, CircularProgress } from '@mui/material'
@@ -11,7 +11,7 @@ import { UserLinks } from '@/components/user/molecules'
 import { userAtom } from '@/states/operation-user.ts'
 
 export default function Page() {
-  const [user, setUser] = useRecoilState(userAtom)
+  const [user, setUser] = useAtom(userAtom)
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState<boolean | null>(false)
   const { user_id } = useParams()
@@ -52,4 +52,3 @@ export default function Page() {
     </>
   )
 }
-

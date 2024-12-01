@@ -1,31 +1,13 @@
-import { atom, atomFamily, selector } from 'recoil'
+import { atom } from 'jotai'
 
-export const searchKeywordsAtom = atom<string[]>({
-  key: 'searchKeywordsAtom',
-  default: [],
-})
+export const searchKeywordsAtom = atom([])
 
-export const sortCategoryAtom = atom<string>({
-  key: 'sortCategoryAtom',
-  default: 4, // '更新日'
-})
+export const sortCategoryAtom = atom(4)
 
-export const sortOrderAtom = atom<string>({
-  key: 'sortOrder',
-  default: 'asc',
-})
+export const sortOrderAtom = atom('asc')
 
-export const filterKeywordsAtom = atom<string[]>({
-  key: 'filterKeywordsAtom',
-  default: [],
-})
+export const filterKeywordsAtom = atom([])
 
-export const filterStartDateAtom = atom<string>({
-  key: 'filterStartDateAtom',
-  default: '',
-})
+export const filterStartDateAtom = atom('')
 
-export const filterEndDateAtom = atom<string>({
-  key: 'filterEndDateAtom',
-  default: '',
-})
+export const filterEndDateAtom = atom('')

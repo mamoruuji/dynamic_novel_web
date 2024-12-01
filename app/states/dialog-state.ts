@@ -1,6 +1,3 @@
-import { atom } from 'recoil'
+import { atom } from 'jotai'
 
-export const dialogStateAtom = atom<boolean>({
-  key: 'dialogStateAtom',
-  default: false,
-})
+export const dialogStateAtom = atom(false)

@@ -5,16 +5,20 @@ import { useParams } from 'next/navigation'
 import { Alert, Box, CircularProgress } from '@mui/material'
 import { Overview } from '@/components/create/dynamic/organisms/'
 
-import { dynamicAtom, chaptersAtom, termsAtom } from '@/states/operation-dynamic.ts'
-import { useRecoilState } from 'recoil'
+import {
+  dynamicAtom,
+  chaptersAtom,
+  termsAtom,
+} from '@/states/operation-dynamic.ts'
+import { useAtom } from 'jotai'
 
 export default function Page() {
-  const [dynamic, setDynamic] = useRecoilState(dynamicAtom)
-  const [chapters, setChapters] = useRecoilState(chaptersAtom)
+  const [dynamic, setDynamic] = useAtom(dynamicAtom)
+  const [chapters, setChapters] = useAtom(chaptersAtom)
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState<boolean | null>(false)
   const { dynamic_id } = useParams()
-  const [dynamicTerms, setDynamicTerms] = useRecoilState(termsAtom('dynamic'))
+  const [dynamicTerms, setDynamicTerms] = useAtom(termsAtom('dynamic'))
 
   useEffect(() => {
     ;(async () => {

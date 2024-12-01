@@ -1,10 +1,6 @@
-import { atom, atomFamily, selector } from 'recoil'
-import { GetUserType, GetImageType } from '@/type/'
+import { atom } from 'jotai'
 
-export const userAtom = atom<GetUserType>({
-  key: 'userAtom',
-  default: {},
-})
+export const userAtom = atom({})
 
 // export const imagesAtom = atomFamily<GetImageType[] | null, number>({
 //   key: 'imagesAtom',

@@ -1,5 +1,5 @@
 import { Box, CircularProgress } from '@mui/material'
-import { useRecoilValue } from 'recoil'
+import { useAtomValue } from 'jotai'
 import { pageAtom } from '@/states/operation-dynamic.ts'
 import {
   IconSpace,
@@ -7,43 +7,42 @@ import {
   LineBubble,
   ThoughtBubble,
   ShoutBubble,
-  Illustration
+  Illustration,
 } from '../../molecules'
 import styles from './sections.module.sass'
 
 export const Sections = () => {
-  const page = useRecoilValue(pageAtom)
+  const page = useAtomValue(pageAtom)
 
   if (!page.sections) return <CircularProgress />
 
   return (
     <>
       {page.sections.map((section, key) => {
-
         let content
         switch (section.typeSection) {
           case 'monologue':
-            content = <Monologue section={section}/>
+            content = <Monologue section={section} />
             break
           case 'image':
-            content = <Illustration section={section}/>
+            content = <Illustration section={section} />
             break
           case 'line-bubble':
-            content = <LineBubble section={section}/>
+            content = <LineBubble section={section} />
             break
           case 'shout-bubble':
-            content = <ShoutBubble section={section}/>
+            content = <ShoutBubble section={section} />
             break
           case 'thought-bubble':
-            content = <ThoughtBubble section={section}/>
+            content = <ThoughtBubble section={section} />
             break
         }
 
         return (
           <Box className={styles.section} key={key}>
-            <IconSpace section={section} position={'left'}/>
+            <IconSpace section={section} position={'left'} />
             {content}
-            <IconSpace section={section} position={'right'}/>
+            <IconSpace section={section} position={'right'} />
           </Box>
         )
       })}

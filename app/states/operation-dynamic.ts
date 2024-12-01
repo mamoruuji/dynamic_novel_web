@@ -1,42 +1,24 @@
-import { atom, atomFamily, selector } from 'recoil'
-import { ListDynamicsType } from '@/type/'
+import { atomFamily } from 'jotai/utils'
+import { atom } from 'jotai'
 
-export const titleAtom = atom<string>({
-  key: 'titleAtom',
-  default: '',
+export const titleAtom = atom('')
+
+export const overviewAtom = atom('')
+
+export const dynamicAtom = atom({})
+
+export const chaptersAtom = atom([])
+
+export const chapterAtom = atom({})
+
+export const pagesAtom = atomFamily((key) => {
+  return atom([]) // 各キーに対するデフォルト値を指定
 })
 
-export const overviewAtom = atom<string>({
-  key: 'overviewAtom',
-  default: '',
+export const pageAtom = atom({})
+
+export const termsAtom = atomFamily((key) => {
+  return atom([]) // 各キーに対するデフォルト値を指定
 })
 
-export const dynamicAtom = atom<GetDynamicType>({
-  key: 'dynamicAtom',
-  default: {},
-})
-
-export const chaptersAtom = atom<GetChaptersType[]>({
-  key: 'chaptersAtom',
-  default: [],
-})
-
-export const chapterAtom = atom<GetChapterType>({
-  key: 'chapterAtom',
-  default: {},
-})
-
-export const pagesAtom = atomFamily<GetPagesType[] | null, number>({
-  key: 'pagesAtom',
-  default: [],
-})
-
-export const pageAtom = atom<GetpageType>({
-  key: 'pageAtom',
-  default: {},
-})
-
-export const termsAtom = atomFamily<GetTermsType[] | null, string>({
-  key: 'termsAtom',
-  default: [],
-})
+// export const tagsAtom = atom([])

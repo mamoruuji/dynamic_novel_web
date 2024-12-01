@@ -13,13 +13,12 @@ import {
   filterEndDateAtom,
 } from '@/states/search-request'
 
-import { useRecoilState } from 'recoil'
+import { useAtom } from 'jotai'
 
 export const Filter = () => {
-  const [filterKeywords, setFilterKeywords] = useRecoilState(filterKeywordsAtom)
-  const [filterStartDate, setFilterStartDate] =
-    useRecoilState(filterStartDateAtom)
-  const [filterEndDate, setFilterEndDate] = useRecoilState(filterEndDateAtom)
+  const [filterKeywords, setFilterKeywords] = useAtom(filterKeywordsAtom)
+  const [filterStartDate, setFilterStartDate] = useAtom(filterStartDateAtom)
+  const [filterEndDate, setFilterEndDate] = useAtom(filterEndDateAtom)
 
   return (
     <FormControl>

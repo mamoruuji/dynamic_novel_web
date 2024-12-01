@@ -4,10 +4,10 @@ import { FormControl, InputLabel } from '@mui/material'
 
 import { SearchStack, TextField } from '../atoms'
 import { searchKeywordsAtom } from '@/states/search-request'
-import { useRecoilState } from 'recoil'
+import { useAtom } from 'jotai'
 
 export const Search = () => {
-  const [searchKeywords, setSearchKeywords] = useRecoilState(searchKeywordsAtom)
+  const [searchKeywords, setSearchKeywords] = useAtom(searchKeywordsAtom)
   return (
     <FormControl>
       <SearchStack>
