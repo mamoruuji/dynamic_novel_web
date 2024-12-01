@@ -1,12 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import {
-  Button,
-  Toolbar,
-  Typography,
-  IconButton,
-} from '@mui/material'
+import { Button, Toolbar, Typography, IconButton } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
 import ContactSupportIcon from '@mui/icons-material/ContactSupport'
 import EditIcon from '@mui/icons-material/Edit'
@@ -16,18 +11,18 @@ import {
   leftDrawerStateAtom,
   rightDrawerStateAtom,
 } from '@/states/drawer-state.ts'
-import { useRecoilState } from 'recoil'
+import { useAtom } from 'jotai'
 import styles from './local-header.module.sass'
 import { useTheme } from '@mui/material/styles'
 
 export const LocalHeader = ({ name, leftDrawer, RightDrawer, isCreate }) => {
-  const [leftOpen, setLeftOpen] = useRecoilState(leftDrawerStateAtom)
-  const [rightOpen, setRightOpen] = useRecoilState(rightDrawerStateAtom)
+  const [leftOpen, setLeftOpen] = useAtom(leftDrawerStateAtom)
+  const [rightOpen, setRightOpen] = useAtom(rightDrawerStateAtom)
   const [dynamic, updateDynamic] = useState('')
   const theme = useTheme()
 
   return (
-    <AppBar className={styles['local-appbar']} >
+    <AppBar className={styles['local-appbar']}>
       <Toolbar className={styles['local-toolbar']}>
         <Button
           aria-label='open drawer'
@@ -39,10 +34,15 @@ export const LocalHeader = ({ name, leftDrawer, RightDrawer, isCreate }) => {
           <MenuIcon sx={{ mr: theme.spacing(1) }} />
           {leftDrawer}
         </Button>
-        <Typography variant='h6' noWrap component='div' className={styles['local-typography']}>
+        <Typography
+          variant='h6'
+          noWrap
+          component='div'
+          className={styles['local-typography']}
+        >
           {name}
         </Typography>
-        {isCreate &&
+        {isCreate && (
           <Button
             aria-label='edit'
             color='warning'
@@ -54,13 +54,13 @@ export const LocalHeader = ({ name, leftDrawer, RightDrawer, isCreate }) => {
             <EditIcon sx={{ mr: theme.spacing(1) }} />
             更新
           </Button>
-        }
+        )}
         <Button
           aria-label='open drawer'
           edge='end'
           onClick={() => setRightOpen(true)}
           sx={{ ml: theme.spacing(1), ...(rightOpen && { display: 'none' }) }}
-            variant='contained'
+          variant='contained'
         >
           <ContactSupportIcon sx={{ mr: theme.spacing(1) }} />
           {RightDrawer}

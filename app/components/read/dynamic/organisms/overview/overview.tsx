@@ -1,9 +1,10 @@
 import Image from 'next/image'
 
 import { Box, Typography, Container } from '@mui/material'
-import { useRecoilValue } from 'recoil'
+import { useAtomValue } from 'jotai'
 import { dynamicAtom } from '@/states/operation-dynamic.ts'
 import styles from './overview.module.sass'
+// import { TagEdit, TagDisplay } from '@/components/common/atoms'
 
 const formatDate = (isoString: string): string => {
   const date = new Date(isoString)
@@ -19,12 +20,13 @@ const formatDate = (isoString: string): string => {
 }
 
 export const Overview = () => {
-  const dynamic = useRecoilValue(dynamicAtom)
+  const dynamic = useAtomValue(dynamicAtom)
 
   const imageWidth = 360
   const imageHeight = 640
-  let imageUrl =
-    dynamic.imageUrl !== undefined ? dynamic.imageUrl : '/images/testCover.png'
+  // let imageUrl =
+  //   dynamic.imageUrl !== undefined ? dynamic.imageUrl : '/images/testCover.png'
+  let imageUrl = '/images/testCover.png'
 
   return (
     <Container className={styles.overview}>
@@ -61,6 +63,8 @@ export const Overview = () => {
             {dynamic.overview}
           </Typography>
         </Box>
+        {/* <TagDisplay />
+        <TagEdit /> */}
       </Box>
     </Container>
   )

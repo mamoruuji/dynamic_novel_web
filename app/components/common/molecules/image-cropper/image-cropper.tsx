@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { useRecoilState } from 'recoil'
+import { useAtom } from 'jotai'
 import { useParams } from 'next/navigation'
 
 import {
@@ -48,7 +48,7 @@ const centerAspectCrop = (
 }
 
 export const ImageCropper = ({ type }) => {
-  const [dialogOpen, setDialogOpen] = useRecoilState(dialogStateAtom)
+  const [dialogOpen, setDialogOpen] = useAtom(dialogStateAtom)
   const [imgSrc, setImgSrc] = useState('')
   const [imgName, setImgName] = useState('')
   const previewCanvasRef = useRef<HTMLCanvasElement>(null)

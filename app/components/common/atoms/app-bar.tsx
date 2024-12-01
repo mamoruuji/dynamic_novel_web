@@ -7,7 +7,7 @@ import {
   leftDrawerStateAtom,
   rightDrawerStateAtom,
 } from '@/states/drawer-state.ts'
-import { useRecoilState } from 'recoil'
+import { useAtom } from 'jotai'
 
 const getTransitionStyles = (
   theme: Theme,
@@ -19,8 +19,8 @@ const getTransitionStyles = (
 })
 
 export const AppBar = styled(MuiAppBar)(({ theme }) => {
-  const [leftOpen, setLeftOpen] = useRecoilState(leftDrawerStateAtom)
-  const [rightOpen, setRightOpen] = useRecoilState(rightDrawerStateAtom)
+  const [leftOpen, setLeftOpen] = useAtom(leftDrawerStateAtom)
+  const [rightOpen, setRightOpen] = useAtom(rightDrawerStateAtom)
 
   return {
     ...leaveTransition(theme, ['margin', 'width']),

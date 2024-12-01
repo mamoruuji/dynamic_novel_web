@@ -6,11 +6,11 @@ import {
   leftDrawerStateAtom,
   rightDrawerStateAtom,
 } from '@/states/drawer-state.ts'
-import { useRecoilState } from 'recoil'
+import { useAtom } from 'jotai'
 
 export const Main = styled('main')(({ theme }) => {
-  const [leftOpen, setLeftOpen] = useRecoilState(leftDrawerStateAtom)
-  const [rightOpen, setRightOpen] = useRecoilState(rightDrawerStateAtom)
+  const [leftOpen, setLeftOpen] = useAtom(leftDrawerStateAtom)
+  const [rightOpen, setRightOpen] = useAtom(rightDrawerStateAtom)
 
   return {
     flexGrow: 1,

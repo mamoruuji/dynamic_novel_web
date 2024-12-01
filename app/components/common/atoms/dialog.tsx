@@ -1,12 +1,12 @@
 'use client'
 
-import { useRecoilState } from 'recoil'
+import { useAtom } from 'jotai'
 import { dialogStateAtom } from '@/states/dialog-state.ts'
 
 import { Box, Button, Dialog as MuiDialog } from '@mui/material'
 
 export const Dialog = ({ children, buttonText }) => {
-  const [dialogOpen, setDialogOpen] = useRecoilState(dialogStateAtom)
+  const [dialogOpen, setDialogOpen] = useAtom(dialogStateAtom)
 
   return (
     <>

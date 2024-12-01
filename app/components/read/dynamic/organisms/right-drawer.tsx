@@ -3,7 +3,7 @@
 import Image from 'next/image'
 
 import { DrawerHeaderWithIcon, Drawer } from '@/components/common/atoms'
-import { useRecoilState, useRecoilValue } from 'recoil'
+import { useAtom, useAtomValue } from 'jotai'
 import { rightDrawerStateAtom } from '@/states/drawer-state.ts'
 import { termsAtom } from '@/states/operation-dynamic.ts'
 import { Terms } from '../molecules'
@@ -20,10 +20,10 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 export const RightDrawer = () => {
-  const [rightOpen, setRightOpen] = useRecoilState(rightDrawerStateAtom)
-  const dynamicTerms = useRecoilValue(termsAtom('dynamic'))
-  const chapterTerms = useRecoilValue(termsAtom('chapter'))
-  const pageTerms = useRecoilValue(termsAtom('page'))
+  const [rightOpen, setRightOpen] = useAtom(rightDrawerStateAtom)
+  const dynamicTerms = useAtomValue(termsAtom('dynamic'))
+  const chapterTerms = useAtomValue(termsAtom('chapter'))
+  const pageTerms = useAtomValue(termsAtom('page'))
 
   return (
     <Drawer anchor='right' open={rightOpen}>
@@ -32,30 +32,25 @@ export const RightDrawer = () => {
         anchor='right'
       />
       <Divider />
-        {dynamicTerms.length !== 0 && (
-            <Terms terms={dynamicTerms} />
-          )
-        }
-        {chapterTerms.length !== 0 && (
-            <>
-              <Divider />
-              <Box display='flex' alignItems='center'>
-                <Typography variant='h2'>　章</Typography>
-              </Box>
-              <Terms terms={chapterTerms} />
-            </>
-          )
-        }
-        {pageTerms.length !== 0 && (
-            <>
-              <Divider />
-              <Box display='flex' alignItems='center'>
-                <Typography variant='h2'>　ページ</Typography>
-              </Box>
-              <Terms terms={pageTerms} />
-            </>
-          )
-        }
+      {dynamicTerms.length !== 0 && <Terms terms={dynamicTerms} />}
+      {chapterTerms.length !== 0 && (
+        <>
+          <Divider />
+          <Box display='flex' alignItems='center'>
+            <Typography variant='h2'>　章</Typography>
+          </Box>
+          <Terms terms={chapterTerms} />
+        </>
+      )}
+      {pageTerms.length !== 0 && (
+        <>
+          <Divider />
+          <Box display='flex' alignItems='center'>
+            <Typography variant='h2'>　ページ</Typography>
+          </Box>
+          <Terms terms={pageTerms} />
+        </>
+      )}
     </Drawer>
   )
 }

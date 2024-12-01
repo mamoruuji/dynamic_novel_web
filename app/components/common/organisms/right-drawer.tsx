@@ -4,14 +4,9 @@ import Image from 'next/image'
 
 import { DrawerHeaderWithIcon, Drawer } from '@/components/common/atoms'
 import { rightDrawerStateAtom } from '@/states/drawer-state.ts'
-import { useRecoilState } from 'recoil'
+import { useAtom } from 'jotai'
 
-import {
-  Box,
-  Divider,
-  IconButton,
-  Typography,
-} from '@mui/material'
+import { Box, Divider, IconButton, Typography } from '@mui/material'
 
 type itemType = {
   name: string
@@ -29,7 +24,7 @@ export const RightDrawer = () => {
     text: '説明文',
   }
 
-  const [rightOpen, setRightOpen] = useRecoilState(rightDrawerStateAtom)
+  const [rightOpen, setRightOpen] = useAtom(rightDrawerStateAtom)
 
   return (
     <Drawer anchor='right' open={rightOpen}>

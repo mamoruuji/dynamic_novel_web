@@ -14,7 +14,7 @@ export const ContentsPage = ({ page, chapterId }) => {
         <ArrowRightIcon />
       </ListItemIcon>
       <Link
-        href={`/dynamic/read/${dynamic_id}/${chapterId}/${page.pageId}`}
+        href={`/dynamic/${dynamic_id}/${chapterId}/${page.pageId}`}
         passHref
       >
         <ListItemText primary={page.title} />

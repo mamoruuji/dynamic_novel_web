@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 import { useEffect, useRef } from 'react'
 import { useFormState } from 'react-dom'
-import { useRecoilState, useRecoilValue } from 'recoil'
+import { useAtom, useAtomValue } from 'jotai'
 import { UpdateDynamic } from 'app/actions/update-dynamic'
 import { ImageCropper } from '@/components/common/molecules'
 
@@ -40,8 +40,8 @@ const formatDate = (isoString: string): string => {
 }
 
 export const Overview = () => {
-  const [dynamic, setDynamic] = useRecoilState(dynamicAtom)
-  // const [tags, setTags] = useRecoilState(tagsAtom)
+  const [dynamic, setDynamic] = useAtom(dynamicAtom)
+  // const [tags, setTags] = useAtom(tagsAtom)
   const ref = useRef(true)
   const ref2 = useRef(true)
   const [formState, formAction] = useFormState(UpdateDynamic, {})

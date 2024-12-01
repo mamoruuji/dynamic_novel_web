@@ -10,12 +10,12 @@ import {
 
 import { ContentsPage } from './'
 import { pagesAtom } from '@/states/operation-dynamic.ts'
-import { useRecoilState } from 'recoil'
+import { useAtom } from 'jotai'
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 export const ContentsChapter = ({ chapter, chapterKey, id }) => {
-  const [pages, setPages] = useRecoilState(pagesAtom(chapter.chapterId))
+  const [pages, setPages] = useAtom(pagesAtom(chapter.chapterId))
 
   useEffect(() => {
     setPages(chapter.pages)

@@ -20,11 +20,11 @@ import { restrictToVerticalAxis } from '@dnd-kit/modifiers'
 
 import { AddChapterButton, ContentsChapter } from '../atoms'
 import { dynamicAtom, chaptersAtom } from '@/states/operation-dynamic.ts'
-import { useRecoilState } from 'recoil'
+import { useAtom } from 'jotai'
 
 export const Contents = () => {
   const [activeId, setActiveId] = useState(null)
-  const [chapters, setChapters] = useRecoilState(chaptersAtom)
+  const [chapters, setChapters] = useAtom(chaptersAtom)
 
   const sensors = useSensors(
     useSensor(KeyboardSensor, {
@@ -33,9 +33,9 @@ export const Contents = () => {
     useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
   )
 
-  const handleDragStart = event => setActiveId(event.active.id)
+  const handleDragStart = (event) => setActiveId(event.active.id)
 
-  const handleDragEnd = event => {
+  const handleDragEnd = (event) => {
     const { active, over } = event
 
     if (over !== null && active.id !== over.id) {

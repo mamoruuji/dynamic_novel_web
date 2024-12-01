@@ -2,7 +2,7 @@
 
 import '@/styles/globals.sass'
 import React from 'react'
-import { RecoilRoot } from 'recoil'
+import { Provider } from 'jotai'
 import SessionProvider from '../src/provider/SessionProvider'
 import { CssBaseline } from '@mui/material'
 import Head from './head'
@@ -30,14 +30,14 @@ export default function RootLayout({ children }: { children: ReactNode }) {
 
   return (
     <SessionProvider>
-      <RecoilRoot>
+      <Provider>
         <ThemeProvider theme={theme}>
           <SWRConfig
             value={{
               fetcher: (url) => fetch(url).then((res) => res.json()),
-              revalidateIfStale: false, // 古いデータがある場合でも、自動再検証をしない
-              revalidateOnFocus: false, // ウィンドウがフォーカスされたときに自動的に再検証しない
-              revalidateOnReconnect: false, // ブラウザがネットワーク接続を回復すると自動的に再検証をしない
+              revalidateIfStale: false,
+              revalidateOnFocus: false,
+              revalidateOnReconnect: false,
             }}
           >
             <CssBaseline />
@@ -49,7 +49,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             </html>
           </SWRConfig>
         </ThemeProvider>
-      </RecoilRoot>
+      </Provider>
     </SessionProvider>
   )
 }

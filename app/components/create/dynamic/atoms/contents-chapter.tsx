@@ -29,13 +29,13 @@ import { CSS } from '@dnd-kit/utilities'
 
 import { AddChapterButton, ContentsPage, AddPageButton } from '.'
 import { pagesAtom } from '@/states/operation-dynamic.ts'
-import { useRecoilState } from 'recoil'
+import { useAtom } from 'jotai'
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 export const ContentsChapter = ({ chapter, chapterKey, id }) => {
   const [activeId, setActiveId] = useState(null)
-  const [pages, setPages] = useRecoilState(pagesAtom(chapter.chapterId))
+  const [pages, setPages] = useAtom(pagesAtom(chapter.chapterId))
   const sx = chapter.pages === undefined ? { backgroundColor: 'red' } : {}
 
   useEffect(() => {
@@ -59,9 +59,9 @@ export const ContentsChapter = ({ chapter, chapterKey, id }) => {
     useSensor(MouseSensor, { activationConstraint: { distance: 5 } }),
   )
 
-  const handleDragStart = event => setActiveId(event.active.id)
+  const handleDragStart = (event) => setActiveId(event.active.id)
 
-  const handleDragEnd = event => {
+  const handleDragEnd = (event) => {
     const { active, over } = event
 
     if (over !== null && active.id !== over.id) {

@@ -1,6 +1,6 @@
 'use client'
 
-import { useRecoilState } from 'recoil'
+import { useAtom } from 'jotai'
 import { useParams, usePathname } from 'next/navigation'
 
 import { leftDrawerStateAtom } from '@/states/drawer-state.ts'
@@ -14,7 +14,7 @@ import { SearchForm } from '@/components/search/organisms'
 import { Divider, Stack } from '@mui/material'
 
 export const LeftDrawer = () => {
-  const [leftOpen, setLeftOpen] = useRecoilState(leftDrawerStateAtom)
+  const [leftOpen, setLeftOpen] = useAtom(leftDrawerStateAtom)
   const { user_id } = useParams()
   const router = usePathname()
   const isSearch = router.includes('search')
