@@ -1,11 +1,7 @@
 import Image from 'next/image'
 
-import { useEffect, useRef } from 'react'
-import { useFormState } from 'react-dom'
-import { useAtom, useAtomValue } from 'jotai'
-import { UpdateDynamic } from 'app/actions/update-dynamic'
-import { ImageCropper } from '@/components/common/molecules'
-
+import { useParams } from 'next/navigation'
+import { useRef } from 'react'
 import {
   Box,
   Container,
@@ -22,56 +18,23 @@ import {
   titleAtom,
   overviewAtom,
   dynamicAtom,
-  // tagsAtom,
 } from '@/states/operation-dynamic.ts'
+import { useAtom } from 'jotai'
+import { ImageCropper } from '@/components/common/molecules'
+
 import styles from './overview.module.sass'
+import { TagEdit, TagDisplay } from '@/components/common/atoms'
 
-const formatDate = (isoString: string): string => {
-  const date = new Date(isoString)
-
-  const year = date.getFullYear()
-  const month = ('0' + (date.getMonth() + 1)).slice(-2) // 月は0から始まるので1を足す
-  const day = ('0' + date.getDate()).slice(-2)
-  const hours = ('0' + date.getHours()).slice(-2)
-  const minutes = ('0' + date.getMinutes()).slice(-2)
-  const seconds = ('0' + date.getSeconds()).slice(-2)
-
-  return `${year}/${month}/${day} ${hours}:${minutes}`
-}
+import { formatDate } from 'src/libs/util'
+import useSWR from 'swr'
 
 export const Overview = () => {
   const [dynamic, setDynamic] = useAtom(dynamicAtom)
-  // const [tags, setTags] = useAtom(tagsAtom)
-  const ref = useRef(true)
-  const ref2 = useRef(true)
-  const [formState, formAction] = useFormState(UpdateDynamic, {})
+  const { dynamic_id } = useParams()
+  const url = `/api/dynamic/${dynamic_id}`
+  const { data } = useSWR(url)
 
-  const setTitle = (event) => {
-    setDynamic((prevState) => ({
-      ...prevState,
-      title: event.target.value,
-    }))
-  }
-
-  const setOverview = (event) => {
-    setDynamic((prevState) => ({
-      ...prevState,
-      overview: event.target.value,
-    }))
-  }
-
-  useEffect(() => {
-    if (ref.current) {
-      ref.current = false
-      return
-    }
-    // デバック用 StrictModeの２回実行対策
-    if (ref2.current) {
-      ref2.current = false
-      return
-    }
-    setDynamic(formState)
-  }, [formState, formAction])
+  const formRef = useRef()
 
   const imageWidth = '360'
   const imageHeight = '640'
@@ -92,14 +55,14 @@ export const Overview = () => {
         />
         <ImageCropper type='cover' />
       </Box>
-      <form action={formAction}>
+      <form ref={formRef}>
         <FormGroup>
           <Box className={styles.detail}>
             <Box mb={2}>
               <TextField
                 name='title'
-                value={dynamic.title || ''}
-                onChange={setTitle}
+                value={data.title || ''}
+                // onChange={setTitle}
                 sx={{ '& .MuiInputBase-input': { height: 50 }, width: 400 }}
                 placeholder='作品タイトル'
                 variant='outlined'
@@ -108,32 +71,25 @@ export const Overview = () => {
             </Box>
             <Box className={styles['detail-two']}>
               <Box>
-                <Typography variant='h6'>　作者：</Typography>
-                <Typography variant='h6'>{dynamic.penName}</Typography>
+                <Typography variant='h6'>　作者：{data.penName}</Typography>
               </Box>
               <Box mb={2}>
-                <Typography variant='h6'>　更新日時：</Typography>
                 <Typography variant='h6'>
-                  {formatDate(dynamic.updatedTime)}
+                  　更新日時：{formatDate(data.updatedTime)}
                 </Typography>
               </Box>
+              <Box mb={2}>
+                <TagDisplay tags={data.tags} />
+              </Box>
+              <Box mb={2}>
+                <TagEdit />
+              </Box>
             </Box>
-            {/* <Box>
-              <InputLabel id='tag-label'>作品タグ</InputLabel>
-              <TextField
-                id='tag-input'
-                name='tags'
-                value={tags}
-                onChange={setTags}
-                itemKey='tag-key'
-                label='タグ'
-              />
-            </Box> */}
             <Box>
               <TextField
                 name='overview'
-                value={dynamic.overview || ''}
-                onChange={setOverview}
+                value={data.overview || ''}
+                // onChange={setOverview}
                 sx={{ '& .MuiInputBase-input': { height: 50 }, width: 400 }}
                 placeholder='作品概要'
                 multiline
@@ -141,11 +97,7 @@ export const Overview = () => {
               />
             </Box>
           </Box>
-          <Input
-            type='hidden'
-            name='dynamic-id'
-            dynamicid={dynamic.dynamicId}
-          />
+          <Input type='hidden' name='dynamic-id' dynamicid={data.dynamicId} />
         </FormGroup>
       </form>
     </Box>

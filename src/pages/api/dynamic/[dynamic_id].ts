@@ -1,22 +1,14 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  const { user_id } = req.query
-  // 初期表示用に宣言
-  let body = {
-    user_id: user_id[0] === 'undefined' ? '' : user_id[0],
-    search_keywords: [],
-    sort_category: '4',
-    sort_order: 'asc',
-    filter_keywords: [],
-    filter_start_date: '',
-    filter_end_date: '',
+  const { dynamic_id } = req.query
+  const body = {
+    dynamic_id: dynamic_id,
   }
-  if (req.body !== '') body = req.body
 
   try {
     const url =
-      'http://dynamic_novel_server:8080/proto.dynamic.v1.DynamicService/ListDynamics'
+      'http://dynamic_novel_server:8080/proto.dynamic.v1.DynamicService/GetDynamic'
     const response = await fetch(url, {
       cache: 'no-store',
       method: 'POST',

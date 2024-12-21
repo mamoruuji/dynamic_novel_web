@@ -1,7 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import useSWR from 'swr'
 import {
+  CircularProgress,
   FormControl,
   FormControlLabel,
   FormLabel,
@@ -16,38 +17,16 @@ import { SelectChangeEvent } from '@mui/material/Select'
 import { SearchStack } from '../atoms'
 import { sortCategoryAtom, sortOrderAtom } from '@/states/search-request'
 import { useAtom } from 'jotai'
+import { isEmptyObject } from 'src/libs/util'
 
 export const Sort = () => {
-  const [sortOptions, setSortOptions] = useState([])
-  const [isloads, setIsloads] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-
-  useEffect(() => {
-    ;(async () => {
-      try {
-        const response = await fetch('/api/sort', {
-          cache: 'force-cache',
-        })
-
-        const data = await response.json()
-        if (!data.sorts || data.sorts.length === 0) {
-          setError('指定された検索条件でヒットしませんでした。')
-        } else {
-          // コンポーネントの描画が完了してから、選択肢と初期値を設定
-          setIsloads(true)
-          setSortOptions(data.sorts)
-          setSortCategory(sortCategory)
-        }
-      } catch (error) {
-        console.error('API Routesの通信に失敗しました', error)
-        setError('データの取得中にエラーが発生しました。')
-      }
-    })()
-  }, [])
-
+  const url = `/api/sort`
+  const { data, isLoading } = useSWR(url)
   const [sortCategory, setSortCategory] = useAtom(sortCategoryAtom)
   const [sortOrder, setSortOrder] = useAtom(sortOrderAtom)
 
+  if (isLoading) return <CircularProgress />
+  if (isEmptyObject(data)) return <Typography>No sort data</Typography>
   return (
     <FormControl>
       <SearchStack>
@@ -56,10 +35,10 @@ export const Sort = () => {
           labelId='sort-selecter-label'
           id='sort-selecter'
           name='sort-category'
-          value={isloads ? sortCategory : ''}
+          value={sortCategory}
           onChange={(event) => setSortCategory(event.target.value)}
         >
-          {sortOptions.map((item, index) => {
+          {data.sorts.map((item, index) => {
             return (
               <MenuItem value={index} key={index}>
                 {item.name}

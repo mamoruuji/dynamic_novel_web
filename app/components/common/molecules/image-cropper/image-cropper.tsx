@@ -7,12 +7,12 @@ import { useParams } from 'next/navigation'
 import {
   Box,
   Button,
-  DialogTitle,
-  DialogContent,
   DialogActions,
+  DialogContent,
+  DialogTitle,
   Input,
-  Typography,
   Stack,
+  Typography,
 } from '@mui/material'
 import { canvasPreview } from './canvas-preview'
 import { useDebounceEffect } from './use-debounce-effect'

@@ -27,7 +27,7 @@ model User {
   imageUrl      String    @default("no_image") @map(name: "image_url")
   // iconImage     String    @map(name: "icon_image")
   createdAt     DateTime  @default(now()) @map(name: "created_at")
-  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
+  updatedAt     DateTime  @default(now()) @updatedAt @map(name: "updated_at")
 
   dynamics      Dynamic[]
   following     Follow[]      @relation("followingRelation")
@@ -55,7 +55,7 @@ model Account {
   id_token          String?
   session_state     String?
   createdAt         DateTime @default(now()) @map(name: "created_at")
-  updatedAt         DateTime @updatedAt @map(name: "updated_at")
+  updatedAt         DateTime @default(now()) @updatedAt @map(name: "updated_at")
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -68,7 +68,7 @@ model Session {
   userId       String
   expires      DateTime
   createdAt    DateTime @default(now()) @map(name: "created_at")
-  updatedAt    DateTime @updatedAt @map(name: "updated_at")
+  updatedAt    DateTime @default(now()) @updatedAt @map(name: "updated_at")
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -92,7 +92,7 @@ model Dynamic {
   userId    String   @map(name: "user_id")
   imageUrl  String   @default("no_image") @map(name: "image_url")
   createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
 
   user          User             @relation(fields: [userId], references: [id])
   chapters      Chapter[]
@@ -111,7 +111,7 @@ model Chapter {
   order     Int
   dynamicId Int      @map(name: "dynamic_id")
   createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
 
   dynamic Dynamic @relation(fields: [dynamicId], references: [id])
   pages   Page[]
@@ -128,7 +128,7 @@ model Page {
   order     Int
   chapterId Int      @map(name: "chapter_id")
   createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
 
   chapter       Chapter       @relation(fields: [chapterId], references: [id])
   sections      Section[]
@@ -156,7 +156,7 @@ model Section {
   textSize        Int      @default(16) @map(name: "text_size")
   pageId          Int      @map(name: "page_id")
   createdAt       DateTime @default(now()) @map(name: "created_at")
-  updatedAt       DateTime @updatedAt @map(name: "updated_at")
+  updatedAt       DateTime @default(now()) @updatedAt @map(name: "updated_at")
 
   page       Page           @relation(fields: [pageId], references: [id])
   type       TypeSection    @relation(fields: [typeSectionId], references: [id])
@@ -178,7 +178,7 @@ model Folder {
   userId    String   @map(name: "user_id")
   parentId  Int?     @map(name: "parent_id")
   createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
 
   user     User     @relation(fields: [userId], references: [id])
   parent   Folder?  @relation("ParentChilds", fields: [parentId], references: [id])
@@ -197,7 +197,7 @@ model Image {
   typeId    Int      @default(1) @map(name: "type_of_Image_id")
   folderId  Int?     @map(name: "folder_id")
   createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
 
   user   User      @relation(fields: [userId], references: [id])
   type   TypeImage @relation(fields: [typeId], references: [id])
@@ -221,7 +221,7 @@ model Term {
   // imageId   Int?     @map(name: "image_id")
   imageUrl  String   @default("no_image") @map(name: "image_url")
   createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
 
   dynamic Dynamic? @relation(fields: [dynamicId], references: [id])
   chapter Chapter? @relation(fields: [chapterId], references: [id])
@@ -239,7 +239,7 @@ model Tag {
   id        Int      @id @default(autoincrement()) @map(name: "tag_id")
   name      String   @unique @db.VarChar(50)
   createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
 
   dynamics DynamicsOnTags[]
 
@@ -251,11 +251,12 @@ model DynamicsOnTags {
   dynamicId Int      @map(name: "dynamic_id")
   tagId     Int      @map(name: "tag_id")
   createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
 
   dynamic Dynamic @relation(fields: [dynamicId], references: [id])
   tag     Tag     @relation(fields: [tagId], references: [id])
 
+  @@unique([dynamicId, tagId])
   @@map(name: "dynamics_on_tags")
 }
 
@@ -264,7 +265,7 @@ model Follow {
   followerId String   @map(name: "follower_id")
   followeeId String   @map(name: "followee_id")
   createdAt  DateTime @default(now()) @map(name: "created_at")
-  updatedAt  DateTime @updatedAt @map(name: "updated_at")
+  updatedAt  DateTime @default(now()) @updatedAt @map(name: "updated_at")
 
   follower User @relation("followingRelation", fields: [followerId], references: [id])
   followee User @relation("followerRelation", fields: [followeeId], references: [id])
@@ -284,7 +285,7 @@ model Impression {
   userId    String   @map(name: "user_id")
   dynamicId Int      @map(name: "dynamic_id")
   createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
 
   user    User    @relation(fields: [userId], references: [id])
   dynamic Dynamic @relation(fields: [dynamicId], references: [id])
@@ -299,7 +300,7 @@ model ViewHistory {
   dynamicId Int      @map(name: "dynamic_id")
   pageId    Int      @map(name: "page_id")
   createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
 
   user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   dynamic Dynamic @relation(fields: [dynamicId], references: [id], onDelete: Cascade)
@@ -314,7 +315,7 @@ model TypeAnimation {
   id        Int      @id @default(autoincrement()) @map(name: "type_of_animation_id")
   name      String   @unique @db.VarChar(30)
   createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
 
   sections Section[]
 
@@ -325,7 +326,7 @@ model TypeColor {
   id        Int      @id @default(autoincrement()) @map(name: "type_of_color_id")
   name      String   @unique @db.VarChar(30)
   createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
 
   frame Section[] @relation("frameColor")
   text  Section[] @relation("textColor")
@@ -337,7 +338,7 @@ model TypeFont {
   id        Int      @id @default(autoincrement()) @map(name: "type_of_font_id")
   name      String   @unique @db.VarChar(50)
   createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
 
   sections Section[]
 
@@ -349,7 +350,7 @@ model TypeImage {
   name      String   @unique @db.VarChar(50)
   ratio     String
   createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
 
   image Image[]
 
@@ -360,7 +361,7 @@ model TypePosition {
   id        Int      @id @default(autoincrement()) @map(name: "type_of_position_id")
   name      String   @unique @db.VarChar(30)
   createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
 
   sections Section[]
 
@@ -371,7 +372,7 @@ model TypeSection {
   id        Int      @id @default(autoincrement()) @map(name: "type_of_section_id")
   name      String   @unique @db.VarChar(30)
   createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
 
   sections Section[]
 
@@ -383,7 +384,7 @@ model TypeSort {
   name      String   @db.VarChar(30)
   sql       String   @db.VarChar(50)
   createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
 
   @@map(name: "type_of_sorts")
 }

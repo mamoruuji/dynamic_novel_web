@@ -4,21 +4,21 @@ import useSWR from 'swr'
 import { useParams } from 'next/navigation'
 import {
   Alert,
+  Box,
   Card,
   CardContent,
   CardMedia,
   CircularProgress,
   Typography,
 } from '@mui/material'
+import { TagDisplay } from '@/components/common/atoms'
+import { isEmptyObject } from 'src/libs/util'
+import styles from './search-results.module.sass'
 
 export const SearchResults = () => {
   const { user_id } = useParams()
   const url = `/api/search/${user_id}`
   const { data, error, isLoading } = useSWR(url)
-
-  const isEmptyObject = (obj: object): boolean => {
-    return Object.keys(obj).length === 0
-  }
 
   if (error) return <Alert severity='warning'>{error}</Alert>
   if (isLoading) return <CircularProgress />
@@ -26,7 +26,7 @@ export const SearchResults = () => {
   return (
     <>
       {data.dynamics.map((dynamic) => (
-        <Card key={dynamic.dynamicId} sx={{ display: 'flex', marginBottom: 2 }}>
+        <Card key={dynamic.dynamicId} className={styles.dynamic}>
           <CardMedia
             component='img'
             sx={{ width: 120, objectFit: 'cover' }}
@@ -34,12 +34,19 @@ export const SearchResults = () => {
             alt={dynamic.title}
           />
           <CardContent sx={{ flex: 1 }}>
-            <Typography variant='h5' component='div'>
-              {dynamic.title}
-            </Typography>
-            <Typography variant='body2' color='text.secondary'>
-              {dynamic.overview}
-            </Typography>
+            <Box>
+              <Typography variant='h5' component='div'>
+                {dynamic.title}
+              </Typography>
+            </Box>
+            <Box>
+              <TagDisplay tags={dynamic.tags} />
+            </Box>
+            <Box>
+              <Typography variant='body2' color='text.secondary'>
+                {dynamic.overview}
+              </Typography>
+            </Box>
           </CardContent>
         </Card>
       ))}

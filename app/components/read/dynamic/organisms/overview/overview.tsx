@@ -1,31 +1,26 @@
 import Image from 'next/image'
 
+import { useParams } from 'next/navigation'
 import { Box, Typography, Container } from '@mui/material'
+
 import { useAtomValue } from 'jotai'
 import { dynamicAtom } from '@/states/operation-dynamic.ts'
 import styles from './overview.module.sass'
-// import { TagEdit, TagDisplay } from '@/components/common/atoms'
+import { TagEdit, TagDisplay } from '@/components/common/atoms'
 
-const formatDate = (isoString: string): string => {
-  const date = new Date(isoString)
-
-  const year = date.getFullYear()
-  const month = ('0' + (date.getMonth() + 1)).slice(-2) // 月は0から始まるので1を足す
-  const day = ('0' + date.getDate()).slice(-2)
-  const hours = ('0' + date.getHours()).slice(-2)
-  const minutes = ('0' + date.getMinutes()).slice(-2)
-  const seconds = ('0' + date.getSeconds()).slice(-2)
-
-  return `${year}/${month}/${day} ${hours}:${minutes}`
-}
+import { formatDate } from 'src/libs/util'
+import useSWR from 'swr'
 
 export const Overview = () => {
   const dynamic = useAtomValue(dynamicAtom)
+  const { dynamic_id } = useParams()
+  const url = `/api/dynamic/${dynamic_id}`
+  const { data } = useSWR(url)
 
   const imageWidth = 360
   const imageHeight = 640
   // let imageUrl =
-  //   dynamic.imageUrl !== undefined ? dynamic.imageUrl : '/images/testCover.png'
+  //   data.imageUrl !== undefined ? data.imageUrl : '/images/testCover.png'
   let imageUrl = '/images/testCover.png'
 
   return (
@@ -43,28 +38,30 @@ export const Overview = () => {
       <Box className={styles.detail}>
         <Box mb={2}>
           <Typography variant='h3' component='div'>
-            {dynamic.title}
+            {data.title}
           </Typography>
         </Box>
         <Box className={styles['detail-two']}>
           <Box>
-            <Typography variant='h6'>　作者：</Typography>
-            <Typography variant='h6'>{dynamic.userName}</Typography>
+            <Typography variant='h6'>　作者：{data.penName}</Typography>
           </Box>
           <Box mb={2}>
-            <Typography variant='h6'>　更新日時：</Typography>
             <Typography variant='h6'>
-              {formatDate(dynamic.updatedTime)}
+              　更新日時：{formatDate(data.updatedTime)}
             </Typography>
+          </Box>
+          <Box mb={2}>
+            <TagDisplay tags={data.tags} />
+          </Box>
+          <Box mb={2}>
+            <TagEdit />
           </Box>
         </Box>
         <Box>
           <Typography variant='body2' color='text.secondary'>
-            {dynamic.overview}
+            {data.overview}
           </Typography>
         </Box>
-        {/* <TagDisplay />
-        <TagEdit /> */}
       </Box>
     </Container>
   )

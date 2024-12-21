@@ -1,2 +1,2 @@
 export * from './search-form'
-export * from './search-results'
+export * from './search-results/search-results'

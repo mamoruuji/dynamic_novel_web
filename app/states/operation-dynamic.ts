@@ -12,13 +12,13 @@ export const chaptersAtom = atom([])
 export const chapterAtom = atom({})
 
 export const pagesAtom = atomFamily((key) => {
-  return atom([]) // 各キーに対するデフォルト値を指定
+  return atom([])
 })
 
 export const pageAtom = atom({})
 
 export const termsAtom = atomFamily((key) => {
-  return atom([]) // 各キーに対するデフォルト値を指定
+  return atom([])
 })
 
-// export const tagsAtom = atom([])
+export const tagsAtom = atom([])

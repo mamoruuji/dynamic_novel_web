@@ -9,12 +9,7 @@ import { SearchStack } from '../atoms'
 import { Search, Sort, Filter } from '../molecules'
 import { Box, Button, FormGroup } from '@mui/material'
 
-const poster = (url, { arg }) =>
-  fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(arg),
-  }).then((res) => res.json())
+import { poster, convertFilterDate, convertKeywords } from 'src/libs/util'
 
 export const SearchForm = () => {
   const { user_id } = useParams()
@@ -26,9 +21,6 @@ export const SearchForm = () => {
       mutate(newData, false)
     },
   })
-
-  const convertFilterDate = (string) => (string === 'YYYY/MM/DD' ? '' : string)
-  const convertKeywords = (array) => (array === '' ? [] : array.split())
 
   const handleButtonClick = (event) => {
     const formData = new FormData(formRef.current)
@@ -59,7 +51,6 @@ export const SearchForm = () => {
             <Search />
             <Button
               variant='contained'
-              type='button'
               onClick={handleButtonClick}
               disabled={isMutating}
             >

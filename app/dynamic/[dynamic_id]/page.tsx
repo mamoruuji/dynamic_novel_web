@@ -1,6 +1,5 @@
 'use client'
 
-import { useState, useEffect } from 'react'
 import { useParams } from 'next/navigation'
 
 import { Alert, Box, CircularProgress, Typography } from '@mui/material'
@@ -10,47 +9,34 @@ import {
   dynamicAtom,
   chaptersAtom,
   termsAtom,
+  tagsAtom,
 } from '@/states/operation-dynamic.ts'
-import { useAtom } from 'jotai'
+import { useSetAtom } from 'jotai'
 
 import useSWR from 'swr'
 
+import { isEmptyObject } from 'src/libs/util'
+
 export default function Page() {
-  const [dynamic, setDynamic] = useAtom(dynamicAtom)
-  const [chapters, setChapters] = useAtom(chaptersAtom)
-  const [error, setError] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState<boolean | null>(false)
+  const setDynamic = useSetAtom(dynamicAtom)
+  const setChapters = useSetAtom(chaptersAtom)
+  const setTags = useSetAtom(tagsAtom)
+
   const { dynamic_id } = useParams()
+  const url = `/api/dynamic/${dynamic_id}`
+  const { data, error, isLoading } = useSWR(url)
+  const setDynamicTerms = useSetAtom(termsAtom('dynamic'))
 
-  const [dynamicTerms, setDynamicTerms] = useAtom(termsAtom('dynamic'))
+  if (data && !isEmptyObject(data)) {
+    setDynamic(data)
+    setChapters(data.chapters || [])
+    setDynamicTerms(data.terms || [])
+    setTags((data.tags || []).map((item) => item.name))
+  }
 
-  const url = '/api/tag'
-  // const { data, error, isLoading } = useSWR(url)
-  const { data } = useSWR(url)
-
-  useEffect(() => {
-    ;(async () => {
-      try {
-        const apiUrl = `/api/dynamic?dynamic_id=${dynamic_id}`
-        const response = await fetch(apiUrl, {
-          cache: 'no-store',
-        })
-        const data = await response.json()
-        if (!data) {
-          setError('作品がありません')
-        } else {
-          setDynamic(data)
-          setChapters(data.chapters)
-          setDynamicTerms(data.terms)
-        }
-      } catch (error) {
-        console.error('API Routesの通信に失敗しました', error)
-        setError('データの取得中にエラーが発生しました。')
-      } finally {
-        setIsLoading(false)
-      }
-    })()
-  }, [])
+  if (error) return <Alert severity='warning'>{error}</Alert>
+  if (isLoading) return <CircularProgress />
+  if (isEmptyObject(data)) return <Typography>No data</Typography>
 
   return <Overview />
 }
