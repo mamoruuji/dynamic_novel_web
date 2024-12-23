@@ -18,10 +18,7 @@ import { Dialog } from './dialog'
 import { TextField } from '@/components/search/atoms'
 
 import useSWRMutation from 'swr/mutation'
-import useSWR from 'swr'
-
-import { tagsAtom } from '@/states/operation-dynamic'
-import { useAtom } from 'jotai'
+import useSWR, { mutate } from 'swr'
 
 import { poster, convertKeywords } from 'src/libs/util'
 
@@ -29,22 +26,35 @@ const filter = createFilterOptions<FilmOptionType>()
 
 export const TagEdit = () => {
   // 編集対象作品のタグ
-  const [tags, setTags] = useAtom(tagsAtom)
   const { dynamic_id } = useParams()
-  const formRef = useRef()
-
-  // 編集対象作品のタグ
-  const url = `/api/dynamic/${dynamic_id}`
-  const { mutate } = useSWR(url)
-  const { trigger, isMutating } = useSWRMutation(url, poster, {
+  const dynamicUrl = `/api/dynamic/${dynamic_id}`
+  const { data: dynamic } = useSWR(dynamicUrl)
+  const dynamicAddTagUrl = `/api/dynamic/${dynamic_id}/tag`
+  const { trigger, isMutating } = useSWRMutation(dynamicAddTagUrl, poster, {
     onSuccess: (newData) => {
-      mutate(newData, false)
+      mutate(dynamicUrl)
+      mutate(allTagUrl)
     },
   })
+  const formRef = useRef()
+
+  const handleTagChange = (event) => {
+    const newTags = event // 入力値を取得
+
+    // ローカルキャッシュを直接更新
+    mutate(
+      dynamicUrl,
+      {
+        ...dynamic, // 現在の dynamic データをコピー
+        tags: newTags.map((name) => ({ name })), // 入力値を基に tags を更新
+      },
+      false, // サーバー再検証をスキップ
+    )
+  }
 
   // プルダウン表示用タグ全件
-  const tagUrl = `/api/tag`
-  const { data, isLoading } = useSWR(tagUrl)
+  const allTagUrl = `/api/tag`
+  const { data: allTags, isLoading } = useSWR(allTagUrl)
 
   const handleButtonClick = (event) => {
     const formData = new FormData(formRef.current)
@@ -54,20 +64,7 @@ export const TagEdit = () => {
       dynamic_id: dynamic_id,
       tag_names: tagKeywords,
     }
-    try {
-      const url = `/api/dynamic/${dynamic_id}/tag`
-      const response = fetch(url, {
-        cache: 'no-store',
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body),
-      })
-    } catch (error) {
-      console.error('API Routesの通信に失敗しました', error)
-    } finally {
-    }
+    trigger(body)
   }
 
   if (isLoading) return <CircularProgress />
@@ -79,11 +76,11 @@ export const TagEdit = () => {
           <TextField
             id='tag-input'
             name='tag-keywords'
-            value={tags}
-            onChange={setTags}
+            value={dynamic.tags.map((item) => item.name)}
+            onChange={handleTagChange}
             itemKey='tag-key'
             label='タグキーワード'
-            options={data.tags.map((item) => item.name)}
+            options={allTags.tags.map((item) => item.name)}
           />
         </DialogContent>
         <DialogActions>

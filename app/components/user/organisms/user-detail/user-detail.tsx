@@ -1,6 +1,8 @@
 'use client'
 
 import Image from 'next/image'
+import { useParams } from 'next/navigation'
+import { useRef } from 'react'
 
 import {
   Accordion,
@@ -12,93 +14,66 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import { useAtom } from 'jotai'
-import { useFormState } from 'react-dom'
-import { UpdateUser } from 'app/actions/update-user'
-import { userAtom } from '@/states/operation-user.ts'
 import styles from './user-detail.module.sass'
 
-import { useEffect, useRef } from 'react'
+import useSWR from 'swr'
+import useSWRMutation from 'swr/mutation'
+import { poster } from 'src/libs/util'
 
 export const UserDetail = () => {
-  const [user, setUser] = useAtom(userAtom)
-  const ref = useRef(true)
-  const ref2 = useRef(true)
-  const [formState, formAction] = useFormState(UpdateUser, {})
+  const { user_id } = useParams()
+  const url = `/api/user/${user_id}`
+  const { data, mutate } = useSWR(url)
+  const formRef = useRef()
 
-  const imageWidth = 360
-  const imageHeight = 360
-
-  const setUserPenName = (event) => {
-    setUser((prevState) => ({
-      ...prevState,
-      penName: event.target.value,
-    }))
-  }
-
-  const setUserText = (event) => {
-    setUser((prevState) => ({
-      ...prevState,
-      text: event.target.value,
-    }))
-  }
-
-  useEffect(() => {
-    if (ref.current) {
-      ref.current = false
-      return
-    }
-    if (ref2.current) {
-      ref2.current = false
-      return
-    }
-
-    setUser(formState)
-  }, [formState, formAction])
-
-  let imageUrl =
-    dynamic.imageUrl !== undefined ? dynamic.imageUrl : '/images/testCover.png'
+  const { trigger, isMutating } = useSWRMutation(url, poster, {
+    onSuccess: (newData) => {
+      mutate(newData, false)
+    },
+  })
+  const imageUrl =
+    data.imageUrl !== 'no_image' ? data.imageUrl : '/images/NO_IMAGE.jpg'
 
   return (
     <Container className={styles['user-detail']}>
       <Box>
         <Box className={styles.image}>
           <Avatar src={imageUrl} alt='icon' style={{ borderRadius: '20px' }} />
-          {/* <Image
-            priority
-            src={imageUrl}
-            width={imageWidth}
-            height={imageHeight}
-            className='w-full h-auto object-cover'
-            alt={user?.name || 'User Image'}
-          /> */}
         </Box>
         <Box className={styles.detail}>
-          <Box mb={2}>
-            <TextField
-              name='penName'
-              value={user.penName || ''}
-              onChange={setUserPenName}
-              sx={{ '& .MuiInputBase-input': { height: 50 }, width: 400 }}
-              placeholder='ペンネーム'
-            />
-          </Box>
-          <Box mb={2}>
-            <TextField
-              name='text'
-              value={user.text || ''}
-              onChange={setUserText}
-              sx={{ '& .MuiInputBase-input': { height: 50 }, width: 400 }}
-              placeholder='自己紹介'
-              multiline
-              rows={7}
-            />
-          </Box>
-          <Box mb={2}>
-            <Typography component='div'>非公開ログイン情報</Typography>
-            <Typography component='div'>{user.name}</Typography>
-            <Typography component='div'>{user.email}</Typography>
-          </Box>
+          <form ref={formRef}>
+            <Box mb={2}>
+              <TextField
+                name='penName'
+                value={data.penName || ''}
+                // onChange={setUserPenName}
+                sx={{ '& .MuiInputBase-input': { height: 50 }, width: 400 }}
+                placeholder='ペンネーム'
+              />
+            </Box>
+            <Box mb={2}>
+              <TextField
+                name='text'
+                value={data.text || ''}
+                // onChange={setUserText}
+                sx={{ '& .MuiInputBase-input': { height: 50 }, width: 400 }}
+                placeholder='自己紹介'
+                multiline
+                rows={7}
+              />
+            </Box>
+            <Box mb={2}>
+              <Typography variant='h3' component='div'>
+                非公開ログイン情報
+              </Typography>
+              <Typography component='div'>
+                　ログインネーム：{data.name}
+              </Typography>
+              <Typography component='div'>
+                登録メールアドレス：{data.email}
+              </Typography>
+            </Box>
+          </form>
         </Box>
       </Box>
     </Container>

@@ -6,8 +6,8 @@ import { useParams, usePathname } from 'next/navigation'
 import { leftDrawerStateAtom } from '@/states/drawer-state.ts'
 import { DrawerHeaderWithIcon, Drawer } from '@/components/common/atoms'
 import { UserLinks } from '@/components/user/molecules'
-import { Contents as CreateContents } from '@/components/create/dynamic/molecules'
-import { Contents as ReadContents } from '@/components/read/dynamic/molecules'
+import { Contents as EditContents } from '@/components/contents/edit/molecules'
+import { Contents as ReadContents } from '@/components/contents/read/molecules'
 
 import { SearchForm } from '@/components/search/organisms'
 
@@ -18,7 +18,7 @@ export const LeftDrawer = () => {
   const { user_id } = useParams()
   const router = usePathname()
   const isSearch = router.includes('search')
-  const isCreate = user_id && router.includes('dynamic')
+  const isEdit = user_id && router.includes('dynamic')
   const isRead = !user_id && router.includes('dynamic')
 
   return (
@@ -37,9 +37,9 @@ export const LeftDrawer = () => {
           <Divider />
         </>
       )}
-      {isCreate && (
+      {isEdit && (
         <>
-          <CreateContents />
+          <EditContents />
           <Divider />
         </>
       )}

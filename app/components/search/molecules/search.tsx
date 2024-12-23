@@ -11,11 +11,12 @@ import { useAtom } from 'jotai'
 
 export const Search = () => {
   const [searchKeywords, setSearchKeywords] = useAtom(searchKeywordsAtom)
-  const query = useSearchParams()
-  let tag = query.get('tag')
   const ref = useRef(true)
   const ref2 = useRef(true)
 
+  // タグクリックされた際、検索フォームにタグの文言追加
+  const query = useSearchParams()
+  let tag = query.get('tag')
   useEffect(() => {
     if (ref.current) {
       ref.current = false
