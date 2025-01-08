@@ -5,7 +5,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const url =
-      'http://dynamic_novel_server:8080/proto.dynamic.v1.TagService/SetDynamicOnTag'
+      'http://dynamic_novel_server:8080/proto.dynamic.v1.dynamicService/RenameItem'
     const response = await fetch(url, {
       cache: 'no-store',
       method: 'POST',
@@ -14,11 +14,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       },
       body: JSON.stringify(body),
     })
+
     const data = await response.json()
     res.status(200).json(data)
   } catch (error) {
-    res
-      .status(500)
-      .json({ error: 'Failed to fetch data from DynamicOnTag API.' })
+    res.status(500).json({ error: 'Failed to update data from the page API.' })
   }
 }

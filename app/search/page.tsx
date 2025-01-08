@@ -1,5 +1,3 @@
-'use client'
-
 import { SearchResults } from '@/components/search/organisms'
 
 export default function Page() {

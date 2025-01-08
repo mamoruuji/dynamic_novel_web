@@ -26,6 +26,22 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     palette: {
       mode: isDarkMode,
     },
+    components: {
+      MuiList: {
+        styleOverrides: {
+          root: {
+            padding: '8px',
+          },
+        },
+      },
+      MuiListItem: {
+        styleOverrides: {
+          root: {
+            padding: '8px',
+          },
+        },
+      },
+    },
   })
 
   return (

@@ -7,12 +7,19 @@ import { useParams, usePathname } from 'next/navigation'
 import { DrawerHeaderWithIcon, Drawer } from '@/components/common/atoms'
 import { useAtom } from 'jotai'
 import { rightDrawerStateAtom } from '@/states/drawer-state.ts'
-import { termsAtom } from '@/states/operation-dynamic.ts'
+import { termsAtomFamily } from '@/states/operation-dynamic.ts'
 // import { Terms as EditTerms } from '@/components/terms/edit/molecules'
 // import { Terms as ReadTerms } from '@/components/terms/read/molecules'
 import { Terms } from '@/components/terms/read/molecules'
 
-import { Box, CircularProgress, Divider, Tab, Typography } from '@mui/material'
+import {
+  Alert,
+  Box,
+  CircularProgress,
+  Divider,
+  Tab,
+  Typography,
+} from '@mui/material'
 import { TabContext, TabList, TabPanel } from '@mui/lab'
 
 import ArrowRightIcon from '@mui/icons-material/ArrowRight'
@@ -25,33 +32,37 @@ export const RightDrawer = () => {
   const [rightOpen, setRightOpen] = useAtom(rightDrawerStateAtom)
   const { user_id, dynamic_id, chapter_id, page_id } = useParams()
   const router = usePathname()
-  const [dynamicTerms, setDynamicTerms] = useAtom(termsAtom('dynamic'))
-  const [chapterTerms, setChapterTerms] = useAtom(termsAtom('chapter'))
-  const [pageTerms, setPageTerms] = useAtom(termsAtom('page'))
+  const [dynamicTerms, setDynamicTerms] = useAtom(termsAtomFamily('dynamic'))
+  const [chapterTerms, setChapterTerms] = useAtom(termsAtomFamily('chapter'))
+  const [pageTerms, setPageTerms] = useAtom(termsAtomFamily('page'))
 
   const isOverview = !page_id && router.includes('dynamic')
   const isPage = page_id && router.includes('dynamic')
-
-  const url = `/api/dynamic/${dynamic_id}`
-  const { data, error, isLoading } = useSWR(url)
-
+  const isUserProfile = !isOverview && !isPage && router.includes('user')
+  const isSearch = router.includes('search')
   const [value, setValue] = useState('1')
 
-  if (error) return <Alert severity='warning'>{error}</Alert>
-  if (isLoading) return <CircularProgress />
-  if (isEmptyObject(data)) return <Typography>No data</Typography>
+  if (!isUserProfile && !isSearch) {
+    const url = `/api/dynamic/${dynamic_id}`
+    const { data, error, isLoading } = useSWR(url)
 
-  setDynamicTerms(data.terms || [])
-  data.chapters.map((chapter) => {
-    if (chapter_id === String(chapter.chapterId)) {
-      setChapterTerms(chapter.terms || [])
-      chapter.pages.map((page) => {
-        if (page_id === String(page.pageId)) {
-          setPageTerms(page.terms || [])
-        }
-      })
-    }
-  })
+    if (error) return <Alert severity='warning'>{error}</Alert>
+    if (isLoading) return <CircularProgress />
+    if (isEmptyObject(data)) return <Typography>No data</Typography>
+
+    setDynamicTerms(data.terms)
+    data.chapters.map((chapter) => {
+      if (chapter_id === String(chapter.chapterId)) {
+        setChapterTerms(chapter.terms)
+        chapter.pages.map((page) => {
+          if (page_id === String(page.pageId)) {
+            setPageTerms(page.terms)
+          }
+        })
+      }
+    })
+  }
+
   return (
     <Drawer anchor='right' open={rightOpen}>
       <DrawerHeaderWithIcon
