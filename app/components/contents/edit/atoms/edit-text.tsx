@@ -1,13 +1,33 @@
+'use client'
+
 import { useState, useRef } from 'react'
 import { TextField, Typography } from '@mui/material'
 
 import { editTextAtom } from '@/states/operation-dynamic.ts'
 import { useAtom } from 'jotai'
 
-export const EditText = ({ id, text, onTextChange }) => {
+import { useParams } from 'next/navigation'
+import { mutate } from 'swr'
+import useSWRMutation from 'swr/mutation'
+import { poster } from 'src/libs/util'
+
+export const EditText = ({ id, name }) => {
   const [isEditing, setIsEditing] = useAtom(editTextAtom(id))
   const formRef = useRef(null)
-  const [localText, setLocalText] = useState(text)
+  const [localText, setLocalText] = useState(name)
+
+  const [type, typeId] = id.split(':')
+  const argId = `${type}_id`
+
+  const { dynamic_id } = useParams()
+  const contentsUrl = `/api/dynamic/${dynamic_id}?dummyContents`
+
+  const updateUrl = `/api/${type}/update`
+  const { trigger, isMutating } = useSWRMutation(updateUrl, poster, {
+    onSuccess: (newData) => {
+      mutate(contentsUrl)
+    },
+  })
 
   const handleChange = (event) => {
     setLocalText(event.target.value)
@@ -15,13 +35,13 @@ export const EditText = ({ id, text, onTextChange }) => {
 
   const handleBlur = () => {
     setIsEditing(false)
-    onTextChange(localText)
+    trigger({ [argId]: typeId, name: localText })
   }
 
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       setIsEditing(false)
-      onTextChange(localText)
+      trigger({ [argId]: typeId, name: localText })
     }
   }
 
@@ -38,10 +58,11 @@ export const EditText = ({ id, text, onTextChange }) => {
             autoFocus
             variant='outlined'
             size='small'
+            disabled={isMutating}
           />
         </form>
       ) : (
-        <Typography style={{ cursor: 'pointer' }}>{text}</Typography>
+        <Typography style={{ cursor: 'pointer' }}>{name}</Typography>
       )}
     </>
   )

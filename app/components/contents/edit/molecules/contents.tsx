@@ -19,15 +19,12 @@ import {
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers'
 
 import {
-  AddChapterButton,
-  AddPageButton,
+  AddContentsButton,
+  ConfirmChangeContents,
   ConfirmDeleteDialog,
 } from '@/components/contents/edit/atoms'
 
-import {
-  SortableChapter,
-  SortablePage,
-} from '@/components/contents/edit/molecules'
+import { SortableItem } from '@/components/contents/edit/molecules'
 
 import {
   Accordion,
@@ -52,9 +49,9 @@ import { useParams } from 'next/navigation'
 export const Contents = () => {
   const [chapters, setChapters] = useAtom(chaptersAtom)
 
-  const { dynamic_id } = useParams()
-  const url = `/api/dynamic/${dynamic_id}`
-  const { data, error, isLoading, mutate } = useSWR(url, {
+  const { user_id, dynamic_id } = useParams()
+  const url = `/api/dynamic/${dynamic_id}?dummyContents`
+  const { data, error, isLoading } = useSWR(url, {
     onSuccess: (data) => setChapters(data.chapters),
   })
 
@@ -179,25 +176,6 @@ export const Contents = () => {
     setActiveId(null)
   }
 
-  // 並び替えAPI作成中
-  // const orderUrl = `/api/dynamic/order`
-  // const { trigger, isMutating } = useSWRMutation(orderUrl, poster, {
-  //   onSuccess: () => {
-  //     mutate()
-  //   },
-  // })
-
-  // const handleSaveOrder = async () => {
-  //   if (!chapters) return
-  // // 同名のページは使用できません
-  // // 同名の章は使用できません
-
-  //   try {
-  //     await trigger(chapters)
-  //   } catch (err) {
-  //     console.error(err)
-  //   }
-  // }
   if (error) return <Alert severity='warning'>{error}</Alert>
   if (isLoading) return <CircularProgress />
 
@@ -216,15 +194,15 @@ export const Contents = () => {
           {chapters.map((chapter) => (
             <Accordion key={chapter.chapterId}>
               <AccordionSummary
+                component='div' // IconButtonのエラー対策
                 expandIcon={<ExpandMoreIcon />}
                 sx={
                   chapter.pages === undefined ? { backgroundColor: 'red' } : {}
                 }
               >
-                <SortableChapter
+                <SortableItem
                   id={`chapter:${chapter.chapterId}`}
-                  chapterId={chapter.chapterId}
-                  name={chapter.title}
+                  name={chapter.name}
                   style={{
                     border:
                       activeId === `chapter:${chapter.chapterId}`
@@ -243,12 +221,11 @@ export const Contents = () => {
                   <List>
                     {chapter.pages && chapter.pages.length > 0 ? (
                       chapter.pages.map((page) => (
-                        <SortablePage
+                        <SortableItem
                           key={page.pageId}
                           id={`page:${page.pageId}`}
-                          chapterId={chapter.chapterId}
-                          pageId={page.pageId}
-                          name={page.title}
+                          name={page.name}
+                          href={`/user/${user_id}/dynamic/${dynamic_id}/${chapter.chapterId}/${page.pageId}`}
                           style={{
                             border:
                               activeId === `page:${page.pageId}`
@@ -272,7 +249,7 @@ export const Contents = () => {
                         Drop pages here
                       </Box>
                     )}
-                    <AddPageButton chapterId={chapter.chapterId} />
+                    <AddContentsButton id={chapter.chapterId} type={'page'} />
                   </List>
                 </SortableContext>
               </AccordionDetails>
@@ -290,7 +267,7 @@ export const Contents = () => {
             >
               {
                 chapters.find((c) => `chapter:${c.chapterId}` === activeId)
-                  ?.title
+                  ?.name
               }
             </Box>
           )}
@@ -305,23 +282,14 @@ export const Contents = () => {
               {
                 chapters
                   .flatMap((c) => c.pages ?? [])
-                  .find((p) => `page:${p.pageId}` === activeId)?.title
+                  .find((p) => `page:${p.pageId}` === activeId)?.name
               }
             </Box>
           )}
         </DragOverlay>
       </DndContext>
-      <AddChapterButton />
-      <Button
-        variant='contained'
-        color='primary'
-        onClick={() => {
-          console.log('Save logic here')
-        }}
-        style={{ marginTop: '1rem' }}
-      >
-        Save Order
-      </Button>
+      <AddContentsButton id={dynamic_id} type={'chapter'} />
+      <ConfirmChangeContents />
       <ConfirmDeleteDialog />
     </>
   )

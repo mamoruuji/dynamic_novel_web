@@ -2,7 +2,7 @@
 module.exports = {
   content: ["./app/**/*.{js,ts,jsx,tsx}"],
   plugins: [
-    require("@tailwindcss/typography"),
+    // require("@tailwindcss/typography"),
     // require("@tailwindcss/forms"),
   ],
   theme: {
@@ -17,5 +17,5 @@ module.exports = {
   corePlugins: {
     preflight: false, // リセットCSSの無効化
   },
- important: '#__next', // 全てのクラスセレクタの先頭に '#app' または '#__next'を追加する
+  important: '#__next', // 全てのクラスセレクタの先頭に '#app' または '#__next'を追加する
 }

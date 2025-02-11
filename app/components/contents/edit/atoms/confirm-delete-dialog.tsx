@@ -1,5 +1,6 @@
 'use client'
 
+import { useParams } from 'next/navigation'
 import {
   Button,
   Dialog,
@@ -10,6 +11,9 @@ import {
 import { chaptersAtom } from '@/states/operation-dynamic.ts'
 import { dialogStateAtom, deleteTargetAtom } from '@/states/dialog-state.ts'
 import { useAtom } from 'jotai'
+import { poster } from 'src/libs/util'
+import useSWRMutation from 'swr/mutation'
+import { mutate } from 'swr'
 
 export const ConfirmDeleteDialog = () => {
   const [chapters, setChapters] = useAtom(chaptersAtom)
@@ -21,24 +25,8 @@ export const ConfirmDeleteDialog = () => {
     setIsDeleteDialogOpen(false)
   }
 
-  const handleDeleteChapter = (chapterId: number) => {
-    setChapters(chapters.filter((chapter) => chapter.chapterId !== chapterId))
-    setIsDeleteDialogOpen(false)
-  }
-
-  const handleDeletePage = (chapterId: number, pageId: number) => {
-    setChapters(
-      chapters.map((chapter) =>
-        chapter.chapterId === chapterId
-          ? {
-              ...chapter,
-              pages: (chapter.pages ?? []).filter(
-                (page) => page.pageId !== pageId,
-              ),
-            }
-          : chapter,
-      ),
-    )
+  const handleDelete = async () => {
+    await deleteTarget.trigger(deleteTarget.arg)
     setIsDeleteDialogOpen(false)
   }
 
@@ -46,24 +34,13 @@ export const ConfirmDeleteDialog = () => {
     <Dialog open={isDeleteDialogOpen} onClose={handleCloseDeleteDialog}>
       <DialogTitle>警告</DialogTitle>
       <DialogContent>
-        削除対象に指定しますか？
-        左サイドバー最下部にある「変更確定ボタン」をクリックすると削除されます。
-        中の内容のデータごと消えます。 戻すことは出来ません。{' '}
+        削除しますか？ 中のデータごと消えます。 戻すことは出来ません。{' '}
         {deleteTarget?.type === 'chapter' ? '章：' : 'ページ：'}
         {deleteTarget?.name}
       </DialogContent>
       <DialogActions>
         <Button onClick={handleCloseDeleteDialog}>キャンセル</Button>
-        <Button
-          color='secondary'
-          onClick={() => {
-            if (deleteTarget?.type === 'chapter') {
-              handleDeleteChapter(deleteTarget.chapterId)
-            } else if (deleteTarget?.type === 'page') {
-              handleDeletePage(deleteTarget.chapterId, deleteTarget.pageId)
-            }
-          }}
-        >
+        <Button color='secondary' onClick={() => handleDelete()}>
           確認
         </Button>
       </DialogActions>

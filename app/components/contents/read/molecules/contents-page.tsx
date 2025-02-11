@@ -17,7 +17,7 @@
 //         href={`/dynamic/${dynamic_id}/${chapterId}/${page.pageId}`}
 //         passHref
 //       >
-//         <ListItemText primary={page.title} />
+//         <ListItemText primary={page.name} />
 //       </Link>
 //     </ListItemButton>
 //   )

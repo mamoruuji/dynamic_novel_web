@@ -3,6 +3,8 @@ import { atom } from 'jotai'
 
 export const chaptersAtom = atom([])
 
+export const sectionsAtom = atom([])
+
 export const pagesAtomFamily = atomFamily((chapterId) => atom([]))
 
 export const termsAtomFamily = atomFamily((key) => atom([]))

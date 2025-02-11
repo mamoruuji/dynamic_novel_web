@@ -17,7 +17,7 @@ export const Drawer = ({ anchor, open, children }) => {
           top: theme.spacing(8),
           width: process.env.NEXT_PUBLIC_DRAWERWIDTH,
           px: theme.spacing(2),
-          mb: theme.spacing(8),
+          pb: theme.spacing(8),
         },
       }}
     >

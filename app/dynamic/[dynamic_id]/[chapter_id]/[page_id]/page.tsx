@@ -1,5 +1,3 @@
-'use client'
-
 import { Sections } from '@/components/dynamic/read/organisms'
 
 export default function Page() {

@@ -30,13 +30,13 @@ export const TextField = ({
         const isExisting = options.some(
           (option) =>
             option === inputValue ||
-            option.title === inputValue ||
+            option.name === inputValue ||
             option.inputValue === inputValue,
         )
         if (inputValue !== '' && !isExisting) {
           filtered.push({
             inputValue,
-            title: `追加 "${inputValue}"`,
+            name: `追加 "${inputValue}"`,
           })
         }
 
@@ -46,7 +46,7 @@ export const TextField = ({
         if (typeof option === 'string') {
           return option
         }
-        return option.title || option.inputValue || ''
+        return option.name || option.inputValue || ''
       }}
       freeSolo
       clearOnBlur
@@ -55,7 +55,7 @@ export const TextField = ({
         const uniqueValues = []
         newValue.forEach((item) => {
           const val =
-            typeof item === 'string' ? item : item.inputValue || item.title
+            typeof item === 'string' ? item : item.inputValue || item.name
           if (!uniqueValues.includes(val)) {
             uniqueValues.push(val)
           }
@@ -66,7 +66,7 @@ export const TextField = ({
         const { key, ...optionProps } = props
         return (
           <li key={key} {...optionProps}>
-            {option.title || option.inputValue || option}
+            {option.name || option.inputValue || option}
           </li>
         )
       }}
@@ -79,7 +79,7 @@ export const TextField = ({
             label={
               typeof option === 'string'
                 ? option
-                : option.title || option.inputValue
+                : option.name || option.inputValue
             }
           />
         ))

@@ -22,6 +22,7 @@ prisma/schema.prisma
 `yarn prisma migrate dev --name initial-migration --create-only`
 `yarn prisma migrate dev --name add-ViewedPages-tables-and-add-image-column --create-only`
 `yarn prisma migrate dev --name update-updatedAt-column-and-unique --create-only`
+`yarn prisma migrate dev --name remove-constraints-and-rename-title --create-only`
 マイグレーションファイルを生成
 
 `yarn prisma migrate dev`
@@ -32,6 +33,7 @@ ER 図作成
 
 // ts ファイル実行（DB テストデータ作成）
 `yarn node --import ./ts-node.register.mjs prisma/seed-master`
+`yarn node --import ./ts-node.register.mjs prisma/seed`
 
 error: Environment variable not found: DATABASE_URL.
 --> schema.prisma:17

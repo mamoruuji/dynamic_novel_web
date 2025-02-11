@@ -14,21 +14,32 @@ import {
 } from '@/components/dynamic/read/molecules'
 import styles from './sections.module.sass'
 
+import { sectionsAtom } from '@/states/operation-dynamic.ts'
+import { useAtom } from 'jotai'
 import useSWR from 'swr'
 import { isEmptyObject } from 'src/libs/util'
 
 export const Sections = () => {
+  const [sections, setSections] = useAtom(sectionsAtom)
+
   const { dynamic_id, chapter_id, page_id } = useParams()
-  const url = `/api/dynamic/${dynamic_id}`
-  const { data, error, isLoading } = useSWR(url)
+  const url = `/api/dynamic/${dynamic_id}?dummySection`
+  const { data, error, isLoading } = useSWR(url, {
+    onSuccess: (data) => {
+      const chapter = data.chapters?.find(
+        (chapter) => chapter.chapterId == chapter_id,
+      )
+      const page = chapter?.pages?.find((page) => page.pageId == page_id)
+      const sections = page?.sections || []
+
+      setSections(sections)
+    },
+  })
 
   if (error) return <Alert severity='warning'>{error}</Alert>
   if (isLoading) return <CircularProgress />
   if (isEmptyObject(data)) return <Typography>No data</Typography>
 
-  const sections = data.chapters
-    .find((chapter) => chapter.chapterId == chapter_id)
-    .pages.find((page) => page.pageId == page_id).sections
   return (
     <>
       {sections.map((section, key) => {

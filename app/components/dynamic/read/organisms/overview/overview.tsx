@@ -19,7 +19,7 @@ import useSWR from 'swr'
 
 export const Overview = () => {
   const { dynamic_id } = useParams()
-  const url = `/api/dynamic/${dynamic_id}`
+  const url = `/api/dynamic/${dynamic_id}?dummyContents`
   const { data, error, isLoading } = useSWR(url)
 
   const imageWidth = 360
@@ -48,7 +48,7 @@ export const Overview = () => {
       <Box className={styles.detail}>
         <Box mb={2}>
           <Typography variant='h3' component='div'>
-            {data.title}
+            {data.name}
           </Typography>
         </Box>
         <Box className={styles['detail-two']}>

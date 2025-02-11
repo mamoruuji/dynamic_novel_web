@@ -135,6 +135,7 @@ export const createReaderData = async () => {
       await db.user.create({
         data: {
           name: userData.name,
+          penName: userData.penName,
           email: userData.email,
         },
       })

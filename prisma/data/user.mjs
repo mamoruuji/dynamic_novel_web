@@ -1,19 +1,20 @@
 export const middleUserData = {
   name: 'id1-creater1',
+  penName: 'penName1',
   email: 'hoge1@example.com',
   // 1作目-1章-1ページ-1セクション
   dynamics: {
     create: {
-      title: 'id1',
+      name: 'id1',
       overview: 'hogehoge1',
       published: true,
       chapters: {
         create: {
-          title: 'id1-dynamic1-chapter1',
+          name: 'id1-dynamic1-chapter1',
           order: 1,
           pages: {
             create: {
-              title: 'id1-dynamic1-chapter1-page1',
+              name: 'id1-dynamic1-chapter1-page1',
               order: 1,
               sections: {
                 create: {
@@ -327,7 +328,7 @@ const dynamic1Chapter1Page1Term = {
 
 const dynamic1Chapter1Pages = [
   {
-    title: 'id2-dynamic1-chapter1-page1',
+    name: 'id2-dynamic1-chapter1-page1',
     order: 1,
     sections: {
       create: dynamic1Chapter1Page1Sections,
@@ -337,7 +338,7 @@ const dynamic1Chapter1Pages = [
     },
   },
   {
-    title: 'id3-dynamic1-chapter1-page2',
+    name: 'id3-dynamic1-chapter1-page2',
     order: 2,
     sections: {
       create: dynamic1Chapter1Page1Section,
@@ -347,31 +348,31 @@ const dynamic1Chapter1Pages = [
     },
   },
   {
-    title: 'id4-dynamic1-chapter1-page3',
+    name: 'id4-dynamic1-chapter1-page3',
     order: 3,
   },
   {
-    title: 'id5-dynamic1-chapter1-page4',
+    name: 'id5-dynamic1-chapter1-page4',
     order: 4,
   },
   {
-    title: 'id6-dynamic1-chapter1-page5',
+    name: 'id6-dynamic1-chapter1-page5',
     order: 5,
   },
   {
-    title: 'id7-dynamic1-chapter1-page6',
+    name: 'id7-dynamic1-chapter1-page6',
     order: 6,
   },
   {
-    title: 'id8-dynamic1-chapter1-page7',
+    name: 'id8-dynamic1-chapter1-page7',
     order: 7,
   },
   {
-    title: 'id9-dynamic1-chapter1-page8',
+    name: 'id9-dynamic1-chapter1-page8',
     order: 8,
   },
   {
-    title: 'id10-dynamic1-chapter1-page9',
+    name: 'id10-dynamic1-chapter1-page9',
     order: 9,
   },
 ]
@@ -432,7 +433,7 @@ const dynamic1chapter1Term = {
 
 const dynamic1Chapters = [
   {
-    title: 'id2-dynamic1-chapter1',
+    name: 'id2-dynamic1-chapter1',
     order: 1,
     pages: {
       create: dynamic1Chapter1Pages,
@@ -442,11 +443,11 @@ const dynamic1Chapters = [
     },
   },
   {
-    title: 'id3-dynamic1-chapter2',
+    name: 'id3-dynamic1-chapter2',
     order: 2,
     pages: {
       create: {
-        title: 'id11-dynamic1-chapter2-page1',
+        name: 'id11-dynamic1-chapter2-page1',
         order: 1,
       },
     },
@@ -455,31 +456,31 @@ const dynamic1Chapters = [
     },
   },
   {
-    title: 'id4-dynamic1-chapter3',
+    name: 'id4-dynamic1-chapter3',
     order: 3,
   },
   {
-    title: 'id5-dynamic1-chapter4',
+    name: 'id5-dynamic1-chapter4',
     order: 4,
   },
   {
-    title: 'id6-dynamic1-chapter5',
+    name: 'id6-dynamic1-chapter5',
     order: 6,
   },
   {
-    title: 'id7-dynamic1-chapter6',
+    name: 'id7-dynamic1-chapter6',
     order: 7,
   },
   {
-    title: 'id8-dynamic1-chapter7',
+    name: 'id8-dynamic1-chapter7',
     order: 5,
   },
   {
-    title: 'id9-dynamic1-chapter8',
+    name: 'id9-dynamic1-chapter8',
     order: 8,
   },
   {
-    title: 'id10-dynamic1-chapter9',
+    name: 'id10-dynamic1-chapter9',
     order: 9,
   },
 ]
@@ -606,7 +607,7 @@ const dynamic1Term = {
 
 const dynamics = [
   {
-    title: 'id2-dynamic1',
+    name: 'id2-dynamic1',
     overview: 'hogehoge2',
     published: true,
     chapters: {
@@ -620,12 +621,12 @@ const dynamics = [
     },
   },
   {
-    title: 'id3-dynamic2',
+    name: 'id3-dynamic2',
     overview: 'hogehoge3',
     published: true,
     chapters: {
       create: {
-        title: 'id11-dynamic2-chapter1',
+        name: 'id11-dynamic2-chapter1',
         order: 1,
       },
     },
@@ -643,37 +644,37 @@ const dynamics = [
     },
   },
   {
-    title: 'id4-dynamic3',
+    name: 'id4-dynamic3',
     overview: 'hogehoge4',
     published: true,
   },
   {
-    title: 'id5-dynamic4',
+    name: 'id5-dynamic4',
     overview: 'hogehoge5',
     published: true,
   },
   {
-    title: 'id6-dynamic5',
+    name: 'id6-dynamic5',
     overview: 'hogehoge6',
     published: true,
   },
   {
-    title: 'id7-dynamic6',
+    name: 'id7-dynamic6',
     overview: 'hogehoge7',
     published: true,
   },
   {
-    title: 'id8-dynamic7',
+    name: 'id8-dynamic7',
     overview: 'hogehoge8',
     published: true,
   },
   {
-    title: 'id9-dynamic8',
+    name: 'id9-dynamic8',
     overview: 'hogehoge9',
     published: true,
   },
   {
-    title: 'id10-dynamic9',
+    name: 'id10-dynamic9',
     overview: 'hogehoge10',
     published: true,
   },
@@ -1050,6 +1051,7 @@ const images = [
 
 export const heavyUserData = {
   name: 'id2-creater2',
+  penName: 'penName2',
   email: 'hoge2@example.com',
   // n作目-n章-nページ-nセクション
   dynamics: {
@@ -1065,10 +1067,11 @@ export const heavyUserData = {
 
 export const lightUserData = {
   name: 'id3-creater3',
+  penName: 'penName3',
   email: 'hoge3@example.com',
   dynamics: {
     create: {
-      title: 'id11',
+      name: 'id11',
       overview: 'hogehoge1',
       published: false,
       chapters: {
@@ -1082,16 +1085,19 @@ export const readerUserData = [
   // 感想1件、お気に入り1件（非公開）
   {
     name: 'id4-reader',
+    penName: 'penName4',
     email: 'hoge4@example.com',
   },
   // 感想1件（非公開）、お気に入りn件
   {
     name: 'id5-reader',
+    penName: 'penName5',
     email: 'hoge5@example.com',
   },
   // 感想n件、お気に入り1件
   {
     name: 'id6-reader',
+    penName: 'penName6',
     email: 'hoge6@example.com',
   },
 ]

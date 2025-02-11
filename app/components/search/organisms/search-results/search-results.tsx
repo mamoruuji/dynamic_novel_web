@@ -31,12 +31,12 @@ export const SearchResults = () => {
             component='img'
             sx={{ width: 120, objectFit: 'cover' }}
             image={'/images/cover.jpg'}
-            alt={dynamic.title}
+            alt={dynamic.name}
           />
           <CardContent sx={{ flex: 1 }}>
             <Box>
               <Typography variant='h5' component='div'>
-                {dynamic.title}
+                {dynamic.name}
               </Typography>
             </Box>
             <Box>

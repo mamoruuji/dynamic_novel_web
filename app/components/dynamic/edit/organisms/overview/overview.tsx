@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 
 import { useParams } from 'next/navigation'
@@ -58,7 +60,7 @@ export const Overview = () => {
             <Box mb={2}>
               <TextField
                 name='title'
-                value={data.title || ''}
+                value={data.name || ''}
                 // onChange={setTitle}
                 sx={{ '& .MuiInputBase-input': { height: 50 }, width: 400 }}
                 placeholder='作品タイトル'

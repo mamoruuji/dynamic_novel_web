@@ -1,3 +1,5 @@
+'use client'
+
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import {
@@ -9,26 +11,22 @@ import {
 } from '@mui/material'
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator'
 import EditIcon from '@mui/icons-material/Edit'
+import LoginIcon from '@mui/icons-material/Login'
 
 import { chaptersAtom, editTextAtom } from '@/states/operation-dynamic.ts'
 import { useAtom } from 'jotai'
-import { EditText } from '@/components/contents/edit/atoms'
+import { ConfirmDeleteIcon, EditText } from '@/components/contents/edit/atoms'
+
+import CloseIcon from '@mui/icons-material/Close'
+import { dialogStateAtom, deleteTargetAtom } from '@/states/dialog-state.ts'
 
 type SortableItemProps = {
   id: string
   name: string
-  onEdit: (newText: string) => void
-  onDelete: React.ReactNode
-  pageLink?: React.ReactNode
+  href?: string
 }
 
-export const SortableItem = ({
-  id,
-  name,
-  onEdit,
-  onDelete,
-  pageLink,
-}: SortableItemProps) => {
+export const SortableItem = ({ id, name, href }: SortableItemProps) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id })
 
@@ -39,9 +37,9 @@ export const SortableItem = ({
 
   const [isEditing, setIsEditing] = useAtom(editTextAtom(id))
 
-  const handleEditClick = () => {
-    setIsEditing(true)
-  }
+  const handleEditClick = () => setIsEditing(true)
+
+  const [type, typeId] = id.split(':')
 
   return (
     <ListItem ref={setNodeRef} style={style} {...attributes}>
@@ -56,13 +54,15 @@ export const SortableItem = ({
         <Box sx={{ display: 'flex', gap: 1 }}>
           <ListItemButton>
             <ListItemText>
-              <EditText id={id} text={name} onTextChange={onEdit} />
+              <EditText id={id} name={name} />
             </ListItemText>
           </ListItemButton>
         </Box>
         <Box sx={{ display: 'flex', gap: 1 }}>
-          {typeof pageLink !== 'undefined' && (
-            <IconButton>{pageLink}</IconButton>
+          {type === 'page' && (
+            <IconButton component='a' href={href}>
+              <LoginIcon />
+            </IconButton>
           )}
           <IconButton>
             <EditIcon onClick={handleEditClick} />
@@ -70,7 +70,9 @@ export const SortableItem = ({
           <IconButton>
             <DragIndicatorIcon {...listeners} />
           </IconButton>
-          {onDelete}
+          <IconButton>
+            <ConfirmDeleteIcon id={id} name={name} />
+          </IconButton>
         </Box>
       </Box>
     </ListItem>

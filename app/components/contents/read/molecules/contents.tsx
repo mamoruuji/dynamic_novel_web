@@ -27,7 +27,7 @@ export const Contents = () => {
   const [chapters, setChapters] = useAtom(chaptersAtom)
 
   const { dynamic_id } = useParams()
-  const url = `/api/dynamic/${dynamic_id}`
+  const url = `/api/dynamic/${dynamic_id}?dummyContents`
   const { data, error, isLoading } = useSWR(url, {
     onSuccess: (data) => setChapters(data.chapters),
   })
@@ -41,7 +41,7 @@ export const Contents = () => {
         <ContentsChapter
           id={`chapter:${chapter.chapterId}`}
           chapterId={chapter.chapterId}
-          name={chapter.title}
+          name={chapter.name}
         />
       </AccordionSummary>
       <AccordionDetails>
@@ -53,7 +53,7 @@ export const Contents = () => {
                 id={`page:${page.pageId}`}
                 chapterId={chapter.chapterId}
                 pageId={page.pageId}
-                name={page.title}
+                name={page.name}
               />
             ))}
         </List>

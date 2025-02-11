@@ -69,7 +69,7 @@ async function main() {
       impressions: {
         create: {
           rate: 1,
-          title: 'id1-user4-author2dynamic1',
+          name: 'id1-user4-author2dynamic1',
           text: 'hoge1',
           dynamic: { connect: { id: creaters[1].dynamics[0].id } },
         },
@@ -99,7 +99,7 @@ async function main() {
       impressions: {
         create: {
           rate: 2,
-          title: 'id1-user5-author3dynamic1',
+          name: 'id1-user5-author3dynamic1',
           text: 'hoge11',
           dynamic: { connect: { id: creaters[2].dynamics[0].id } },
         },
@@ -134,7 +134,7 @@ async function main() {
           impressions: {
             create: {
               rate: getRandomRate(1, 5),
-              title: 'id1-user6-author3dynamic' + key,
+              name: 'id1-user6-author3dynamic' + key,
               text: 'hoge' + key,
               dynamic: { connect: { id: dynamic.id } },
             },

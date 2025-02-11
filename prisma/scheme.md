@@ -47,7 +47,7 @@ erDiagram
 
   "dynamics" {
     Int id "🗝️"
-    String title 
+    String name 
     String overview 
     Boolean published 
     String imageUrl 
@@ -58,7 +58,7 @@ erDiagram
 
   "chapters" {
     Int id "🗝️"
-    String title 
+    String name 
     Int order 
     DateTime createdAt 
     DateTime updatedAt 
@@ -67,7 +67,7 @@ erDiagram
 
   "pages" {
     Int id "🗝️"
-    String title 
+    String name 
     Int order 
     DateTime createdAt 
     DateTime updatedAt 
@@ -139,7 +139,7 @@ erDiagram
   "impressions" {
     Int id "🗝️"
     Int rate 
-    String title 
+    String name 
     String text 
     Boolean published 
     DateTime createdAt 

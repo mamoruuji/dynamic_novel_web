@@ -8,8 +8,6 @@ import { DrawerHeaderWithIcon, Drawer } from '@/components/common/atoms'
 import { useAtom } from 'jotai'
 import { rightDrawerStateAtom } from '@/states/drawer-state.ts'
 import { termsAtomFamily } from '@/states/operation-dynamic.ts'
-// import { Terms as EditTerms } from '@/components/terms/edit/molecules'
-// import { Terms as ReadTerms } from '@/components/terms/read/molecules'
 import { Terms } from '@/components/terms/read/molecules'
 
 import {
@@ -43,24 +41,23 @@ export const RightDrawer = () => {
   const [value, setValue] = useState('1')
 
   if (!isUserProfile && !isSearch) {
-    const url = `/api/dynamic/${dynamic_id}`
-    const { data, error, isLoading } = useSWR(url)
+    const url = `/api/dynamic/${dynamic_id}?dummyTerm`
+    const { data, error, isLoading } = useSWR(url, {
+      onSuccess: (data) => {
+        setDynamicTerms(data.terms)
+        const chapter = data.chapters?.find(
+          (chapter) => chapter.chapterId == chapter_id,
+        )
+        const page = chapter?.pages?.find((page) => page.pageId == page_id)
+
+        setChapterTerms(chapter.terms)
+        setPageTerms(page.terms)
+      },
+    })
 
     if (error) return <Alert severity='warning'>{error}</Alert>
     if (isLoading) return <CircularProgress />
     if (isEmptyObject(data)) return <Typography>No data</Typography>
-
-    setDynamicTerms(data.terms)
-    data.chapters.map((chapter) => {
-      if (chapter_id === String(chapter.chapterId)) {
-        setChapterTerms(chapter.terms)
-        chapter.pages.map((page) => {
-          if (page_id === String(page.pageId)) {
-            setPageTerms(page.terms)
-          }
-        })
-      }
-    })
   }
 
   return (

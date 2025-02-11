@@ -18,7 +18,7 @@
 //         aria-controls={`panel-content-${chapterKey}`}
 //         id={`panel-header-${chapterKey}`}
 //       >
-//         <Typography>{chapter.title}</Typography>
+//         <Typography>{chapter.name}</Typography>
 //       </AccordionSummary>
 //       {typeof chapter.pages !== 'undefined' &&
 //         chapter.pages.map((page, index) => {

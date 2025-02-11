@@ -22,10 +22,9 @@ model User {
   name          String    @db.VarChar(30)
   email         String    @unique @db.VarChar(319)
   emailVerified DateTime?
-  penName       String    @default("無名") @map(name: "pen_name") @db.VarChar(255)
+  penName       String    @unique @default("無名") @map(name: "pen_name") @db.VarChar(255)
   text          String    @default("") @db.VarChar(500)
   imageUrl      String    @default("no_image") @map(name: "image_url")
-  // iconImage     String    @map(name: "icon_image")
   createdAt     DateTime  @default(now()) @map(name: "created_at")
   updatedAt     DateTime  @default(now()) @updatedAt @map(name: "updated_at")
 
@@ -86,7 +85,7 @@ model VerificationToken {
 
 model Dynamic {
   id        Int      @id @default(autoincrement()) @map(name: "dynamic_id")
-  title     String   @db.VarChar(50)
+  name      String   @unique @default("新しい作品") @db.VarChar(255)
   overview  String   @db.VarChar(500)
   published Boolean  @default(false)
   userId    String   @map(name: "user_id")
@@ -101,13 +100,12 @@ model Dynamic {
   terms         Term[]
   tags          DynamicsOnTags[]
 
-  @@unique([userId, title])
   @@map(name: "dynamics")
 }
 
 model Chapter {
   id        Int      @id @default(autoincrement()) @map(name: "chapter_id")
-  title     String   @db.VarChar(50)
+  name      String   @default("新しい章") @db.VarChar(255)
   order     Int
   dynamicId Int      @map(name: "dynamic_id")
   createdAt DateTime @default(now()) @map(name: "created_at")
@@ -117,14 +115,12 @@ model Chapter {
   pages   Page[]
   terms   Term[]
 
-  @@unique([dynamicId, title])
-  @@unique([dynamicId, order])
   @@map(name: "chapters")
 }
 
 model Page {
   id        Int      @id @default(autoincrement()) @map(name: "page_id")
-  title     String   @db.VarChar(50)
+  name      String   @default("新しいページ") @db.VarChar(255)
   order     Int
   chapterId Int      @map(name: "chapter_id")
   createdAt DateTime @default(now()) @map(name: "created_at")
@@ -135,19 +131,16 @@ model Page {
   viewHistories ViewHistory[]
   terms         Term[]
 
-  @@unique([chapterId, title])
-  @@unique([chapterId, order])
   @@map(name: "pages")
 }
 
 model Section {
   id              Int      @id @default(autoincrement()) @map(name: "section_id")
-  name            String   @default("") @db.VarChar(255)
+  name            String   @default("新しいセクション") @db.VarChar(255)
   order           Int
   typeSectionId   Int      @default(1) @map(name: "type_of_section_id")
   typePositionId  Int      @default(1) @map(name: "type_of_position_id")
   typeAnimationId Int      @default(1) @map(name: "type_of_animation_id")
-  // imageId         Int?     @map(name: "image_id")
   imageUrl        String   @default("no_image") @map(name: "image_url")
   frameColorId    Int      @default(1) @map(name: "frame_color_id")
   typeFontId      Int      @default(1) @map(name: "type_of_font_id")
@@ -166,15 +159,13 @@ model Section {
   frameColor TypeColor      @relation("frameColor", fields: [frameColorId], references: [id])
   textColor  TypeColor      @relation("textColor", fields: [textColorId], references: [id])
   term       Term[]
-  // image      Image?         @relation(fields: [imageId], references: [id])
 
-  @@unique([order, pageId])
   @@map(name: "sections")
 }
 
 model Folder {
   id        Int      @id @default(autoincrement()) @map(name: "folder_id")
-  name      String   @db.VarChar(100)
+  name      String   @default("新しいフォルダ") @db.VarChar(255)
   userId    String   @map(name: "user_id")
   parentId  Int?     @map(name: "parent_id")
   createdAt DateTime @default(now()) @map(name: "created_at")
@@ -185,7 +176,7 @@ model Folder {
   children Folder[] @relation("ParentChilds")
   images   Image[]
 
-  @@unique([name, userId])
+  @@unique([name, parentId])
   @@map(name: "folders")
 }
 
@@ -201,24 +192,21 @@ model Image {
 
   user   User      @relation(fields: [userId], references: [id])
   type   TypeImage @relation(fields: [typeId], references: [id])
-  // section Section[]
   folder Folder?   @relation(fields: [folderId], references: [id])
-  // term    Term[]
 
-  @@unique([name, userId])
+  @@unique([name, folderId])
   @@map(name: "images")
 }
 
 model Term {
   id        Int      @id @default(autoincrement()) @map(name: "term_id")
-  name      String   @db.VarChar(50)
+  name      String   @default("新しい用語") @db.VarChar(255)
   text      String   @db.VarChar(200)
   order     Int
   dynamicId Int?     @map(name: "dynamic_id")
   chapterId Int?     @map(name: "chapter_id")
   pageId    Int?     @map(name: "page_id")
   sectionId Int?     @map(name: "section_id")
-  // imageId   Int?     @map(name: "image_id")
   imageUrl  String   @default("no_image") @map(name: "image_url")
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
@@ -227,11 +215,7 @@ model Term {
   chapter Chapter? @relation(fields: [chapterId], references: [id])
   page    Page?    @relation(fields: [pageId], references: [id])
   section Section? @relation(fields: [sectionId], references: [id])
-  // image   Image?   @relation(fields: [imageId], references: [id])
 
-  @@unique([order, dynamicId])
-  @@unique([order, chapterId])
-  @@unique([order, pageId])
   @@map(name: "terms")
 }
 
@@ -279,7 +263,7 @@ model Follow {
 model Impression {
   id        Int      @id @default(autoincrement()) @map(name: "impression_id")
   rate      Int      @default(1)
-  title     String   @db.VarChar(30)
+  name      String   @db.VarChar(30)
   text      String   @db.VarChar(500)
   published Boolean  @default(false)
   userId    String   @map(name: "user_id")
