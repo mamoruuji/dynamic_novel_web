@@ -1,27 +1,20 @@
 'use client'
 
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 import {
   Accordion,
-  AccordionSummary,
   AccordionDetails,
+  AccordionSummary,
   Alert,
-  Box,
-  Button,
   CircularProgress,
   List,
-  Typography,
 } from '@mui/material'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-
-import { chaptersAtom } from '@/states/operation-dynamic.ts'
 import { useAtom } from 'jotai'
-import useSWR from 'swr'
-import {
-  ContentsChapter,
-  ContentsPage,
-} from '@/components/contents/read/molecules'
-
 import { useParams } from 'next/navigation'
+import useSWR from 'swr'
+
+import { ContentsItem } from '@/components/contents/read/atoms'
+import { chaptersAtom } from '@/states/operation-dynamic.ts'
 
 export const Contents = () => {
   const [chapters, setChapters] = useAtom(chaptersAtom)
@@ -35,29 +28,29 @@ export const Contents = () => {
   if (error) return <Alert severity='warning'>{error}</Alert>
   if (isLoading) return <CircularProgress />
 
-  return chapters.map((chapter) => (
-    <Accordion key={chapter.chapterId}>
-      <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-        <ContentsChapter
-          id={`chapter:${chapter.chapterId}`}
-          chapterId={chapter.chapterId}
-          name={chapter.name}
-        />
-      </AccordionSummary>
-      <AccordionDetails>
-        <List>
-          {typeof chapter.pages !== 'undefined' &&
-            chapter.pages.map((page) => (
-              <ContentsPage
-                key={page.pageId}
-                id={`page:${page.pageId}`}
-                chapterId={chapter.chapterId}
-                pageId={page.pageId}
-                name={page.name}
-              />
-            ))}
-        </List>
-      </AccordionDetails>
-    </Accordion>
-  ))
+  return chapters
+    .filter((chapter) => chapter.pages && chapter.pages.length > 0)
+    .map((chapter) => (
+      <Accordion key={chapter.chapterId}>
+        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+          <ContentsItem
+            id={`chapter:${chapter.chapterId}`}
+            name={chapter.name}
+          />
+        </AccordionSummary>
+        <AccordionDetails>
+          <List>
+            {typeof chapter.pages !== 'undefined' &&
+              chapter.pages.map((page) => (
+                <ContentsItem
+                  key={page.pageId}
+                  id={`page:${page.pageId}`}
+                  name={page.name}
+                  href={`/dynamic/${dynamic_id}/${chapter.chapterId}/${page.pageId}`}
+                />
+              ))}
+          </List>
+        </AccordionDetails>
+      </Accordion>
+    ))
 }

@@ -1,28 +1,27 @@
 'use client'
 
+import { Alert, Box, CircularProgress, Typography } from '@mui/material'
+import { useAtom } from 'jotai'
 import { useParams } from 'next/navigation'
-
-import { Alert, Box, CircularProgress } from '@mui/material'
+import { isEmptyObject } from 'src/libs/util'
+import useSWR from 'swr'
 
 import {
   IconSpace,
-  Monologue,
-  LineBubble,
-  ThoughtBubble,
-  ShoutBubble,
   Illustration,
+  LineBubble,
+  Monologue,
+  ShoutBubble,
+  ThoughtBubble,
 } from '@/components/dynamic/read/molecules'
-import styles from './sections.module.sass'
-
 import { sectionsAtom } from '@/states/operation-dynamic.ts'
-import { useAtom } from 'jotai'
-import useSWR from 'swr'
-import { isEmptyObject } from 'src/libs/util'
+
+import styles from './sections.module.sass'
 
 export const Sections = () => {
   const [sections, setSections] = useAtom(sectionsAtom)
 
-  const { dynamic_id, chapter_id, page_id } = useParams()
+  const { chapter_id, dynamic_id, page_id } = useParams()
   const url = `/api/dynamic/${dynamic_id}?dummySection`
   const { data, error, isLoading } = useSWR(url, {
     onSuccess: (data) => {

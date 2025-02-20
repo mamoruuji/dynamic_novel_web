@@ -1,15 +1,14 @@
 'use client'
 
-import { useState, useRef } from 'react'
 import { TextField, Typography } from '@mui/material'
-
-import { editTextAtom } from '@/states/operation-dynamic.ts'
 import { useAtom } from 'jotai'
-
 import { useParams } from 'next/navigation'
+import { useRef,useState } from 'react'
+import { poster } from 'src/libs/util'
 import { mutate } from 'swr'
 import useSWRMutation from 'swr/mutation'
-import { poster } from 'src/libs/util'
+
+import { editTextAtom } from '@/states/operation-dynamic.ts'
 
 export const EditText = ({ id, name }) => {
   const [isEditing, setIsEditing] = useAtom(editTextAtom(id))
@@ -23,7 +22,7 @@ export const EditText = ({ id, name }) => {
   const contentsUrl = `/api/dynamic/${dynamic_id}?dummyContents`
 
   const updateUrl = `/api/${type}/update`
-  const { trigger, isMutating } = useSWRMutation(updateUrl, poster, {
+  const { isMutating, trigger } = useSWRMutation(updateUrl, poster, {
     onSuccess: (newData) => {
       mutate(contentsUrl)
     },

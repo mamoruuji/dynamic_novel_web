@@ -1,7 +1,9 @@
 'use client'
 
-import Link from 'next/link'
-import { useSession } from 'next-auth/react'
+import AutoStoriesIcon from '@mui/icons-material/AutoStories'
+import BookmarksIcon from '@mui/icons-material/Bookmarks'
+import ImageIcon from '@mui/icons-material/Image'
+import PersonIcon from '@mui/icons-material/Person'
 import {
   List,
   ListItem,
@@ -9,11 +11,8 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material'
-
-import AutoStoriesIcon from '@mui/icons-material/AutoStories'
-import BookmarksIcon from '@mui/icons-material/Bookmarks'
-import PersonIcon from '@mui/icons-material/Person'
-import ImageIcon from '@mui/icons-material/Image'
+import Link from 'next/link'
+import { useSession } from 'next-auth/react'
 
 export const UserLinks = () => {
   const { data: session } = useSession()

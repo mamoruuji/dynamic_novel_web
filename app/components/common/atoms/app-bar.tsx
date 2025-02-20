@@ -1,13 +1,14 @@
 'use client'
 
-import { styled, Theme } from '@mui/material/styles'
 import MuiAppBar from '@mui/material/AppBar'
-import { leaveTransition, enterTransition } from '@/components/common/atoms'
+import { styled, Theme } from '@mui/material/styles'
+import { useAtom } from 'jotai'
+
+import { enterTransition,leaveTransition } from '@/components/common/atoms'
 import {
   leftDrawerStateAtom,
   rightDrawerStateAtom,
 } from '@/states/drawer-state.ts'
-import { useAtom } from 'jotai'
 
 const getTransitionStyles = (
   theme: Theme,

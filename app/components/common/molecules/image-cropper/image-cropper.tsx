@@ -1,31 +1,31 @@
 'use client'
 
-import { useState, useRef } from 'react'
-import { useAtom } from 'jotai'
-import { useParams } from 'next/navigation'
+import 'react-image-crop/dist/ReactCrop.css'
 
 import {
   Box,
   Button,
+  Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   Input,
-  Stack,
-  Typography,
 } from '@mui/material'
-import { canvasPreview } from './canvas-preview'
-import { useDebounceEffect } from './use-debounce-effect'
-import { Dialog } from '@/components/common/atoms'
+import { useAtom } from 'jotai'
+import Image from 'next/image'
+import { useParams } from 'next/navigation'
+import { useRef,useState } from 'react'
 import ReactCrop, {
   centerCrop,
-  makeAspectCrop,
   Crop,
+  makeAspectCrop,
   PixelCrop,
 } from 'react-image-crop'
-import 'react-image-crop/dist/ReactCrop.css'
 
-import { dialogStateAtom } from '@/states/dialog-state.ts'
+import { imageDialogStateAtom } from '@/states/dialog-state.ts'
+
+import { canvasPreview } from './canvas-preview'
+import { useDebounceEffect } from './use-debounce-effect'
 
 const centerAspectCrop = (
   mediaWidth: number,
@@ -48,7 +48,6 @@ const centerAspectCrop = (
 }
 
 export const ImageCropper = ({ type }) => {
-  const [dialogOpen, setDialogOpen] = useAtom(dialogStateAtom)
   const [imgSrc, setImgSrc] = useState('')
   const [imgName, setImgName] = useState('')
   const previewCanvasRef = useRef<HTMLCanvasElement>(null)
@@ -57,20 +56,30 @@ export const ImageCropper = ({ type }) => {
   const [completedCrop, setCompletedCrop] = useState<PixelCrop>()
   const [imageRef, setImageRef] = useState<HTMLImageElement | null>(null) // 画像の参照
   const [croppedImage, setCroppedImage] = useState<string | null>(null) // クロップ後の画像
-  const { user_id, dynamic_id } = useParams()
+  const { dynamic_id, user_id } = useParams()
+
+  const [dialogOpen, setDialogOpen] = useAtom(imageDialogStateAtom)
 
   const scale = 1
   const rotate = 0
   let aspect = 1
+  let width = 400
+  let height = 400
   switch (type) {
     case 'icon':
       aspect = 1
+      width = 400
+      height = 400
       break
     case 'cover':
       aspect = 9 / 16
+      width = 900
+      height = 1600
       break
     case 'illustration':
       aspect = 16 / 9
+      width = 1600
+      height = 900
       break
 
     default:
@@ -91,7 +100,7 @@ export const ImageCropper = ({ type }) => {
 
   const onImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
     if (aspect) {
-      const { width, height } = e.currentTarget
+      const { height, width } = e.currentTarget
       setCrop(centerAspectCrop(width, height, aspect))
     }
   }
@@ -171,10 +180,13 @@ export const ImageCropper = ({ type }) => {
   )
 
   return (
-    <Dialog buttonText='画像登録'>
-      <DialogTitle>画像をアップロード</DialogTitle>
-      <DialogContent>
-        <Stack spacing={2}>
+    <>
+      <Button variant='outlined' onClick={() => setDialogOpen(true)}>
+        画像登録
+      </Button>
+      <Dialog open={dialogOpen}>
+        <DialogTitle>画像をアップロード</DialogTitle>
+        <DialogContent>
           <Input
             type='file'
             accept='image/*'
@@ -182,58 +194,60 @@ export const ImageCropper = ({ type }) => {
             onChange={onSelectFile}
             text='画像をアップロード'
           />
-          {croppedImage && (
-            <Box>
-              <Typography variant='h6'>クロップ結果:</Typography>
-              <img
-                src={croppedImage}
-                alt='Cropped'
-                style={{ maxWidth: '100%', borderRadius: '8px' }}
-              />
-            </Box>
-          )}
-        </Stack>
-        {!!imgSrc && (
-          <ReactCrop
-            src={imgSrc}
-            crop={crop}
-            onChange={(_, percentCrop) => setCrop(percentCrop)}
-            onComplete={(c) => setCompletedCrop(c)}
-            aspect={aspect}
-            // minWidth={400}
-            minHeight={100}
-          >
-            <img
-              ref={imgRef}
-              alt='Crop me'
+          {!!imgSrc && (
+            <ReactCrop
               src={imgSrc}
-              style={{ transform: `scale(${scale}) rotate(${rotate}deg)` }}
-              onLoad={onImageLoad}
-            />
-          </ReactCrop>
-        )}
-        {!!completedCrop && (
-          <>
+              crop={crop}
+              onChange={(_, percentCrop) => setCrop(percentCrop)}
+              onComplete={(c) => setCompletedCrop(c)}
+              aspect={aspect}
+              // minWidth={400}
+              minHeight={100}
+              height={'300px'}
+              width={'300px'}
+            >
+              <Box
+                height={'300px'}
+                width={'300px'}
+                style={{
+                  backgroundColor: 'red',
+                  position: 'relative',
+                }}
+              >
+                <Image
+                  ref={imgRef}
+                  alt='Crop me'
+                  src={imgSrc}
+                  fill
+                  style={{
+                    // transform: `scale(${scale}) rotate(${rotate}deg)`,
+                    objectFit: 'contain',
+                  }}
+                  unoptimized
+                  onLoad={onImageLoad}
+                />
+              </Box>
+            </ReactCrop>
+          )}
+          {!!completedCrop && (
             <Box>
               <canvas
                 ref={previewCanvasRef}
                 style={{
                   border: '1px solid black',
                   objectFit: 'contain',
-                  width: completedCrop.width,
-                  height: completedCrop.height,
                 }}
               />
             </Box>
-          </>
-        )}
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={() => setDialogOpen(false)}>キャンセル</Button>
-        <Button variant='contained' onClick={() => onDownloadCropClick()}>
-          保存
-        </Button>
-      </DialogActions>
-    </Dialog>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setDialogOpen(false)}>キャンセル</Button>
+          <Button variant='contained' onClick={() => onDownloadCropClick()}>
+            保存
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   )
 }

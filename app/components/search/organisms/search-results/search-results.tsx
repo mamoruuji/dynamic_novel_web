@@ -1,7 +1,5 @@
 'use client'
 
-import useSWR from 'swr'
-import { useParams } from 'next/navigation'
 import {
   Alert,
   Box,
@@ -11,8 +9,12 @@ import {
   CircularProgress,
   Typography,
 } from '@mui/material'
-import { TagDisplay } from '@/components/common/atoms'
+import { useParams } from 'next/navigation'
 import { isEmptyObject } from 'src/libs/util'
+import useSWR from 'swr'
+
+import { TagDisplay } from '@/components/common/atoms'
+
 import styles from './search-results.module.sass'
 
 export const SearchResults = () => {
@@ -29,7 +31,7 @@ export const SearchResults = () => {
         <Card key={dynamic.dynamicId} className={styles.dynamic}>
           <CardMedia
             component='img'
-            sx={{ width: 120, objectFit: 'cover' }}
+            sx={{ objectFit: 'cover', width: 120 }}
             image={'/images/cover.jpg'}
             alt={dynamic.name}
           />

@@ -1,15 +1,14 @@
-
 import { Typography } from '@mui/material'
 import {
-  lineFont,
-  monologueFont,
+  cuteFont,
   gagFont,
   horrorFont,
+  lineFont,
+  monologueFont,
   weakFont,
-  cuteFont,
 } from 'public/fonts/fonts.ts'
 
-export const Text = ({ font, children }) => {
+export const Text = ({ children, font }) => {
   const setFont = (font) => {
     switch (font) {
       case 'lineFont':
@@ -33,9 +32,5 @@ export const Text = ({ font, children }) => {
     }
   }
 
-  return (
-    <Typography className={setFont(font)}>
-      {children}
-    </Typography>
-  )
+  return <Typography className={setFont(font)}>{children}</Typography>
 }

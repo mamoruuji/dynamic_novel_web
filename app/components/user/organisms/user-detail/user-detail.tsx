@@ -1,24 +1,13 @@
 'use client'
 
-import Image from 'next/image'
+import { Avatar, Box, Container, TextField, Typography } from '@mui/material'
 import { useParams } from 'next/navigation'
 import { useRef } from 'react'
-
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Avatar,
-  Box,
-  Container,
-  TextField,
-  Typography,
-} from '@mui/material'
-import styles from './user-detail.module.sass'
-
+import { poster } from 'src/libs/util'
 import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
-import { poster } from 'src/libs/util'
+
+import styles from './user-detail.module.sass'
 
 export const UserDetail = () => {
   const { user_id } = useParams()
@@ -26,7 +15,7 @@ export const UserDetail = () => {
   const { data, mutate } = useSWR(url)
   const formRef = useRef()
 
-  const { trigger, isMutating } = useSWRMutation(url, poster, {
+  const { isMutating, trigger } = useSWRMutation(url, poster, {
     onSuccess: (newData) => {
       mutate(newData, false)
     },

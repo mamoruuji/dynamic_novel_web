@@ -1,9 +1,9 @@
 import {
   Autocomplete,
   Chip,
+  createFilterOptions,
   Input,
   TextField as MuiTextField,
-  createFilterOptions,
 } from '@mui/material'
 
 const filter = createFilterOptions()
@@ -11,11 +11,11 @@ const filter = createFilterOptions()
 export const TextField = ({
   id,
   name,
-  value,
-  onChange,
   itemKey,
   label,
+  onChange,
   options,
+  value,
 }) => {
   return (
     <Autocomplete
@@ -35,8 +35,8 @@ export const TextField = ({
         )
         if (inputValue !== '' && !isExisting) {
           filtered.push({
-            inputValue,
             name: `追加 "${inputValue}"`,
+            inputValue,
           })
         }
 
@@ -75,7 +75,6 @@ export const TextField = ({
           <Chip
             {...getTagProps({ index })}
             key={option}
-            label={option}
             label={
               typeof option === 'string'
                 ? option

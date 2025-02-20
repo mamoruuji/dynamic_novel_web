@@ -1,5 +1,5 @@
-import Image from 'next/image'
 import { Box, Typography } from '@mui/material'
+import Image from 'next/image'
 
 export const Terms = ({ terms }) => {
   const imageWidth = '160'

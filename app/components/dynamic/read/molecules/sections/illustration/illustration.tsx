@@ -1,6 +1,7 @@
 
-import Image from 'next/image'
 import { Box } from '@mui/material'
+import Image from 'next/image'
+
 import styles from './illustration.module.sass'
 
 export const Illustration = ({ section }) => {

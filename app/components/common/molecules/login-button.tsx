@@ -1,20 +1,18 @@
 'use client'
 
-import { useState } from 'react'
 import {
   Avatar,
   Box,
   Button,
-  Divider,
   IconButton,
   Menu,
   MenuItem,
   Tooltip,
   Typography,
 } from '@mui/material'
-
-import { useSession, signIn, signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import { signIn, signOut,useSession } from 'next-auth/react'
+import { useState } from 'react'
 
 export const LoginButton = () => {
   const { data: session, status } = useSession()
@@ -48,13 +46,13 @@ export const LoginButton = () => {
             id='menu-appbar'
             anchorEl={anchorElUser}
             anchorOrigin={{
-              vertical: 'top',
               horizontal: 'right',
+              vertical: 'top',
             }}
             keepMounted
             transformOrigin={{
-              vertical: 'top',
               horizontal: 'right',
+              vertical: 'top',
             }}
             open={Boolean(anchorElUser)}
             onClose={handleCloseUserMenu}

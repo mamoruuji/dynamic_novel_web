@@ -8,9 +8,9 @@ export const SearchStack = ({ children }) => {
   return (
     <Stack
       sx={{
-        width: 300,
+        gap: theme.spacing(2),
         py: theme.spacing(2),
-        gap: theme.spacing(2)
+        width: 300,
       }}
     >
       {children}

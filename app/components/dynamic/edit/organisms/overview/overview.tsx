@@ -1,9 +1,5 @@
 'use client'
 
-import Image from 'next/image'
-
-import { useParams } from 'next/navigation'
-import { useRef } from 'react'
 import {
   Alert,
   Box,
@@ -13,20 +9,28 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import AddIcon from '@mui/icons-material/Add'
-
-import { ImageCropper } from '@/components/common/molecules'
-
-import styles from './overview.module.sass'
-import { TagEdit, TagDisplay } from '@/components/common/atoms'
-
+import { useAtom } from 'jotai'
+import Image from 'next/image'
+import { useParams } from 'next/navigation'
+import { useRef } from 'react'
 import { formatDate, isEmptyObject } from 'src/libs/util'
 import useSWR from 'swr'
+
+import { TagDisplay,TagEdit } from '@/components/common/atoms'
+import { ImageCropper } from '@/components/common/molecules'
+import {
+  imageDialogStateAtom,
+  tagDialogStateAtom,
+} from '@/states/dialog-state.ts'
+
+import styles from './overview.module.sass'
 
 export const Overview = () => {
   const { dynamic_id } = useParams()
   const url = `/api/dynamic/${dynamic_id}`
   const { data, error, isLoading } = useSWR(url)
+  const [imageDialogOpen, setImageDialogOpen] = useAtom(imageDialogStateAtom)
+  const [tagDialogOpen, setTagDialogOpen] = useAtom(tagDialogStateAtom)
 
   const formRef = useRef()
 
@@ -52,7 +56,7 @@ export const Overview = () => {
           className='w-full h-auto object-cover'
           alt='text'
         />
-        <ImageCropper type='cover' />
+        <ImageCropper type='cover' dialogOpen={imageDialogOpen} />
       </Box>
       <form ref={formRef}>
         <FormGroup>
@@ -81,7 +85,7 @@ export const Overview = () => {
                 <TagDisplay tags={data.tags} />
               </Box>
               <Box mb={2}>
-                <TagEdit />
+                <TagEdit dialogOpen={tagDialogOpen} />
               </Box>
             </Box>
             <Box>

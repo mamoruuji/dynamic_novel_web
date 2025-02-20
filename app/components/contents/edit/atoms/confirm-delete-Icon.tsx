@@ -1,13 +1,13 @@
 'use client'
 
-import { useParams } from 'next/navigation'
 import CloseIcon from '@mui/icons-material/Close'
-import { dialogStateAtom, deleteTargetAtom } from '@/states/dialog-state.ts'
 import { useAtom } from 'jotai'
-
+import { useParams } from 'next/navigation'
+import { poster } from 'src/libs/util'
 import { mutate } from 'swr'
 import useSWRMutation from 'swr/mutation'
-import { poster } from 'src/libs/util'
+
+import { deleteTargetAtom,dialogStateAtom } from '@/states/dialog-state.ts'
 
 export const ConfirmDeleteIcon = ({ id, name }) => {
   const [deleteTarget, setDeleteTarget] = useAtom(deleteTargetAtom)
@@ -19,7 +19,7 @@ export const ConfirmDeleteIcon = ({ id, name }) => {
   const { dynamic_id } = useParams()
   const contentsUrl = `/api/dynamic/${dynamic_id}?dummyContents`
   const deleteUrl = `/api/${type}/delete`
-  const { trigger, isMutating } = useSWRMutation(deleteUrl, poster, {
+  const { isMutating, trigger } = useSWRMutation(deleteUrl, poster, {
     onSuccess: (data) => {
       mutate(contentsUrl)
     },
@@ -35,10 +35,10 @@ export const ConfirmDeleteIcon = ({ id, name }) => {
       color='secondary'
       onClick={() =>
         handleOpenDeleteDialog({
-          type: type,
           name: name,
-          trigger: async (arg) => await trigger(arg),
           arg: { [argId]: typeId },
+          trigger: async (arg) => await trigger(arg),
+          type: type,
         })
       }
       disabled={isMutating}

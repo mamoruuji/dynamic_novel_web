@@ -1,9 +1,10 @@
-import Image from 'next/image'
 import { Box } from '@mui/material'
-import styles from './icon-space.module.sass'
+
 import { Icon } from '@/components/dynamic/read/atoms'
 
-export const IconSpace = ({ section, position }) => {
+import styles from './icon-space.module.sass'
+
+export const IconSpace = ({ position, section }) => {
   if (section.typeSection.includes('bubble'))
     return (
       <Box className={styles['icon-space']}>

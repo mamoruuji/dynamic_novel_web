@@ -1,5 +1,6 @@
-import Image from 'next/image'
 import { Box, Typography } from '@mui/material'
+import Image from 'next/image'
+
 import styles from './icon.module.sass'
 
 export const Icon = ({ section }) => {

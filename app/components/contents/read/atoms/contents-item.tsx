@@ -1,35 +1,30 @@
-import { useSortable } from '@dnd-kit/sortable'
-import { CSS } from '@dnd-kit/utilities'
-import {
-  Box,
-  IconButton,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-} from '@mui/material'
+import { Box, ListItem, ListItemButton, ListItemText } from '@mui/material'
 
 type ContentsItemProps = {
   id: string
   name: string
-  pageLink?: React.ReactNode
+  href?: string
 }
 
-export const ContentsItem = ({ id, name, pageLink }: SortableItemProps) => {
-  console.dir(pageLink)
+export const ContentsItem = ({ id, name, href }: ContentsItemProps) => {
+  const [type, typeId] = id.split(':')
+
   return (
     <ListItem>
       <Box
         sx={{
+          alignItems: 'center',
           display: 'inline-block',
           justifyContent: 'space-between',
           width: '100%',
-          alignItems: 'center',
         }}
       >
         <Box sx={{ display: 'flex', gap: 1 }}>
           <ListItemButton>
             <ListItemText>
-              {typeof pageLink !== 'undefined' ? pageLink : name}
+              <Box component='a' id={id} href={href}>
+                {name}
+              </Box>
             </ListItemText>
           </ListItemButton>
         </Box>

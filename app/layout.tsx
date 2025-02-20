@@ -1,21 +1,17 @@
 'use client'
 
 import '@/styles/globals.sass'
-import React from 'react'
+
+import { CssBaseline, useMediaQuery } from '@mui/material'
+import { createTheme,ThemeProvider } from '@mui/material/styles'
 import { Provider } from 'jotai'
-import SessionProvider from '../src/provider/SessionProvider'
-import { CssBaseline } from '@mui/material'
-import Head from './head'
-import { GlobalHeader } from '@/components/common/organisms'
+import React from 'react'
 import { SWRConfig } from 'swr'
 
-import {
-  ThemeProvider,
-  createTheme,
-  getInitColorSchemeScript,
-} from '@mui/material/styles'
+import { GlobalHeader } from '@/components/common/organisms'
 
-import { PaletteMode, useMediaQuery } from '@mui/material'
+import SessionProvider from '../src/provider/SessionProvider'
+import Head from './head'
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   const isDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
@@ -23,9 +19,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     : 'light'
 
   const theme = createTheme({
-    palette: {
-      mode: isDarkMode,
-    },
     components: {
       MuiList: {
         styleOverrides: {
@@ -41,6 +34,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           },
         },
       },
+    },
+    palette: {
+      mode: isDarkMode,
     },
   })
 

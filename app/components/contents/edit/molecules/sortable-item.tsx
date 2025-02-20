@@ -2,6 +2,9 @@
 
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
+import DragIndicatorIcon from '@mui/icons-material/DragIndicator'
+import EditIcon from '@mui/icons-material/Edit'
+import LoginIcon from '@mui/icons-material/Login'
 import {
   Box,
   IconButton,
@@ -9,16 +12,10 @@ import {
   ListItemButton,
   ListItemText,
 } from '@mui/material'
-import DragIndicatorIcon from '@mui/icons-material/DragIndicator'
-import EditIcon from '@mui/icons-material/Edit'
-import LoginIcon from '@mui/icons-material/Login'
-
-import { chaptersAtom, editTextAtom } from '@/states/operation-dynamic.ts'
 import { useAtom } from 'jotai'
-import { ConfirmDeleteIcon, EditText } from '@/components/contents/edit/atoms'
 
-import CloseIcon from '@mui/icons-material/Close'
-import { dialogStateAtom, deleteTargetAtom } from '@/states/dialog-state.ts'
+import { ConfirmDeleteIcon, EditText } from '@/components/contents/edit/atoms'
+import { editTextAtom } from '@/states/operation-dynamic.ts'
 
 type SortableItemProps = {
   id: string
@@ -45,10 +42,10 @@ export const SortableItem = ({ id, name, href }: SortableItemProps) => {
     <ListItem ref={setNodeRef} style={style} {...attributes}>
       <Box
         sx={{
+          alignItems: 'center',
           display: 'inline-block',
           justifyContent: 'space-between',
           width: '100%',
-          alignItems: 'center',
         }}
       >
         <Box sx={{ display: 'flex', gap: 1 }}>

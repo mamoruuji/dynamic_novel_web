@@ -1,10 +1,10 @@
 'use client'
-import { useState, useMemo } from 'react'
+
 import { DatePicker as MuiDatePicker } from '@mui/x-date-pickers'
 import { DateValidationError } from '@mui/x-date-pickers/models'
-import { format } from 'date-fns'
+import { useMemo,useState } from 'react'
 
-export const DatePicker = ({ label, name, value, onChange }) => {
+export const DatePicker = ({ name, label, onChange, value }) => {
   const [error, setError] = useState<DateValidationError | null>(null)
 
   const handleInputChange = (value: string | null) => {
@@ -31,20 +31,20 @@ export const DatePicker = ({ label, name, value, onChange }) => {
 
   return (
     <MuiDatePicker
-      label={label}
-      disableFuture
       name={name}
-      value={value}
+      disableFuture
+      label={label}
       onChange={(value) => handleInputChange(value)}
+      value={value}
       inputFormat='yyyy年MM月dd日'
       mask='____年__月__日'
       onError={(newError) => setError(newError)}
       slotProps={{
+        field: { clearable: true },
         textField: {
           helperText: errorMessage,
         },
-        toolbar: { toolbarFormat: 'yyyy年 MM月 dd日', hidden: false },
-        field: { clearable: true },
+        toolbar: { hidden: false, toolbarFormat: 'yyyy年 MM月 dd日' },
       }}
     />
   )

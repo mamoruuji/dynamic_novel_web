@@ -3,7 +3,7 @@
 import { Drawer as MuiDrawer } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 
-export const Drawer = ({ anchor, open, children }) => {
+export const Drawer = ({ anchor, children, open }) => {
   const theme = useTheme()
   return (
     <MuiDrawer
@@ -12,13 +12,13 @@ export const Drawer = ({ anchor, open, children }) => {
       open={open}
       // width={process.env.NEXT_PUBLIC_DRAWERWIDTH}
       sx={{
-        flexShrink: '0',
         '& .MuiDrawer-paper': {
+          pb: theme.spacing(8),
+          px: theme.spacing(2),
           top: theme.spacing(8),
           width: process.env.NEXT_PUBLIC_DRAWERWIDTH,
-          px: theme.spacing(2),
-          pb: theme.spacing(8),
         },
+        flexShrink: '0',
       }}
     >
       {children}

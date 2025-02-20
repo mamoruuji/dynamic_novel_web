@@ -1,10 +1,9 @@
 'use client'
 
-import Link from 'next/link'
 import { Button, Typography } from '@mui/material'
-import styles from './tag-display.module.sass'
+import Link from 'next/link'
 
-import { isEmptyObject } from 'src/libs/util'
+import styles from './tag-display.module.sass'
 
 export const TagDisplay = ({ tags }) => {
   if (!Array.isArray(tags)) return <Typography>タグ無し</Typography>

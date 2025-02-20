@@ -1,55 +1,47 @@
 'use client'
 
-import { useState } from 'react'
-
 import {
-  DndContext,
   closestCenter,
-  KeyboardSensor,
+  DndContext,
+  DragOverlay,
+  // KeyboardSensor,
   MouseSensor,
   useSensor,
   useSensors,
-  DragOverlay,
 } from '@dnd-kit/core'
 import {
+  arrayMove,
   SortableContext,
   verticalListSortingStrategy,
-  arrayMove,
 } from '@dnd-kit/sortable'
-import { restrictToVerticalAxis } from '@dnd-kit/modifiers'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
+  Alert,
+  Box,
+  CircularProgress,
+  List,
+} from '@mui/material'
+import { useAtom } from 'jotai'
+import { useParams } from 'next/navigation'
+import { useState } from 'react'
+import useSWR from 'swr'
 
+// import { restrictToVerticalAxis } from '@dnd-kit/modifiers'
 import {
   AddContentsButton,
   ConfirmChangeContents,
   ConfirmDeleteDialog,
 } from '@/components/contents/edit/atoms'
-
 import { SortableItem } from '@/components/contents/edit/molecules'
-
-import {
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
-  Alert,
-  Box,
-  Button,
-  CircularProgress,
-  List,
-} from '@mui/material'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-
 import { chaptersAtom } from '@/states/operation-dynamic.ts'
-import { useAtom } from 'jotai'
-import useSWR from 'swr'
-import useSWRMutation from 'swr/mutation'
-import { poster } from 'src/libs/util'
-
-import { useParams } from 'next/navigation'
 
 export const Contents = () => {
   const [chapters, setChapters] = useAtom(chaptersAtom)
 
-  const { user_id, dynamic_id } = useParams()
+  const { dynamic_id, user_id } = useParams()
   const url = `/api/dynamic/${dynamic_id}?dummyContents`
   const { data, error, isLoading } = useSWR(url, {
     onSuccess: (data) => setChapters(data.chapters),
@@ -239,11 +231,11 @@ export const Contents = () => {
                         id={`chapter:${chapter.chapterId}`}
                         className='empty-drop-area'
                         style={{
-                          border: '1px dashed gray',
-                          padding: '8px',
                           backgroundColor: activeId?.startsWith('page:')
                             ? '#f0f8ff'
                             : undefined,
+                          border: '1px dashed gray',
+                          padding: '8px',
                         }}
                       >
                         Drop pages here
@@ -260,9 +252,9 @@ export const Contents = () => {
           {activeId?.startsWith('chapter:') && (
             <Box
               style={{
-                padding: '8px',
-                border: '2px solid blue',
                 backgroundColor: 'white',
+                border: '2px solid blue',
+                padding: '8px',
               }}
             >
               {
@@ -274,9 +266,9 @@ export const Contents = () => {
           {activeId?.startsWith('page:') && (
             <Box
               style={{
-                padding: '8px',
-                border: '2px solid green',
                 backgroundColor: 'white',
+                border: '2px solid green',
+                padding: '8px',
               }}
             >
               {

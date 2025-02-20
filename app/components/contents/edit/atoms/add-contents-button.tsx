@@ -1,13 +1,14 @@
 'use client'
 
-import { useParams } from 'next/navigation'
-import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
-import { chaptersAtom } from '@/states/operation-dynamic.ts'
+import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
 import { useAtom } from 'jotai'
+import { useParams } from 'next/navigation'
 import { poster } from 'src/libs/util'
-import useSWRMutation from 'swr/mutation'
 import { mutate } from 'swr'
+import useSWRMutation from 'swr/mutation'
+
+import { chaptersAtom } from '@/states/operation-dynamic.ts'
 
 export const AddContentsButton = ({ id, type }) => {
   const [chapters, setChapters] = useAtom(chaptersAtom)
@@ -15,7 +16,7 @@ export const AddContentsButton = ({ id, type }) => {
   const { dynamic_id } = useParams()
   const contentsUrl = `/api/dynamic/${dynamic_id}?dummyContents`
   const createUrl = `/api/${type}/create`
-  const { trigger, isMutating } = useSWRMutation(createUrl, poster, {
+  const { isMutating, trigger } = useSWRMutation(createUrl, poster, {
     onSuccess: (newData) => {
       mutate(contentsUrl)
     },

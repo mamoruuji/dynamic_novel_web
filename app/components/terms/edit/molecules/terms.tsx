@@ -1,6 +1,6 @@
+import { Box, CircularProgress,Divider, Typography } from '@mui/material'
 import Image from 'next/image'
-import { Box, Typography, Divider, CircularProgress } from '@mui/material'
-import { AddTermButton } from '@/components/terms/edit/atoms'
+// import { AddTermButton } from '@/components/terms/edit/atoms'
 
 export const Terms = ({ terms }) => {
   const imageWidth = '160'
@@ -29,6 +29,7 @@ export const Terms = ({ terms }) => {
           <Divider />
         </Box>
       ))}
+      {/* <AddTermButton /> */}
     </>
   )
 }

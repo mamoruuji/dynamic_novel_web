@@ -1,36 +1,34 @@
 'use client'
 
-import { useParams } from 'next/navigation'
-import { useRef } from 'react'
 import {
-  Alert,
-  Autocomplete,
-  Box,
   Button,
   CircularProgress,
   createFilterOptions,
+  Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-  Typography,
 } from '@mui/material'
-import { Dialog } from './dialog'
-import { TextField } from '@/components/search/atoms'
-
-import useSWRMutation from 'swr/mutation'
+import { useAtom } from 'jotai'
+import { useParams } from 'next/navigation'
+import { useRef } from 'react'
+import { convertKeywords,poster } from 'src/libs/util'
 import useSWR, { mutate } from 'swr'
+import useSWRMutation from 'swr/mutation'
 
-import { poster, convertKeywords } from 'src/libs/util'
+import { TextField } from '@/components/search/atoms'
+import { tagDialogStateAtom } from '@/states/dialog-state.ts'
 
 const filter = createFilterOptions<FilmOptionType>()
 
 export const TagEdit = () => {
+  const [dialogOpen, setDialogOpen] = useAtom(tagDialogStateAtom)
   // 編集対象作品のタグ
   const { dynamic_id } = useParams()
   const dynamicUrl = `/api/dynamic/${dynamic_id}`
   const { data: dynamic } = useSWR(dynamicUrl)
   const dynamicAddTagUrl = `/api/dynamic/${dynamic_id}/tag`
-  const { trigger, isMutating } = useSWRMutation(dynamicAddTagUrl, poster, {
+  const { isMutating, trigger } = useSWRMutation(dynamicAddTagUrl, poster, {
     onSuccess: (newData) => {
       mutate(dynamicUrl)
       mutate(allTagUrl)
@@ -69,30 +67,35 @@ export const TagEdit = () => {
 
   if (isLoading) return <CircularProgress />
   return (
-    <Dialog buttonText='タグ編集'>
-      <DialogTitle>タグ編集</DialogTitle>
-      <form ref={formRef}>
-        <DialogContent>
-          <TextField
-            id='tag-input'
-            name='tag-keywords'
-            value={dynamic.tags.map((item) => item.name)}
-            onChange={handleTagChange}
-            itemKey='tag-key'
-            label='タグキーワード'
-            options={allTags.tags.map((item) => item.name)}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button
-            variant='contained'
-            onClick={handleButtonClick}
-            disabled={isMutating}
-          >
-            保存
-          </Button>
-        </DialogActions>
-      </form>
-    </Dialog>
+    <>
+      <Button variant='outlined' onClick={() => setDialogOpen(true)}>
+        タグ編集
+      </Button>
+      <Dialog open={dialogOpen}>
+        <DialogTitle>タグ編集</DialogTitle>
+        <form ref={formRef}>
+          <DialogContent>
+            <TextField
+              id='tag-input'
+              name='tag-keywords'
+              value={dynamic?.tags.map((item) => item.name) || []}
+              onChange={handleTagChange}
+              itemKey='tag-key'
+              label='タグキーワード'
+              options={allTags.tags.map((item) => item.name)}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button
+              variant='contained'
+              onClick={handleButtonClick}
+              disabled={isMutating}
+            >
+              保存
+            </Button>
+          </DialogActions>
+        </form>
+      </Dialog>
+    </>
   )
 }

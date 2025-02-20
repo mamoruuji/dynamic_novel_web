@@ -11,8 +11,8 @@ export const formatDate = (isoString: string): string => {
   return `${year}/${month}/${day} ${hours}:${minutes}`
 }
 
-export const isEmptyObject = (obj: object): boolean =>
-  Object.keys(obj).length === 0
+export const isEmptyObject = (obj: object | null | undefined): boolean =>
+  !!obj && Object.keys(obj).length === 0
 
 export const poster = (url, { arg }) =>
   fetch(url, {

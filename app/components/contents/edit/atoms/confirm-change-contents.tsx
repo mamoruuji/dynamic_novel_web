@@ -1,26 +1,19 @@
 'use client'
 
-import { useParams } from 'next/navigation'
-import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material'
+import { ListItemButton, ListItemText } from '@mui/material'
 import { useAtomValue } from 'jotai'
-import { chaptersAtom } from '@/states/operation-dynamic.ts'
+import { useParams } from 'next/navigation'
 import { poster } from 'src/libs/util'
 import useSWRMutation from 'swr/mutation'
-import useSWR from 'swr'
+
+import { chaptersAtom } from '@/states/operation-dynamic.ts'
 
 export const ConfirmChangeContents = () => {
   const chapters = useAtomValue(chaptersAtom)
 
   const { dynamic_id } = useParams()
-  // const dynamicUrl = `/api/dynamic/${dynamic_id}?dummyConfirm`
-  // const { mutate } = useSWR(dynamicUrl)
   const contentsUrl = `/api/dynamic/${dynamic_id}/contents`
   const { trigger } = useSWRMutation(contentsUrl, poster)
-  // const { trigger } = useSWRMutation(contentsUrl, poster, {
-  //   onSuccess: (newData) => {
-  //     mutate(newData, false)
-  //   },
-  // })
 
   const handleClick = () => {
     trigger({ chapters: chapters })

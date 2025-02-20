@@ -1,6 +1,5 @@
 'use client'
 
-import useSWR from 'swr'
 import {
   CircularProgress,
   FormControl,
@@ -11,13 +10,15 @@ import {
   Radio,
   RadioGroup,
   Select,
+  Typography,
 } from '@mui/material'
-import { SelectChangeEvent } from '@mui/material/Select'
-
-import { SearchStack } from '../atoms'
-import { sortCategoryAtom, sortOrderAtom } from '@/states/search-request'
 import { useAtom } from 'jotai'
 import { isEmptyObject } from 'src/libs/util'
+import useSWR from 'swr'
+
+import { sortCategoryAtom, sortOrderAtom } from '@/states/search-request'
+
+import { SearchStack } from '../atoms'
 
 export const Sort = () => {
   const url = `/api/sort`

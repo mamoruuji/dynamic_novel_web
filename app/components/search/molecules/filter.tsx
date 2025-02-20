@@ -1,19 +1,18 @@
 'use client'
 
 import { FormControl, InputLabel } from '@mui/material'
-import { DatePicker, SearchStack, TextField } from '../atoms'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'
 import { ja } from 'date-fns/locale/ja'
-import { SelectChangeEvent } from '@mui/material/Select'
+import { useAtom } from 'jotai'
 
 import {
+  filterEndDateAtom,
   filterKeywordsAtom,
   filterStartDateAtom,
-  filterEndDateAtom,
 } from '@/states/search-request'
 
-import { useAtom } from 'jotai'
+import { DatePicker, SearchStack, TextField } from '../atoms'
 
 export const Filter = () => {
   const [filterKeywords, setFilterKeywords] = useAtom(filterKeywordsAtom)

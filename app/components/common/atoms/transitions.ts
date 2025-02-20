@@ -5,8 +5,8 @@ export const leaveTransition = (
   properties: string | string[],
 ) => ({
   transition: theme.transitions.create(properties, {
-    easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
+    easing: theme.transitions.easing.sharp,
   }),
 })
 
@@ -15,7 +15,7 @@ export const enterTransition = (
   properties: string | string[],
 ) => ({
   transition: theme.transitions.create(properties, {
-    easing: theme.transitions.easing.easeOut,
     duration: theme.transitions.duration.enteringScreen,
+    easing: theme.transitions.easing.easeOut,
   }),
 })

@@ -1,22 +1,21 @@
 'use client'
 
-import { useRef } from 'react'
+import { Box, Button, FormGroup } from '@mui/material'
 import { useParams } from 'next/navigation'
+import { useRef } from 'react'
+import { convertFilterDate, convertKeywords,poster } from 'src/libs/util'
 import useSWR from 'swr'
 import useSWRMutation from 'swr/mutation'
 
 import { SearchStack } from '../atoms'
-import { Search, Sort, Filter } from '../molecules'
-import { Box, Button, FormGroup } from '@mui/material'
-
-import { poster, convertFilterDate, convertKeywords } from 'src/libs/util'
+import { Filter,Search, Sort } from '../molecules'
 
 export const SearchForm = () => {
   const { user_id } = useParams()
   const formRef = useRef()
   const url = `/api/search/${user_id}`
   const { mutate } = useSWR(url)
-  const { trigger, isMutating } = useSWRMutation(url, poster, {
+  const { isMutating, trigger } = useSWRMutation(url, poster, {
     onSuccess: (newData) => {
       mutate(newData, false)
     },
@@ -32,13 +31,13 @@ export const SearchForm = () => {
     const filterEndDate = convertFilterDate(formData.get('filter-end-date'))
 
     const body = {
-      user_id: user_id === undefined ? '' : user_id,
+      filter_end_date: filterEndDate,
+      filter_keywords: filterKeywords,
+      filter_start_date: filterStartDate,
       search_keywords: searchKeywords,
       sort_category: sortCategory,
       sort_order: sortOrder,
-      filter_keywords: filterKeywords,
-      filter_start_date: filterStartDate,
-      filter_end_date: filterEndDate,
+      user_id: user_id === undefined ? '' : user_id,
     }
     trigger(body)
   }

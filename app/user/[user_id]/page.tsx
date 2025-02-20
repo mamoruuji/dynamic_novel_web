@@ -1,14 +1,12 @@
 'use client'
 
+import { Alert, CircularProgress, Typography } from '@mui/material'
 import { useParams } from 'next/navigation'
-
-import { Alert, CircularProgress } from '@mui/material'
-import { UserDetail } from '@/components/user/organisms'
-import { UserLinks } from '@/components/user/molecules'
-
+import { isEmptyObject } from 'src/libs/util'
 import useSWR from 'swr'
 
-import { isEmptyObject } from 'src/libs/util'
+import { UserLinks } from '@/components/user/molecules'
+import { UserDetail } from '@/components/user/organisms'
 
 export default function Page() {
   const { user_id } = useParams()

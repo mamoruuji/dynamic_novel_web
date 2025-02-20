@@ -1,21 +1,22 @@
 'use client'
 
-import { useState } from 'react'
-import { Button, Toolbar, Typography, IconButton } from '@mui/material'
-import MenuIcon from '@mui/icons-material/Menu'
 import ContactSupportIcon from '@mui/icons-material/ContactSupport'
 import EditIcon from '@mui/icons-material/Edit'
+import MenuIcon from '@mui/icons-material/Menu'
+import { Button, Toolbar, Typography } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
+import { useAtom } from 'jotai'
+import { useState } from 'react'
 
 import { AppBar } from '@/components/common/atoms'
 import {
   leftDrawerStateAtom,
   rightDrawerStateAtom,
 } from '@/states/drawer-state.ts'
-import { useAtom } from 'jotai'
-import styles from './local-header.module.sass'
-import { useTheme } from '@mui/material/styles'
 
-export const LocalHeader = ({ name, leftDrawer, RightDrawer, isCreate }) => {
+import styles from './local-header.module.sass'
+
+export const LocalHeader = ({ name, isCreate, leftDrawer, rightDrawer }) => {
   const [leftOpen, setLeftOpen] = useAtom(leftDrawerStateAtom)
   const [rightOpen, setRightOpen] = useAtom(rightDrawerStateAtom)
   const [dynamic, updateDynamic] = useState('')
@@ -63,7 +64,7 @@ export const LocalHeader = ({ name, leftDrawer, RightDrawer, isCreate }) => {
           variant='contained'
         >
           <ContactSupportIcon sx={{ mr: theme.spacing(1) }} />
-          {RightDrawer}
+          {rightDrawer}
         </Button>
       </Toolbar>
     </AppBar>

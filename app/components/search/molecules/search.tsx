@@ -1,13 +1,13 @@
 'use client'
 
-import useSWR from 'swr'
-import { useEffect, useRef } from 'react'
-import { useSearchParams } from 'next/navigation'
 import { FormControl, InputLabel } from '@mui/material'
+import { useAtom } from 'jotai'
+import { useSearchParams } from 'next/navigation'
+import { useEffect, useRef } from 'react'
+
+import { searchKeywordsAtom } from '@/states/search-request'
 
 import { SearchStack, TextField } from '../atoms'
-import { searchKeywordsAtom } from '@/states/search-request'
-import { useAtom } from 'jotai'
 
 export const Search = () => {
   const [searchKeywords, setSearchKeywords] = useAtom(searchKeywordsAtom)
@@ -31,7 +31,7 @@ export const Search = () => {
       setSearchKeywords((prevTags) =>
         prevTags.length ? [...prevTags, tag] : [tag],
       )
-  }, [query])
+  }, [tag, setSearchKeywords])
 
   return (
     <FormControl>

@@ -1,19 +1,16 @@
 'use client'
 
-import { useParams } from 'next/navigation'
 import {
   Button,
   Dialog,
-  DialogTitle,
-  DialogContent,
   DialogActions,
+  DialogContent,
+  DialogTitle,
 } from '@mui/material'
-import { chaptersAtom } from '@/states/operation-dynamic.ts'
-import { dialogStateAtom, deleteTargetAtom } from '@/states/dialog-state.ts'
 import { useAtom } from 'jotai'
-import { poster } from 'src/libs/util'
-import useSWRMutation from 'swr/mutation'
-import { mutate } from 'swr'
+
+import { deleteTargetAtom,dialogStateAtom } from '@/states/dialog-state.ts'
+import { chaptersAtom } from '@/states/operation-dynamic.ts'
 
 export const ConfirmDeleteDialog = () => {
   const [chapters, setChapters] = useAtom(chaptersAtom)

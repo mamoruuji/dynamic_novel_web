@@ -1,4 +1,5 @@
 import { DrawerHeader } from '@/components/common/atoms'
+
 export default function NotFound() {
   return (
     <>

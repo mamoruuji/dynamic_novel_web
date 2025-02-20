@@ -2,7 +2,7 @@ import sortKeysCustomOrder from "eslint-plugin-sort-keys-custom-order";
 import simpleImportSort from "eslint-plugin-simple-import-sort";
 import _import from "eslint-plugin-import";
 import unusedImports from "eslint-plugin-unused-imports";
-import tailwindcss from "eslint-plugin-tailwindcss";
+// import tailwindcss from "eslint-plugin-tailwindcss";
 import { fixupPluginRules } from "@eslint/compat";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -18,21 +18,23 @@ const compat = new FlatCompat({
 });
 
 export default [
-    ...compat.extends("next/core-web-vitals", "prettier", "plugin:tailwindcss/recommended"),
+    // ...compat.extends("next/core-web-vitals", "prettier", "plugin:tailwindcss/recommended"),
+    ...compat.extends("next/core-web-vitals", "prettier"),
     {
+        files: ["**/*.{js,jsx,ts,tsx}"],
         plugins: {
             "sort-keys-custom-order": sortKeysCustomOrder,
             "simple-import-sort": simpleImportSort,
-            import: fixupPluginRules(_import),
+            // import: fixupPluginRules(_import),
             "unused-imports": unusedImports,
-            tailwindcss,
+            // tailwindcss,
         },
 
         settings: {
-            tailwindcss: {
-                groupByResponsive: true,
-                whitelist: [],
-            },
+            // tailwindcss: {
+            //     groupByResponsive: true,
+            //     whitelist: [],
+            // },
         },
 
         rules: {
