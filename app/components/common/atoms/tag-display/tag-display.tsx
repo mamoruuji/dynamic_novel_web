@@ -7,6 +7,7 @@ import styles from './tag-display.module.sass'
 
 export const TagDisplay = ({ tags }) => {
   if (!Array.isArray(tags)) return <Typography>タグ無し</Typography>
+
   return (
     <>
       {tags.map((tag) => (

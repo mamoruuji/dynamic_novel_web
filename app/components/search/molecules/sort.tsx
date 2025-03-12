@@ -13,6 +13,7 @@ import {
   Typography,
 } from '@mui/material'
 import { useAtom } from 'jotai'
+import { useState } from 'react'
 import { isEmptyObject } from 'src/libs/util'
 import useSWR from 'swr'
 
@@ -21,13 +22,14 @@ import { sortCategoryAtom, sortOrderAtom } from '@/states/search-request'
 import { SearchStack } from '../atoms'
 
 export const Sort = () => {
-  const url = `/api/sort`
-  const { data, isLoading } = useSWR(url)
+  const sortMasterUrl = `/api/sort-master`
+  const { data, isLoading } = useSWR(sortMasterUrl)
   const [sortCategory, setSortCategory] = useAtom(sortCategoryAtom)
   const [sortOrder, setSortOrder] = useAtom(sortOrderAtom)
 
   if (isLoading) return <CircularProgress />
   if (isEmptyObject(data)) return <Typography>No sort data</Typography>
+
   return (
     <FormControl>
       <SearchStack>
@@ -39,7 +41,7 @@ export const Sort = () => {
           value={sortCategory}
           onChange={(event) => setSortCategory(event.target.value)}
         >
-          {data.sorts.map((item, index) => {
+          {data.sortMaster.map((item, index) => {
             return (
               <MenuItem value={index} key={index}>
                 {item.name}

@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const url =
-      'http://dynamic_novel_server:8080/proto.dynamic.v1.SortService/ListSorts'
+      'http://dynamic_novel_server:8080/proto.dynamic.v1.MasterService/ListSortMaster'
     const response = await fetch(url, {
       method: 'POST',
       headers: {

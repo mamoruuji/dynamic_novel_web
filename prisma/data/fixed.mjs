@@ -1,166 +1,246 @@
 export const typeSectionData = [
   {
-    name: 'monologue',
+    name: 'モノローグ',
+    value: 'monologue',
   },
   {
-    name: 'line-bubble',
+    name: 'セリフ',
+    value: 'line-bubble',
   },
   {
-    name: 'thought-bubble',
+    name: '思考',
+    value: 'thought-bubble',
   },
   {
-    name: 'shout-bubble',
+    name: '叫び',
+    value: 'shout-bubble',
   },
+  // {
+  //   name: '吹き出し',
+  //   value: 'bubble',
+  // },
   {
-    name: 'image',
+    name: '画像',
+    value: 'image',
   },
 ]
 
+// export const typeBubbleData = [
+//   {
+//     name: 'セリフ',
+//     value: 'line',
+//   },
+//   {
+//     name: '思考',
+//     value: 'thought',
+//   },
+//   {
+//     name: '叫び',
+//     value: 'shout',
+//   },
+// ]
+
 export const typePositionData = [
   {
-    name: 'center',
+    name: '左',
+    value: 'left',
   },
   {
-    name: 'left',
-  },
-  {
-    name: 'right',
+    name: '右',
+    value: 'right',
   },
 ]
 
 export const typeFontData = [
   {
-    name: 'monologueFont',
+    name: 'シンプルな明朝（しっぽり明朝）',
+    value: 'monologueFont',
   },
   {
-    name: 'lineFont',
+    name: 'シンプルなゴシック（Noto Sans JP / 源ノ角ゴシック）',
+    value: 'lineFont',
   },
   {
-    name: 'gagFont',
+    name: 'ツッコミ用？極太ゴシック（M_PLUS_1p）',
+    value: 'gagFont',
   },
   {
-    name: 'horrorFont',
+    name: 'ホラー（g_コミックホラー恐怖(R)-教漢版）',
+    value: 'horrorFont',
   },
   {
-    name: 'weakFont',
+    name: 'へなちょこ（851チカラヨワク）',
+    value: 'weakFont',
   },
   {
-    name: 'cuteFont',
+    name: 'まんまるけっけっけ（JK丸ゴシック）',
+    value: 'cuteFont',
   },
 ]
 
 export const typeSortData = [
   {
     name: 'タイトル',
-    sql: 'title',
+    value: 'dynamics.name',
   },
   {
     name: 'ユーザ',
-    sql: 'users.name',
+    value: 'users.name',
   },
   {
     name: 'お気に入り数',
-    sql: 'COUNT(marks.mark_id)',
+    value: 'COUNT(marks.mark_id)',
   },
   {
     name: '初日公開日',
-    sql: 'created_at',
+    value: 'dynamics.created_at',
   },
   {
     name: '更新日',
-    sql: 'updated_at',
+    value: 'dynamics.updated_at',
   },
   {
     name: 'ページ数',
-    sql: 'COUNT(page.page_id)',
+    value: 'COUNT(pages.page_id)',
   },
   {
     name: '星評価平均',
-    sql: 'AVG(impressions.rate)',
+    value: 'AVG(impressions.rate)',
   },
   {
     name: '感想数',
-    sql: 'COUNT(impressions.impression_id)',
+    value: 'COUNT(impressions.impression_id)',
   },
 ]
 
 export const typeColorData = [
   {
-    name: 'default',
+    name: '標準',
+    value: 'default',
   },
   {
-    name: 'red',
+    name: '赤',
+    value: 'red',
   },
   {
-    name: 'orenge',
+    name: '橙',
+    value: 'orenge',
   },
   {
-    name: 'yellow',
+    name: '黄',
+    value: 'yellow',
   },
   {
-    name: 'yellow-green',
+    name: '黄緑',
+    value: 'yellow-green',
   },
   {
-    name: 'light-green',
+    name: '明緑',
+    value: 'light-green',
   },
   {
-    name: 'light-blue',
+    name: '明青',
+    value: 'light-blue',
   },
   {
-    name: 'blue',
+    name: '青',
+    value: 'blue',
   },
   {
-    name: 'dark-blue',
+    name: '暗青',
+    value: 'dark-blue',
   },
   {
-    name: 'purple',
+    name: '紫',
+    value: 'purple',
   },
   {
-    name: 'pink',
+    name: '桜',
+    value: 'pink',
   },
   {
-    name: 'red-purple',
+    name: '赤紫',
+    value: 'red-purple',
   },
 ]
 
 export const typeImageData = [
   {
-    name: 'cover',
-    ratio: '9:16'
+    name: '表紙（縦長）',
+    value: '9:16'
   },
   {
-    name: 'icon',
-    ratio: '1:1'
+    name: 'アイコン（正方形）',
+    value: '1:1'
   },
   {
-    name: 'illustration',
-    ratio: '16:9'
+    name: 'イラスト（横長）',
+    value: '16:9'
   },
 ]
 
 export const typeAnimationData = [
   {
-    name: 'none',
+    name: 'なし',
+    value: 'none',
   },
   {
-    name: 'fade-in',
+    name: '出ぇたぁ!!',
+    value: 'fade-in',
   },
   {
-    name: 'fade-out',
+    name: '消え…た…?',
+    value: 'fade-out',
   },
   {
-    name: 'up-slide',
+    name: '上から登場',
+    value: 'up-slide',
   },
   {
-    name: 'left-slide',
+    name: '左から登場',
+    value: 'left-slide',
   },
   {
-    name: 'right-slide',
+    name: '右から登場',
+    value: 'right-slide',
   },
   {
-    name: 'down-slide',
+    name: '下からどこ行くねぇぇぇん！？',
+    value: 'down-slide',
   },
   {
-    name: 'vibrate',
+    name: 'ぶるぶるぶるぶるるるるるぅうぅうぅ',
+    value: 'vibrate',
+  },
+]
+
+export const typeSizeData = [
+  {
+    name: '8',
+    value: '8',
+  },
+  {
+    name: '12',
+    value: '12',
+  },
+  {
+    name: '16',
+    value: '16',
+  },
+  {
+    name: '24',
+    value: '24',
+  },
+  {
+    name: '32',
+    value: '32',
+  },
+  {
+    name: '40',
+    value: '40',
+  },
+  {
+    name: '60',
+    value: '60',
   },
 ]

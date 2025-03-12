@@ -78,9 +78,9 @@ erDiagram
     Int id "🗝️"
     String name 
     Int order 
+    Int typeBubbleId 
     String imageUrl 
     String text 
-    Int textSize 
     DateTime createdAt 
     DateTime updatedAt 
     }
@@ -154,59 +154,73 @@ erDiagram
     }
   
 
-  "type_of_animations" {
+  "type_animations" {
     Int id "🗝️"
     String name 
+    String value 
     DateTime createdAt 
     DateTime updatedAt 
     }
   
 
-  "type_of_colors" {
+  "type_colors" {
     Int id "🗝️"
     String name 
+    String value 
     DateTime createdAt 
     DateTime updatedAt 
     }
   
 
-  "type_of_fonts" {
+  "type_fonts" {
     Int id "🗝️"
     String name 
+    String value 
     DateTime createdAt 
     DateTime updatedAt 
     }
   
 
-  "type_of_images" {
+  "type_images" {
     Int id "🗝️"
     String name 
-    String ratio 
+    String value 
     DateTime createdAt 
     DateTime updatedAt 
     }
   
 
-  "type_of_positions" {
+  "type_positions" {
     Int id "🗝️"
     String name 
+    String value 
     DateTime createdAt 
     DateTime updatedAt 
     }
   
 
-  "type_of_sections" {
+  "type_sections" {
     Int id "🗝️"
     String name 
+    String value 
     DateTime createdAt 
     DateTime updatedAt 
     }
   
 
-  "type_of_sorts" {
+  "type_sizes" {
     Int id "🗝️"
     String name 
-    String sql 
+    String value 
+    DateTime createdAt 
+    DateTime updatedAt 
+    }
+  
+
+  "type_sorts" {
+    Int id "🗝️"
+    String name 
+    String value 
     DateTime createdAt 
     DateTime updatedAt 
     }
@@ -236,19 +250,20 @@ erDiagram
     "pages" o{--}o "view_histories" : "viewHistories"
     "pages" o{--}o "terms" : "terms"
     "sections" o|--|| "pages" : "page"
-    "sections" o|--|| "type_of_sections" : "type"
-    "sections" o|--|o "type_of_positions" : "position"
-    "sections" o|--|o "type_of_animations" : "animation"
-    "sections" o|--|| "type_of_fonts" : "font"
-    "sections" o|--|| "type_of_colors" : "frameColor"
-    "sections" o|--|| "type_of_colors" : "textColor"
+    "sections" o|--|| "type_sections" : "type"
+    "sections" o|--|| "type_positions" : "position"
+    "sections" o|--|| "type_animations" : "animation"
+    "sections" o|--|| "type_fonts" : "font"
+    "sections" o|--|| "type_sizes" : "textSize"
+    "sections" o|--|| "type_colors" : "frameColor"
+    "sections" o|--|| "type_colors" : "textColor"
     "sections" o{--}o "terms" : "term"
     "folders" o|--|| "users" : "user"
     "folders" o|--|o "folders" : "parent"
     "folders" o{--}o "folders" : "children"
     "folders" o{--}o "images" : "images"
     "images" o|--|| "users" : "user"
-    "images" o|--|| "type_of_images" : "type"
+    "images" o|--|| "type_images" : "type"
     "images" o|--|o "folders" : "folder"
     "terms" o|--|o "dynamics" : "dynamic"
     "terms" o|--|o "chapters" : "chapter"
@@ -264,11 +279,12 @@ erDiagram
     "view_histories" o|--|| "users" : "user"
     "view_histories" o|--|| "dynamics" : "dynamic"
     "view_histories" o|--|| "pages" : "page"
-    "type_of_animations" o{--}o "sections" : "sections"
-    "type_of_colors" o{--}o "sections" : "frame"
-    "type_of_colors" o{--}o "sections" : "text"
-    "type_of_fonts" o{--}o "sections" : "sections"
-    "type_of_images" o{--}o "images" : "image"
-    "type_of_positions" o{--}o "sections" : "sections"
-    "type_of_sections" o{--}o "sections" : "sections"
+    "type_animations" o{--}o "sections" : "sections"
+    "type_colors" o{--}o "sections" : "frame"
+    "type_colors" o{--}o "sections" : "text"
+    "type_fonts" o{--}o "sections" : "sections"
+    "type_images" o{--}o "images" : "image"
+    "type_positions" o{--}o "sections" : "sections"
+    "type_sections" o{--}o "sections" : "sections"
+    "type_sizes" o{--}o "sections" : "sections"
 ```

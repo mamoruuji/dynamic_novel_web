@@ -12,7 +12,7 @@ import {
 import { useAtom } from 'jotai'
 import { useParams } from 'next/navigation'
 import { useRef } from 'react'
-import { convertKeywords,poster } from 'src/libs/util'
+import { convertKeywords, poster } from 'src/libs/util'
 import useSWR, { mutate } from 'swr'
 import useSWRMutation from 'swr/mutation'
 
@@ -25,7 +25,7 @@ export const TagEdit = () => {
   const [dialogOpen, setDialogOpen] = useAtom(tagDialogStateAtom)
   // 編集対象作品のタグ
   const { dynamic_id } = useParams()
-  const dynamicUrl = `/api/dynamic/${dynamic_id}`
+  const dynamicUrl = `/api/dynamic/${dynamic_id}?dummyDynamic`
   const { data: dynamic } = useSWR(dynamicUrl)
   const dynamicAddTagUrl = `/api/dynamic/${dynamic_id}/tag`
   const { isMutating, trigger } = useSWRMutation(dynamicAddTagUrl, poster, {
@@ -54,6 +54,10 @@ export const TagEdit = () => {
   const allTagUrl = `/api/tag`
   const { data: allTags, isLoading } = useSWR(allTagUrl)
 
+  const handleCloseDialog = () => {
+    setDialogOpen(false)
+  }
+
   const handleButtonClick = (event) => {
     const formData = new FormData(formRef.current)
     const tagKeywords = convertKeywords(formData.get('tag-keywords'))
@@ -66,6 +70,7 @@ export const TagEdit = () => {
   }
 
   if (isLoading) return <CircularProgress />
+
   return (
     <>
       <Button variant='outlined' onClick={() => setDialogOpen(true)}>
@@ -86,6 +91,7 @@ export const TagEdit = () => {
             />
           </DialogContent>
           <DialogActions>
+            <Button onClick={handleCloseDialog}>キャンセル</Button>
             <Button
               variant='contained'
               onClick={handleButtonClick}

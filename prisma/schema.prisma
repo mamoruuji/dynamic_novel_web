@@ -18,7 +18,7 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid()) @map(name: "user_id")
+  id            String    @id @default(cuid())
   name          String    @db.VarChar(30)
   email         String    @unique @db.VarChar(319)
   emailVerified DateTime?
@@ -84,7 +84,7 @@ model VerificationToken {
 }
 
 model Dynamic {
-  id        Int      @id @default(autoincrement()) @map(name: "dynamic_id")
+  id        Int      @id @default(autoincrement())
   name      String   @unique @default("新しい作品") @db.VarChar(255)
   overview  String   @db.VarChar(500)
   published Boolean  @default(false)
@@ -104,7 +104,7 @@ model Dynamic {
 }
 
 model Chapter {
-  id        Int      @id @default(autoincrement()) @map(name: "chapter_id")
+  id        Int      @id @default(autoincrement())
   name      String   @default("新しい章") @db.VarChar(255)
   order     Int
   dynamicId Int      @map(name: "dynamic_id")
@@ -119,7 +119,7 @@ model Chapter {
 }
 
 model Page {
-  id        Int      @id @default(autoincrement()) @map(name: "page_id")
+  id        Int      @id @default(autoincrement())
   name      String   @default("新しいページ") @db.VarChar(255)
   order     Int
   chapterId Int      @map(name: "chapter_id")
@@ -135,36 +135,39 @@ model Page {
 }
 
 model Section {
-  id              Int      @id @default(autoincrement()) @map(name: "section_id")
+  id              Int      @id @default(autoincrement())
   name            String   @default("新しいセクション") @db.VarChar(255)
   order           Int
-  typeSectionId   Int      @default(1) @map(name: "type_of_section_id")
-  typePositionId  Int      @default(1) @map(name: "type_of_position_id")
-  typeAnimationId Int      @default(1) @map(name: "type_of_animation_id")
+  typeSectionId   Int      @default(1) @map(name: "type_section_id")
+  typeBubbleId    Int      @default(1) @map(name: "type_bubble_id")
+  typePositionId  Int      @default(1) @map(name: "type_position_id")
+  typeAnimationId Int      @default(1) @map(name: "type_animation_id")
   imageUrl        String   @default("no_image") @map(name: "image_url")
   frameColorId    Int      @default(1) @map(name: "frame_color_id")
-  typeFontId      Int      @default(1) @map(name: "type_of_font_id")
+  typeFontId      Int      @default(3) @map(name: "type_font_id")
   text            String   @default("")
   textColorId     Int      @default(1) @map(name: "text_color_id")
-  textSize        Int      @default(16) @map(name: "text_size")
+  textSizeId      Int      @default(1) @map(name: "text_size_id")
   pageId          Int      @map(name: "page_id")
   createdAt       DateTime @default(now()) @map(name: "created_at")
   updatedAt       DateTime @default(now()) @updatedAt @map(name: "updated_at")
 
-  page       Page           @relation(fields: [pageId], references: [id])
-  type       TypeSection    @relation(fields: [typeSectionId], references: [id])
-  position   TypePosition?  @relation(fields: [typePositionId], references: [id])
-  animation  TypeAnimation? @relation(fields: [typeAnimationId], references: [id])
-  font       TypeFont       @relation(fields: [typeFontId], references: [id])
-  frameColor TypeColor      @relation("frameColor", fields: [frameColorId], references: [id])
-  textColor  TypeColor      @relation("textColor", fields: [textColorId], references: [id])
+  page       Page          @relation(fields: [pageId], references: [id])
+  type       TypeSection   @relation(fields: [typeSectionId], references: [id])
+  // bubble     TypeBubble    @relation(fields: [typeBubbleId], references: [id])
+  position   TypePosition  @relation(fields: [typePositionId], references: [id])
+  animation  TypeAnimation @relation(fields: [typeAnimationId], references: [id])
+  font       TypeFont      @relation(fields: [typeFontId], references: [id])
+  textSize   TypeSize      @relation(fields: [textSizeId], references: [id])
+  frameColor TypeColor     @relation("frameColor", fields: [frameColorId], references: [id])
+  textColor  TypeColor     @relation("textColor", fields: [textColorId], references: [id])
   term       Term[]
 
   @@map(name: "sections")
 }
 
 model Folder {
-  id        Int      @id @default(autoincrement()) @map(name: "folder_id")
+  id        Int      @id @default(autoincrement())
   name      String   @default("新しいフォルダ") @db.VarChar(255)
   userId    String   @map(name: "user_id")
   parentId  Int?     @map(name: "parent_id")
@@ -181,11 +184,11 @@ model Folder {
 }
 
 model Image {
-  id        Int      @id @default(autoincrement()) @map(name: "image_id")
+  id        Int      @id @default(autoincrement())
   name      String   @db.VarChar(255)
   path      String   @db.VarChar(2048)
   userId    String   @map(name: "user_id")
-  typeId    Int      @default(1) @map(name: "type_of_Image_id")
+  typeId    Int      @default(1) @map(name: "type_Image_id")
   folderId  Int?     @map(name: "folder_id")
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
@@ -199,7 +202,7 @@ model Image {
 }
 
 model Term {
-  id        Int      @id @default(autoincrement()) @map(name: "term_id")
+  id        Int      @id @default(autoincrement())
   name      String   @default("新しい用語") @db.VarChar(255)
   text      String   @db.VarChar(200)
   order     Int
@@ -220,7 +223,7 @@ model Term {
 }
 
 model Tag {
-  id        Int      @id @default(autoincrement()) @map(name: "tag_id")
+  id        Int      @id @default(autoincrement())
   name      String   @unique @db.VarChar(50)
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
@@ -231,7 +234,7 @@ model Tag {
 }
 
 model DynamicsOnTags {
-  id        Int      @id @default(autoincrement()) @map(name: "dynamics_on_tags_id")
+  id        Int      @id @default(autoincrement())
   dynamicId Int      @map(name: "dynamic_id")
   tagId     Int      @map(name: "tag_id")
   createdAt DateTime @default(now()) @map(name: "created_at")
@@ -245,7 +248,7 @@ model DynamicsOnTags {
 }
 
 model Follow {
-  id         Int      @id @default(autoincrement()) @map(name: "follow_id")
+  id         Int      @id @default(autoincrement())
   followerId String   @map(name: "follower_id")
   followeeId String   @map(name: "followee_id")
   createdAt  DateTime @default(now()) @map(name: "created_at")
@@ -261,7 +264,7 @@ model Follow {
 }
 
 model Impression {
-  id        Int      @id @default(autoincrement()) @map(name: "impression_id")
+  id        Int      @id @default(autoincrement())
   rate      Int      @default(1)
   name      String   @db.VarChar(30)
   text      String   @db.VarChar(500)
@@ -279,7 +282,7 @@ model Impression {
 }
 
 model ViewHistory {
-  id        Int      @id @default(autoincrement()) @map(name: "view_history_id")
+  id        Int      @id @default(autoincrement())
   userId    String   @map(name: "user_id")
   dynamicId Int      @map(name: "dynamic_id")
   pageId    Int      @map(name: "page_id")
@@ -296,79 +299,108 @@ model ViewHistory {
 }
 
 model TypeAnimation {
-  id        Int      @id @default(autoincrement()) @map(name: "type_of_animation_id")
-  name      String   @unique @db.VarChar(30)
+  id        Int      @id @default(autoincrement())
+  name      String   @unique @db.VarChar(50)
+  value     String   @unique @db.VarChar(50)
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
 
   sections Section[]
 
-  @@map(name: "type_of_animations")
+  @@map(name: "type_animations")
 }
 
+// model TypeBubble {
+//   id        Int      @id @default(autoincrement())
+//   name      String   @unique @db.VarChar(50)
+//   value     String   @unique @db.VarChar(50)
+//   createdAt DateTime @default(now()) @map(name: "created_at")
+//   updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
+
+//   sections Section[]
+
+//   @@map(name: "type_bubbles")
+// }
+
 model TypeColor {
-  id        Int      @id @default(autoincrement()) @map(name: "type_of_color_id")
-  name      String   @unique @db.VarChar(30)
+  id        Int      @id @default(autoincrement())
+  name      String   @unique @db.VarChar(50)
+  value     String   @unique @db.VarChar(50)
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
 
   frame Section[] @relation("frameColor")
   text  Section[] @relation("textColor")
 
-  @@map(name: "type_of_colors")
+  @@map(name: "type_colors")
 }
 
 model TypeFont {
-  id        Int      @id @default(autoincrement()) @map(name: "type_of_font_id")
+  id        Int      @id @default(autoincrement())
   name      String   @unique @db.VarChar(50)
+  value     String   @unique @db.VarChar(50)
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
 
   sections Section[]
 
-  @@map(name: "type_of_fonts")
+  @@map(name: "type_fonts")
 }
 
 model TypeImage {
-  id        Int      @id @default(autoincrement()) @map(name: "type_of_image_id")
+  id        Int      @id @default(autoincrement())
   name      String   @unique @db.VarChar(50)
-  ratio     String
+  value     String   @unique @db.VarChar(50)
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
 
   image Image[]
 
-  @@map(name: "type_of_images")
+  @@map(name: "type_images")
 }
 
 model TypePosition {
-  id        Int      @id @default(autoincrement()) @map(name: "type_of_position_id")
-  name      String   @unique @db.VarChar(30)
+  id        Int      @id @default(autoincrement())
+  name      String   @unique @db.VarChar(50)
+  value     String   @unique @db.VarChar(50)
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
 
   sections Section[]
 
-  @@map(name: "type_of_positions")
+  @@map(name: "type_positions")
 }
 
 model TypeSection {
-  id        Int      @id @default(autoincrement()) @map(name: "type_of_section_id")
-  name      String   @unique @db.VarChar(30)
+  id        Int      @id @default(autoincrement())
+  name      String   @unique @db.VarChar(50)
+  value     String   @unique @db.VarChar(50)
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
 
   sections Section[]
 
-  @@map(name: "type_of_sections")
+  @@map(name: "type_sections")
 }
 
-model TypeSort {
-  id        Int      @id @default(autoincrement()) @map(name: "type_of_sort_id")
-  name      String   @db.VarChar(30)
-  sql       String   @db.VarChar(50)
+model TypeSize {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique @db.VarChar(50)
+  value     String   @unique @db.VarChar(50)
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
 
-  @@map(name: "type_of_sorts")
+  sections Section[]
+
+  @@map(name: "type_sizes")
+}
+
+model TypeSort {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique @db.VarChar(50)
+  value     String   @unique @db.VarChar(50)
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map(name: "updated_at")
+
+  @@map(name: "type_sorts")
 }

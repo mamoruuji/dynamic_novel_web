@@ -7,11 +7,14 @@ import { poster } from 'src/libs/util'
 import { mutate } from 'swr'
 import useSWRMutation from 'swr/mutation'
 
-import { deleteTargetAtom,dialogStateAtom } from '@/states/dialog-state.ts'
+import {
+  deleteTargetAtom,
+  deleteDialogStateAtom,
+} from '@/states/dialog-state.ts'
 
 export const ConfirmDeleteIcon = ({ id, name }) => {
   const [deleteTarget, setDeleteTarget] = useAtom(deleteTargetAtom)
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useAtom(dialogStateAtom)
+  const [deleteDialogOpen, setDeleteDialogOpen] = useAtom(deleteDialogStateAtom)
 
   const [type, typeId] = id.split(':')
   const argId = `${type}_id`
@@ -27,7 +30,7 @@ export const ConfirmDeleteIcon = ({ id, name }) => {
 
   const handleOpenDeleteDialog = (target) => {
     setDeleteTarget(target)
-    setIsDeleteDialogOpen(true)
+    setDeleteDialogOpen(true)
   }
 
   return (

@@ -6,6 +6,8 @@ import {
   typeColorData,
   typeImageData,
   typeAnimationData,
+  typeSizeData,
+  // typeBubbleData,
 } from './data/fixed'
 
 import {
@@ -26,13 +28,17 @@ export const deleteAllMasterData = async () => {
     await db.typeColor.deleteMany()
     await db.typeImage.deleteMany()
     await db.typeAnimation.deleteMany()
-    await db.$executeRaw`ALTER SEQUENCE type_of_sorts_type_of_sort_id_seq RESTART WITH 1;`
-    await db.$executeRaw`ALTER SEQUENCE type_of_sections_type_of_section_id_seq RESTART WITH 1;`
-    await db.$executeRaw`ALTER SEQUENCE type_of_positions_type_of_position_id_seq RESTART WITH 1;`
-    await db.$executeRaw`ALTER SEQUENCE type_of_fonts_type_of_font_id_seq RESTART WITH 1;`
-    await db.$executeRaw`ALTER SEQUENCE type_of_colors_type_of_color_id_seq RESTART WITH 1;`
-    await db.$executeRaw`ALTER SEQUENCE type_of_images_type_of_image_id_seq RESTART WITH 1;`
-    await db.$executeRaw`ALTER SEQUENCE type_of_animations_type_of_animation_id_seq RESTART WITH 1;`
+    await db.typeSize.deleteMany()
+    // await db.typeBubble.deleteMany()
+    await db.$executeRaw`ALTER SEQUENCE type_sorts_id_seq RESTART WITH 1;`
+    await db.$executeRaw`ALTER SEQUENCE type_sections_id_seq RESTART WITH 1;`
+    await db.$executeRaw`ALTER SEQUENCE type_positions_id_seq RESTART WITH 1;`
+    await db.$executeRaw`ALTER SEQUENCE type_fonts_id_seq RESTART WITH 1;`
+    await db.$executeRaw`ALTER SEQUENCE type_colors_id_seq RESTART WITH 1;`
+    await db.$executeRaw`ALTER SEQUENCE type_images_id_seq RESTART WITH 1;`
+    await db.$executeRaw`ALTER SEQUENCE type_animations_id_seq RESTART WITH 1;`
+    await db.$executeRaw`ALTER SEQUENCE type_sizes_id_seq RESTART WITH 1;`
+    // await db.$executeRaw`ALTER SEQUENCE type_bubbles_id_seq RESTART WITH 1;`
     console.log('マスタデータの削除完了')
   } catch (error) {
     console.error('マスタの削除中にエラーが発生しました', error)
@@ -59,18 +65,18 @@ export const deleteAllData = async () => {
     await db.session.deleteMany()
     await db.verificationToken.deleteMany()
     await db.user.deleteMany()
-    await db.$executeRaw`ALTER SEQUENCE view_histories_view_history_id_seq RESTART WITH 1;`
-    await db.$executeRaw`ALTER SEQUENCE dynamics_on_tags_dynamics_on_tags_id_seq RESTART WITH 1;`
-    await db.$executeRaw`ALTER SEQUENCE tags_tag_id_seq RESTART WITH 1;`
-    await db.$executeRaw`ALTER SEQUENCE terms_term_id_seq RESTART WITH 1;`
-    await db.$executeRaw`ALTER SEQUENCE follows_follow_id_seq RESTART WITH 1;`
-    await db.$executeRaw`ALTER SEQUENCE impressions_impression_id_seq RESTART WITH 1;`
-    await db.$executeRaw`ALTER SEQUENCE images_image_id_seq RESTART WITH 1;`
-    await db.$executeRaw`ALTER SEQUENCE folders_folder_id_seq RESTART WITH 1;`
-    await db.$executeRaw`ALTER SEQUENCE sections_section_id_seq RESTART WITH 1;`
-    await db.$executeRaw`ALTER SEQUENCE pages_page_id_seq RESTART WITH 1;`
-    await db.$executeRaw`ALTER SEQUENCE chapters_chapter_id_seq RESTART WITH 1;`
-    await db.$executeRaw`ALTER SEQUENCE dynamics_dynamic_id_seq RESTART WITH 1;`
+    await db.$executeRaw`ALTER SEQUENCE view_histories_id_seq RESTART WITH 1;`
+    await db.$executeRaw`ALTER SEQUENCE dynamics_on_tags_id_seq RESTART WITH 1;`
+    await db.$executeRaw`ALTER SEQUENCE tags_id_seq RESTART WITH 1;`
+    await db.$executeRaw`ALTER SEQUENCE terms_id_seq RESTART WITH 1;`
+    await db.$executeRaw`ALTER SEQUENCE follows_id_seq RESTART WITH 1;`
+    await db.$executeRaw`ALTER SEQUENCE impressions_id_seq RESTART WITH 1;`
+    await db.$executeRaw`ALTER SEQUENCE images_id_seq RESTART WITH 1;`
+    await db.$executeRaw`ALTER SEQUENCE folders_id_seq RESTART WITH 1;`
+    await db.$executeRaw`ALTER SEQUENCE sections_id_seq RESTART WITH 1;`
+    await db.$executeRaw`ALTER SEQUENCE pages_id_seq RESTART WITH 1;`
+    await db.$executeRaw`ALTER SEQUENCE chapters_id_seq RESTART WITH 1;`
+    await db.$executeRaw`ALTER SEQUENCE dynamics_id_seq RESTART WITH 1;`
     console.log('入力データの削除完了')
   } catch (error) {
     console.error('入力データの削除中にエラーが発生しました', error)
@@ -102,6 +108,12 @@ export const createMasterData = async () => {
     await db.typeAnimation.createMany({
       data: typeAnimationData,
     })
+    // await db.typeBubble.createMany({
+    //   data: typeBubbleData,
+    // })
+    await db.typeSize.createMany({
+      data: typeSizeData,
+    })
     console.log('マスタの登録完了')
   } catch (error) {
     console.error('マスタの登録中にエラーが発生しました', error)
@@ -112,6 +124,7 @@ export const createMasterData = async () => {
 
 export const createCreaterData = async () => {
   try {
+    console.dir(heavyUserData.images.create)
     await db.user.create({
       data: lightUserData,
     })

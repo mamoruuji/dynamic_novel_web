@@ -9,26 +9,29 @@ import {
 } from '@mui/material'
 import { useAtom } from 'jotai'
 
-import { deleteTargetAtom,dialogStateAtom } from '@/states/dialog-state.ts'
+import {
+  deleteTargetAtom,
+  deleteDialogStateAtom,
+} from '@/states/dialog-state.ts'
 import { chaptersAtom } from '@/states/operation-dynamic.ts'
 
 export const ConfirmDeleteDialog = () => {
   const [chapters, setChapters] = useAtom(chaptersAtom)
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useAtom(dialogStateAtom)
+  const [deleteDialogOpen, setDeleteDialogOpen] = useAtom(deleteDialogStateAtom)
   const [deleteTarget, setDeleteTarget] = useAtom(deleteTargetAtom)
 
   const handleCloseDeleteDialog = () => {
     setDeleteTarget(null)
-    setIsDeleteDialogOpen(false)
+    setDeleteDialogOpen(false)
   }
 
   const handleDelete = async () => {
     await deleteTarget.trigger(deleteTarget.arg)
-    setIsDeleteDialogOpen(false)
+    setDeleteDialogOpen(false)
   }
 
   return (
-    <Dialog open={isDeleteDialogOpen} onClose={handleCloseDeleteDialog}>
+    <Dialog open={deleteDialogOpen} onClose={handleCloseDeleteDialog}>
       <DialogTitle>警告</DialogTitle>
       <DialogContent>
         削除しますか？ 中のデータごと消えます。 戻すことは出来ません。{' '}

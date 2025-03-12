@@ -23,17 +23,24 @@ prisma/schema.prisma
 `yarn prisma migrate dev --name add-ViewedPages-tables-and-add-image-column --create-only`
 `yarn prisma migrate dev --name update-updatedAt-column-and-unique --create-only`
 `yarn prisma migrate dev --name remove-constraints-and-rename-title --create-only`
+`yarn prisma migrate dev --name redesign-master-tables --create-only`
+`yarn prisma migrate dev --name rename-primary-key --create-only`
+`yarn prisma migrate dev --name add-size-master-table --create-only`
 マイグレーションファイルを生成
 
 `yarn prisma migrate dev`
 作成したマイグレーションファイルを適用
 
-`yarn prisma generate`
-ER 図作成
+// アップデート
+yarn add --dev prisma@latest
+yarn add @prisma/client@latest
+
+// ER 図作成
+yarn prisma generate
 
 // ts ファイル実行（DB テストデータ作成）
-`yarn node --import ./ts-node.register.mjs prisma/seed-master`
-`yarn node --import ./ts-node.register.mjs prisma/seed`
+yarn node --import ./ts-node.register.mjs prisma/seed-master
+yarn node --import ./ts-node.register.mjs prisma/seed
 
 error: Environment variable not found: DATABASE_URL.
 --> schema.prisma:17
@@ -44,3 +51,9 @@ curl \
 --header "Content-Type: application/json" \
 --data '{"search_keyword": [],"sort_category": "4","sort_order": "asc","filter_keyword": [],"filter_start_date": "","filter_end_date": ""}' \
 http://dynamic_novel_server:8080/proto.todo.v1.DynamicService/ListDynamics
+
+総ステップ数（自動生成ファイルなどは除外）
+git ls-files | grep -vE '^(node_modules|public/fonts|prisma/migrations|public/images|dist|\.next)/|yarn.lock|package-lock.json' | xargs wc -l
+
+紐づくデータが存在しないときのエラー
+cause: "No 'TypeImage' record(s) (needed to inline the relation on 'Image' record(s)) was found for a nested connect on one-to-many relation 'ImageToTypeImage'."
