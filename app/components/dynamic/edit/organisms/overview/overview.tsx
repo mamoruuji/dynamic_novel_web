@@ -16,7 +16,7 @@ import { useRef } from 'react'
 import { formatDate, isEmptyObject } from 'src/libs/util'
 import useSWR from 'swr'
 
-import { TagDisplay,TagEdit } from '@/components/common/atoms'
+import { TagDisplay, TagEdit } from '@/components/common/atoms'
 import { ImageCropper } from '@/components/common/molecules'
 import {
   imageDialogStateAtom,
@@ -27,7 +27,7 @@ import styles from './overview.module.sass'
 
 export const Overview = () => {
   const { dynamic_id } = useParams()
-  const url = `/api/dynamic/${dynamic_id}`
+  const url = `/api/dynamic/${dynamic_id}?dummyDynamic`
   const { data, error, isLoading } = useSWR(url)
   const [imageDialogOpen, setImageDialogOpen] = useAtom(imageDialogStateAtom)
   const [tagDialogOpen, setTagDialogOpen] = useAtom(tagDialogStateAtom)

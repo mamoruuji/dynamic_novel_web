@@ -1,6 +1,6 @@
 import { Box } from '@mui/material'
 
-import { Icon } from '@/components/dynamic/read/atoms'
+import { Icon } from '@/components/dynamic/common/atoms'
 
 import styles from './icon-space.module.sass'
 

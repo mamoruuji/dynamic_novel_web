@@ -1,22 +1,35 @@
 'use client'
 
-import { Alert, Box, CircularProgress, Typography } from '@mui/material'
+import EditIcon from '@mui/icons-material/Edit'
+import {
+  Alert,
+  Box,
+  CircularProgress,
+  IconButton,
+  Typography,
+} from '@mui/material'
 import { useAtom } from 'jotai'
 import { useParams } from 'next/navigation'
 import { isEmptyObject } from 'src/libs/util'
 import useSWR from 'swr'
 
 import {
-  IconSpace,
-  Illustration,
-  LineBubble,
-  Monologue,
-  ShoutBubble,
-  ThoughtBubble,
-} from '@/components/dynamic/read/molecules'
+  AddSectionButton,
+  EditSectionDialog,
+  // EditSectionButton,
+} from '@/components/dynamic/edit/atoms'
+import { Section } from '@/components/dynamic/common/molecules'
+
+import {
+  sectionDialogStateAtom,
+  updateSectionTargetAtom,
+} from '@/states/dialog-state.ts'
+
 import { sectionsAtom } from '@/states/operation-dynamic.ts'
 
 import styles from './sections.module.sass'
+
+import Grid from '@mui/material/Grid2'
 
 export const Sections = () => {
   const [sections, setSections] = useAtom(sectionsAtom)
@@ -35,6 +48,20 @@ export const Sections = () => {
     },
   })
 
+  // セクション編集
+  const [sectionDialogOpen, setSectionDialogOpen] = useAtom(
+    sectionDialogStateAtom,
+  )
+  const [updateSectionTarget, setUpdateSectionTarget] = useAtom(
+    updateSectionTargetAtom,
+  )
+
+  const handleEditClick = (section) => {
+    console.dir(section)
+    setUpdateSectionTarget(section)
+    setSectionDialogOpen(true)
+  }
+
   if (error) return <Alert severity='warning'>{error}</Alert>
   if (isLoading) return <CircularProgress />
   if (isEmptyObject(data)) return <Typography>No data</Typography>
@@ -42,33 +69,17 @@ export const Sections = () => {
   return (
     <>
       {sections.map((section, key) => {
-        let content
-        switch (section.typeSection) {
-          case 'monologue':
-            content = <Monologue section={section} />
-            break
-          case 'image':
-            content = <Illustration section={section} />
-            break
-          case 'line-bubble':
-            content = <LineBubble section={section} />
-            break
-          case 'shout-bubble':
-            content = <ShoutBubble section={section} />
-            break
-          case 'thought-bubble':
-            content = <ThoughtBubble section={section} />
-            break
-        }
-
         return (
-          <Box className={styles.section} key={key}>
-            <IconSpace section={section} position={'left'} />
-            {content}
-            <IconSpace section={section} position={'right'} />
+          <Box key={key}>
+            <Section section={section} />
+            <IconButton onClick={() => handleEditClick(section)}>
+              <EditIcon />
+            </IconButton>
           </Box>
         )
       })}
+      <AddSectionButton />
+      <EditSectionDialog />
     </>
   )
 }

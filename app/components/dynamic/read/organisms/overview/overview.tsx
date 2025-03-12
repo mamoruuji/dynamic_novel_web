@@ -12,13 +12,13 @@ import { useParams } from 'next/navigation'
 import { formatDate, isEmptyObject } from 'src/libs/util'
 import useSWR from 'swr'
 
-import { TagDisplay,TagEdit } from '@/components/common/atoms'
+import { TagDisplay, TagEdit } from '@/components/common/atoms'
 
 import styles from './overview.module.sass'
 
 export const Overview = () => {
   const { dynamic_id } = useParams()
-  const url = `/api/dynamic/${dynamic_id}?dummyContents`
+  const url = `/api/dynamic/${dynamic_id}?dummyDynamic`
   const { data, error, isLoading } = useSWR(url)
 
   const imageWidth = 360
@@ -33,7 +33,7 @@ export const Overview = () => {
   if (isEmptyObject(data)) return <Typography>No data</Typography>
 
   return (
-    <Container className={styles.overview}>
+    <Box className={styles.overview}>
       <Box className={styles.cover}>
         <Image
           priority
@@ -72,6 +72,6 @@ export const Overview = () => {
           </Typography>
         </Box>
       </Box>
-    </Container>
+    </Box>
   )
 }

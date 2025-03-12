@@ -1,6 +1,6 @@
 import { Paper } from '@mui/material'
 
-import { Text } from '@/components/dynamic/read/atoms'
+import { SectionText } from '@/components/dynamic/common/atoms'
 
 import styles from './thought-bubble.module.sass'
 
@@ -20,7 +20,9 @@ export const ThoughtBubble = ({ section }) => {
         color: `var(--${section.textColor})`,
       }}
     >
-      <Text font={section.font}>{section.text}</Text>
+      <SectionText size={section.textSize} font={section.typeFont}>
+        {section.text}
+      </SectionText>
     </Paper>
   )
 }
